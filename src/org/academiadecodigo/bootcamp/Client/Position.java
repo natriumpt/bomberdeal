@@ -5,6 +5,20 @@ package org.academiadecodigo.bootcamp.Client;
  */
 public class Position {
 
+    private int posX;
+    private int posY;
+    private Tiletype tile;
+
+    public Position(int x, int y, Tiletype tile) {
+
+        posX = x;
+        posY = y;
+
+        for(int i = 0; i < Tiletype.values().length; i++) {
+
+        }
+
+    }
 
 
 }
