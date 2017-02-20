@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        File file = new File("\\testing\\cenas.txt");
+        File file = new File("testing/cenas");
 
         System.out.println(file.exists());
 

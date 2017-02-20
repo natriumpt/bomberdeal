@@ -5,10 +5,7 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.reflect.Field;
 
 /**
@@ -34,33 +31,47 @@ public class Grid {
             "10020220000000000001\n" +
             "11111111111111111111\n";
 
-    public Grid() {
+    public Grid(FileReader stream) {
 
-        //BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        try {
+            BufferedReader reader = new BufferedReader(stream);
 
-        //gridMap = reader.readLine();
+            gridMap = reader.readLine();
 
-        //StringBuilder gridMapBuilder = new StringBuilder(gridMap);
-        //gridMapBuilder.append(reader.readLine());
+            StringBuilder gridMapBuilder = new StringBuilder(gridMap);
 
-        String[] gridArray = temp.split("\n");
+            String message = reader.readLine();
 
-        screen = TerminalFacade.createScreen();
-        screen.getTerminal().getTerminalSize().setColumns(gridArray[0].length());
-        screen.getTerminal().getTerminalSize().setRows(gridArray.length);
-
-        screenWriter = new ScreenWriter(screen);
-        screenWriter.setBackgroundColor(Terminal.Color.BLACK);
-
-        screen.startScreen();
-
-        this.cols = gridArray[0].length();
-        this.rows = gridArray.length;
-
-        for(int i = 0; i < gridArray.length; i++) {
-            for (int j = 0; j < gridArray[i].length(); j++) {
-                positions[j][i] = new Position(j, i, Tiletype.getTileType(String.valueOf(gridArray[i].charAt(i))));
+            while(message != null) {
+                System.out.println(message);
+                gridMapBuilder.append(message + "\n");
+                message = reader.readLine();
             }
+
+            String[] gridArray = gridMapBuilder.toString().split("\n");
+
+            System.out.println(gridArray.length);
+            System.out.println(gridArray[0].length());
+
+            screen = TerminalFacade.createScreen();
+            screen.getTerminal().getTerminalSize().setColumns(gridArray[0].length());
+            screen.getTerminal().getTerminalSize().setRows(gridArray.length);
+
+            screenWriter = new ScreenWriter(screen);
+            screenWriter.setBackgroundColor(Terminal.Color.BLACK);
+
+            screen.startScreen();
+
+            this.cols = gridArray[0].length();
+            this.rows = gridArray.length;
+
+            for (int i = 0; i < gridArray.length; i++) {
+                for (int j = 0; j < gridArray[i].length(); j++) {
+                    positions[j][i] = new Position(j, i, Tiletype.getTileType(String.valueOf(gridArray[i].charAt(i))));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

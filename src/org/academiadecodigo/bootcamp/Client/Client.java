@@ -12,7 +12,11 @@ public class Client {
 
     public Client() {
 
-            grid = new Grid();
+        try {
+            grid = new Grid(new FileReader("testing/cenas"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
