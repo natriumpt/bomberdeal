@@ -14,9 +14,8 @@ public class Position {
         posX = x;
         posY = y;
 
-        for(int i = 0; i < Tiletype.values().length; i++) {
-
-        }
+        this.tile = tile;
+        System.out.println(tile);
 
     }
 

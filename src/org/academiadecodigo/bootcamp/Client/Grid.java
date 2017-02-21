@@ -33,25 +33,21 @@ public class Grid {
 
     public Grid(FileReader stream) {
 
+            gridMap = "";
+
         try {
             BufferedReader reader = new BufferedReader(stream);
+            StringBuilder gridMapBuilder = new StringBuilder(gridMap);
 
             gridMap = reader.readLine();
 
-            StringBuilder gridMapBuilder = new StringBuilder(gridMap);
-
-            String message = reader.readLine();
-
-            while(message != null) {
-                System.out.println(message);
-                gridMapBuilder.append(message + "\n");
-                message = reader.readLine();
+            while(gridMap != null) {
+                System.out.println(gridMap);
+                gridMapBuilder.append(gridMap + "\n");
+                gridMap = reader.readLine();
             }
 
             String[] gridArray = gridMapBuilder.toString().split("\n");
-
-            System.out.println(gridArray.length);
-            System.out.println(gridArray[0].length());
 
             screen = TerminalFacade.createScreen();
             screen.getTerminal().getTerminalSize().setColumns(gridArray[0].length());
@@ -67,7 +63,7 @@ public class Grid {
 
             for (int i = 0; i < gridArray.length; i++) {
                 for (int j = 0; j < gridArray[i].length(); j++) {
-                    positions[j][i] = new Position(j, i, Tiletype.getTileType(String.valueOf(gridArray[i].charAt(i))));
+                    positions[i][j] = new Position(j, i, Tiletype.getTileType(String.valueOf(gridArray[i].charAt(i))));
                 }
             }
         } catch (IOException e) {
