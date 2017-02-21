@@ -4,7 +4,6 @@ import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
-import org.academiadecodigo.bootcamp.Client.Tiletype;
 
 import java.io.*;
 
@@ -31,18 +30,17 @@ public class Grid {
             "10020220000000000001\n" +
             "11111111111111111111\n";
 
-    public Grid(FileReader stream) {
+    public Grid(InputStream stream) {
 
             gridMap = "";
 
         try {
-            BufferedReader reader = new BufferedReader(stream);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             StringBuilder gridMapBuilder = new StringBuilder(gridMap);
 
             gridMap = reader.readLine();
 
             while(gridMap != null) {
-                System.out.println(gridMap);
                 gridMapBuilder.append(gridMap + "\n");
                 gridMap = reader.readLine();
             }
@@ -63,9 +61,6 @@ public class Grid {
             this.cols = gridArray[0].length();
             this.rows = gridArray.length;
 
-            String test = "";
-            StringBuilder builder = new StringBuilder(test);
-
             for (int i = 0; i < gridArray.length; i++) {
                 for (int j = 0; j < gridArray[i].length(); j++) {
                     positions[i][j] = new Position(j, i, String.valueOf(gridArray[i].charAt(j)));
@@ -73,12 +68,9 @@ public class Grid {
                             Tiletype.getTileType(positions[i][j].tile).getColor(),
                             Tiletype.getTileType(positions[i][j].tile).getColor());
                     screen.refresh();
-                    builder.append(String.valueOf(gridArray[i].charAt(j)));
                 }
-                builder.append("\n");
             }
 
-            System.out.println(builder.toString());
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -16,7 +16,7 @@ public class Client {
     public Client() {
 
         try {
-            grid = new Grid(new FileReader("test-res/cenas"));
+            grid = new Grid(new FileInputStream("test-res/cenas"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

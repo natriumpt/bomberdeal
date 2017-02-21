@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.Client;
+package org.academiadecodigo.bootcamp.Client.Grid;
 
 import com.googlecode.lanterna.terminal.Terminal;
 
