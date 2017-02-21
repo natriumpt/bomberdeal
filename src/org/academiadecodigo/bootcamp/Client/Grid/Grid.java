@@ -1,12 +1,12 @@
-package org.academiadecodigo.bootcamp.Client;
+package org.academiadecodigo.bootcamp.Client.Grid;
 
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
+import org.academiadecodigo.bootcamp.Client.Tiletype;
 
 import java.io.*;
-import java.lang.reflect.Field;
 
 /**
  * Created by andre on 2/20/2017.
@@ -53,6 +53,8 @@ public class Grid {
             screen.getTerminal().getTerminalSize().setColumns(gridArray[0].length());
             screen.getTerminal().getTerminalSize().setRows(gridArray.length);
 
+            positions = new Position[gridArray.length][gridArray[0].length()];
+
             screenWriter = new ScreenWriter(screen);
             screenWriter.setBackgroundColor(Terminal.Color.BLACK);
 
@@ -61,11 +63,23 @@ public class Grid {
             this.cols = gridArray[0].length();
             this.rows = gridArray.length;
 
+            String test = "";
+            StringBuilder builder = new StringBuilder(test);
+
             for (int i = 0; i < gridArray.length; i++) {
                 for (int j = 0; j < gridArray[i].length(); j++) {
-                    positions[i][j] = new Position(j, i, Tiletype.getTileType(String.valueOf(gridArray[i].charAt(i))));
+                    positions[i][j] = new Position(j, i, String.valueOf(gridArray[i].charAt(j)));
+                    screen.putString(positions[i][j].posX, positions[i][j].posY, positions[i][j].tile,
+                            Tiletype.getTileType(positions[i][j].tile).getColor(),
+                            Tiletype.getTileType(positions[i][j].tile).getColor());
+                    screen.refresh();
+                    builder.append(String.valueOf(gridArray[i].charAt(j)));
                 }
+                builder.append("\n");
             }
+
+            System.out.println(builder.toString());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
