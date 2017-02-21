@@ -71,7 +71,6 @@ public class Grid {
                 }
             }
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
