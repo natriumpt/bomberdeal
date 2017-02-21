@@ -1,7 +1,8 @@
+package branco.udpprototype;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -38,7 +39,7 @@ public class TCPServer {
         System.out.println("Waiting for requests\n");
 
         while (true) {
-            //pool.submit(new ClientDispatcher(clientSocket,this));
+            //pool.submit(new branco.udpprototype.ClientDispatcher(clientSocket,this));
             clientSocket = serverSocket.accept();
             System.out.println("Request received.");
 

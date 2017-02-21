@@ -1,12 +1,12 @@
+package branco.udpprototype;
+
 import com.googlecode.lanterna.gui.GUIScreen;
 import com.googlecode.lanterna.gui.Theme;
 import com.googlecode.lanterna.gui.component.Label;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.terminal.Terminal;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.*;
 
 /**

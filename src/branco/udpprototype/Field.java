@@ -1,3 +1,5 @@
+package branco.udpprototype;
+
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.screen.Screen;
