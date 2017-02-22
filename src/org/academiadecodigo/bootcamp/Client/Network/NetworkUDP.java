@@ -1,6 +1,5 @@
 package org.academiadecodigo.bootcamp.Client.Network;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -34,19 +33,20 @@ public class NetworkUDP implements Runnable {
     public void run() {
 
         Timer timer = new Timer(true);
-        timer.scheduleAtFixedRate(createPacketSender(), 0, 17);
+        timer.scheduleAtFixedRate(createPacketSenderTask(), 0, 17);
 
         Thread udpListener = new Thread(new NetworkUDPListener());
         udpListener.start();
 
     }
 
-    public TimerTask createPacketSender() {
+    public TimerTask createPacketSenderTask() {
 
         return new TimerTask() {
 
             @Override
             public void run() {
+
 
                 DatagramPacket packet = new DatagramPacket(sendBuffer, 0, sendBuffer.length);
 
@@ -59,7 +59,6 @@ public class NetworkUDP implements Runnable {
             }
 
         };
-
 
     }
 
@@ -78,6 +77,7 @@ public class NetworkUDP implements Runnable {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
             }
 
         }
