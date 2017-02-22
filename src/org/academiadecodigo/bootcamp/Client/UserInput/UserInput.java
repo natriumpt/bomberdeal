@@ -34,7 +34,7 @@ public class UserInput implements Runnable {
                 case NormalKey:
 
                     if(key.getCharacter() == ' ') {
-                        playerAction = PlayerActions.DEPLOY;
+                        playerAction = playerAction + PlayerActions.DEPLOY;
                     }
 
                     break;
@@ -42,16 +42,16 @@ public class UserInput implements Runnable {
                     System.exit(0);
                     break;
                 case ArrowLeft:
-                    playerAction = PlayerActions.MOVELEFT;
+                    playerAction += PlayerActions.MOVELEFT;
                     break;
                 case ArrowRight:
-                    playerAction = PlayerActions.MOVERIGHT;
+                    playerAction += PlayerActions.MOVERIGHT;
                     break;
                 case ArrowUp:
-                    playerAction = PlayerActions.MOVEUP;
+                    playerAction += PlayerActions.MOVEUP;
                     break;
                 case ArrowDown:
-                    playerAction = PlayerActions.MOVEDOWN;
+                    playerAction += PlayerActions.MOVEDOWN;
                     break;
                 case Enter:
                     System.out.println("Enter");

@@ -64,8 +64,10 @@ public class Grid {
         for (int i = 0; i < gridArray.length; i++) {
 
             for (int j = 0; j < gridArray[i].length(); j++) {
+
                 positions[i][j] = new Position(j, i, String.valueOf(gridArray[i].charAt(j)));
                 positions[i][j].draw(screen);
+
             }
 
         }

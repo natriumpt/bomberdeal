@@ -10,6 +10,5 @@ public final class PlayerActions {
     public static final String MOVEUP = "MOVEMENT:UP";
     public static final String MOVEDOWN = "MOVEMENT:DOWN";
     public static final String DEPLOY = "BOMB:DEPLOY";
-    public static final String KICK = "ACTION:KICK";
 
 }
