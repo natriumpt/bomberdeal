@@ -1,7 +1,6 @@
 package org.academiadecodigo.bootcamp.Client.Grid;
 
 import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.Terminal;
 
 /**
  * Created by andre on 2/20/2017.
