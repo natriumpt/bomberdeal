@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.GameLogic;
+package org.academiadecodigo.bootcamp.gamelogic;
 
 /**
  * Created by codecadet on 2/21/17.
