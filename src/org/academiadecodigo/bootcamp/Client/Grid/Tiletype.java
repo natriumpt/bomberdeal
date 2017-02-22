@@ -29,7 +29,6 @@ public enum Tiletype {
 
     }
 
-
     public String getType() {
         return type;
     }
@@ -53,6 +52,7 @@ public enum Tiletype {
         }
 
         return Tiletype.FLOOR;
+
     }
 
 }

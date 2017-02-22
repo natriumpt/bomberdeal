@@ -2,10 +2,7 @@ package org.academiadecodigo.bootcamp.Client.Network;
 
 import org.academiadecodigo.bootcamp.Client.Game;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
 import java.util.Timer;
 
@@ -29,6 +26,14 @@ public class NetworkTCP implements Runnable {
         try {
 
             NetworkTCPListener listener = new NetworkTCPListener(tcpSocket.getInputStream());
+            DataOutputStream outStream = new DataOutputStream(tcpSocket.getOutputStream());
+
+            Thread udpListener = new Thread(listener);
+            udpListener.start();
+
+            //TODO:
+            //playerinfo
+            //outStream.write(playerInfo.getBytes());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,24 +54,29 @@ public class NetworkTCP implements Runnable {
         @Override
         public void run() {
 
-            try {
 
-                String message = reader.readLine();
+            while (true) {
 
-                while (message != null) {
+                try {
 
-                    message = message + reader.readLine();
+                    String message = reader.readLine();
 
+                    while (message != null) {
+
+                        message = message + reader.readLine();
+
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
-            } catch (IOException e) {
-                e.printStackTrace();
+                //TODO:
+                //synchronized
+                //game.updateScoreboard(message);
+
             }
 
-            //TODO:
-            //updateScoreboard(message);
-
         }
-
     }
 }
