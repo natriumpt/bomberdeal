@@ -2,6 +2,8 @@ package org.academiadecodigo.bootcamp.Client;
 
 import org.academiadecodigo.bootcamp.Client.Grid.Grid;
 import org.academiadecodigo.bootcamp.Client.Grid.Position;
+import org.academiadecodigo.bootcamp.Client.Network.NetworkTCP;
+import org.academiadecodigo.bootcamp.Client.Network.NetworkUDP;
 
 import java.io.*;
 import java.net.DatagramSocket;
@@ -30,7 +32,7 @@ public class Game {
     }
 
     public void runGame(String hostName, int portNumber) {
-        
+
         try {
 
             //TODO:
@@ -40,6 +42,16 @@ public class Game {
             udpSocket = new DatagramSocket(8779);
 
             grid = new Grid(tcpSocket.getInputStream());
+
+            NetworkTCP networkTCP = new NetworkTCP(tcpSocket);
+            NetworkUDP networkUDP = new NetworkUDP(udpSocket);
+
+            Thread tcpConnection = new Thread(networkTCP);
+            Thread udpConnection = new Thread(networkUDP);
+
+
+
+
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
