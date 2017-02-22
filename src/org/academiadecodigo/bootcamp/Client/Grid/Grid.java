@@ -65,7 +65,7 @@ public class Grid {
                 for (int j = 0; j < gridArray[i].length(); j++) {
                     positions[i][j] = new Position(j, i, String.valueOf(gridArray[i].charAt(j)));
                     screen.putString(positions[i][j].posX, positions[i][j].posY, positions[i][j].tile,
-                            Tiletype.getTileType(positions[i][j].tile).getColor(),
+                            Terminal.Color.WHITE,
                             Tiletype.getTileType(positions[i][j].tile).getColor());
                     screen.refresh();
                 }
