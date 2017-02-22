@@ -11,8 +11,6 @@ public class Main {
 
         File file = new File("test-res/cenas");
 
-        System.out.println(file.exists());
-
     }
 
 }

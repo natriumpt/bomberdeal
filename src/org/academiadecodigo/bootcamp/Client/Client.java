@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp.Client;
 
+import javafx.stage.Screen;
 import org.academiadecodigo.bootcamp.Client.Grid.Grid;
 import org.academiadecodigo.bootcamp.Client.Grid.Position;
 
@@ -16,7 +17,10 @@ public class Client {
     public Client() {
 
         try {
+
             grid = new Grid(new FileInputStream("test-res/cenas"));
+            grid.init();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
