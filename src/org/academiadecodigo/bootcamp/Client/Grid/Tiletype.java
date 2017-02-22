@@ -52,6 +52,7 @@ public enum Tiletype {
         }
 
         return Tiletype.FLOOR;
+
     }
 
 }

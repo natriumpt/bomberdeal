@@ -67,7 +67,6 @@ public class Grid {
 
                 positions[i][j] = new Position(j, i, String.valueOf(gridArray[i].charAt(j)));
                 positions[i][j].draw(screen);
-
             }
 
         }

@@ -27,5 +27,4 @@ public class Position {
         screen.putString(posX, posY, tile, Tiletype.getTileType(tile).getTextColor(), Tiletype.getTileType(tile).getColor());
 
     }
-
 }
