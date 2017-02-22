@@ -2,7 +2,9 @@ package org.academiadecodigo.bootcamp.Client.UserInput;
 
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.screen.Screen;
+import org.academiadecodigo.bootcamp.Client.Actions.PlayerActions;
 
+import java.lang.management.PlatformLoggingMXBean;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,7 +14,7 @@ import java.util.TimerTask;
 public class UserInput implements Runnable {
 
     private Screen screen;
-    private Key key;
+    private String playerAction;
 
     public UserInput(Screen screen) {
 
@@ -20,67 +22,49 @@ public class UserInput implements Runnable {
 
     }
 
-    private Key getKey() {
-        return key;
-    }
-
     @Override
     public void run() {
 
         Key key = screen.readInput();
 
-        while (true) {
-
-            if (key == null) {
-
-                TimerTask task = new TimerTask() {
-
-                    @Override
-                    public void run() {
-                        Key key = getKey();
-
-                        key = screen.readInput();
-                    }
-
-                };
-
-                Timer timer = new Timer(true);
-                timer.schedule(task, 0);
-
-            }
-
-
+        if (key != null) {
 
             switch (key.getKind()) {
 
                 case NormalKey:
-                    System.out.println(key.getCharacter());
+
+                    if(key.getCharacter() == ' ') {
+                        playerAction = PlayerActions.DEPLOY;
+                    }
+
                     break;
                 case Escape:
-                    System.out.println("Escape");
                     System.exit(0);
                     break;
                 case ArrowLeft:
-                    System.out.println("Left");
+                    playerAction = PlayerActions.MOVELEFT;
                     break;
                 case ArrowRight:
-                    System.out.println("Right");
+                    playerAction = PlayerActions.MOVERIGHT;
                     break;
                 case ArrowUp:
-                    System.out.println("Up");
+                    playerAction = PlayerActions.MOVEUP;
                     break;
                 case ArrowDown:
-                    System.out.println("Down");
+                    playerAction = PlayerActions.MOVEDOWN;
                     break;
                 case Enter:
                     System.out.println("Enter");
                     break;
                 case Unknown:
                     break;
+                default:
+                    System.out.println("Woah there!");
+                    break;
 
             }
 
         }
-
     }
 }
+
