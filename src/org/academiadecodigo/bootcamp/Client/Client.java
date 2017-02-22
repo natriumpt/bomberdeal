@@ -1,5 +1,8 @@
 package org.academiadecodigo.bootcamp.Client;
 
+import org.academiadecodigo.bootcamp.Client.Grid.Grid;
+import org.academiadecodigo.bootcamp.Client.Grid.Position;
+
 import java.io.*;
 
 /**
@@ -13,7 +16,7 @@ public class Client {
     public Client() {
 
         try {
-            grid = new Grid(new FileReader("testing/cenas"));
+            grid = new Grid(new FileInputStream("test-res/cenas"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
