@@ -37,6 +37,8 @@ public class Game {
 
             //TODO:
             //Instance sockets
+            //Instance userInput
+            //
 
             tcpSocket = new Socket(hostName, portNumber);
             udpSocket = new DatagramSocket(8779);
@@ -44,14 +46,13 @@ public class Game {
             grid = new Grid(tcpSocket.getInputStream());
 
             NetworkTCP networkTCP = new NetworkTCP(tcpSocket);
-            NetworkUDP networkUDP = new NetworkUDP(udpSocket);
+            NetworkUDP networkUDP = new NetworkUDP(udpSocket, tcpSocket.getInetAddress(), portNumber);
 
             Thread tcpConnection = new Thread(networkTCP);
             Thread udpConnection = new Thread(networkUDP);
 
-
-
-
+            tcpConnection.start();
+            udpConnection.start();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -1,7 +1,12 @@
 package org.academiadecodigo.bootcamp.Client.Network;
 
 import javax.xml.crypto.Data;
+import java.io.IOException;
+import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by codecadet on 2/22/17.
@@ -9,16 +14,51 @@ import java.net.DatagramSocket;
 public class NetworkUDP implements Runnable {
 
     private DatagramSocket udpSocket;
+    private int portNumber;
+    private InetAddress serverAddress;
+    private byte[] sendBuffer;
+    private byte[] receiveBuffer;
 
-    public NetworkUDP(DatagramSocket socket) {
+    public NetworkUDP(DatagramSocket socket, InetAddress address, int portNumber) {
 
         udpSocket = socket;
+        serverAddress = address;
+        this.portNumber = portNumber;
+
+        sendBuffer = new byte[1500];
+        receiveBuffer = new byte[1500];
 
     }
 
     @Override
     public void run() {
 
+        Timer timer = new Timer(true);
+        timer.scheduleAtFixedRate(createPacketSender(), 0, 17);
+
+        Thread udpListener = new Thread(new NetworkUDPListener());
+        udpListener.start();
+
+    }
+
+    public TimerTask createPacketSender() {
+
+        return new TimerTask() {
+
+            @Override
+            public void run() {
+
+                DatagramPacket packet = new DatagramPacket(sendBuffer, 0, sendBuffer.length);
+
+                try {
+                    udpSocket.send(packet);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        };
 
 
     }
@@ -27,6 +67,18 @@ public class NetworkUDP implements Runnable {
 
         @Override
         public void run() {
+
+            while(true) {
+
+                DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length, serverAddress, portNumber);
+                try {
+
+                    udpSocket.receive(receivePacket);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
         }
 
