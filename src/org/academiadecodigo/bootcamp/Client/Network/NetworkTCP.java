@@ -3,9 +3,11 @@ package org.academiadecodigo.bootcamp.Client.Network;
 import org.academiadecodigo.bootcamp.Client.Game;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.Timer;
 
 /**
  * Created by codecadet on 2/22/17.
@@ -24,10 +26,12 @@ public class NetworkTCP implements Runnable {
     @Override
     public void run() {
 
-        while(true) {
+        try {
 
+            NetworkTCPListener listener = new NetworkTCPListener(tcpSocket.getInputStream());
 
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -44,6 +48,23 @@ public class NetworkTCP implements Runnable {
 
         @Override
         public void run() {
+
+            try {
+
+                String message = reader.readLine();
+
+                while (message != null) {
+
+                    message = message + reader.readLine();
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //TODO:
+            //updateScoreboard(message);
 
         }
 
