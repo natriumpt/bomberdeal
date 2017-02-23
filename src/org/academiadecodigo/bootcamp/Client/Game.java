@@ -2,7 +2,6 @@ package org.academiadecodigo.bootcamp.Client;
 
 import org.academiadecodigo.bootcamp.Client.Grid.Grid;
 import org.academiadecodigo.bootcamp.Client.Network.NetworkTCP;
-import org.academiadecodigo.bootcamp.Client.Network.NetworkUDP;
 import org.academiadecodigo.bootcamp.menu.Menu;
 
 import java.io.FileNotFoundException;
@@ -27,13 +26,17 @@ public class Game {
 
         //TODO:
         //Add menu and start menu phase
+//            tcpSocket = new Socket(hostName, portNumber);
+//            udpSocket = new DatagramSocket(8779);
         Menu menu = new Menu();
         menu.init();
+
+
         //Transition to game phase
 
     }
 
-    public void runGame(String hostName, int portNumber) {
+    public void runGame() {
 
         try {
 
@@ -42,19 +45,17 @@ public class Game {
             //Instance userInput
             //
 
-            tcpSocket = new Socket(hostName, portNumber);
-            udpSocket = new DatagramSocket(8779);
 
             grid = new Grid(tcpSocket.getInputStream());
 
             NetworkTCP networkTCP = new NetworkTCP(tcpSocket);
-            NetworkUDP networkUDP = new NetworkUDP(udpSocket, tcpSocket.getInetAddress(), portNumber);
+//            NetworkUDP networkUDP = new NetworkUDP(udpSocket, tcpSocket.getInetAddress(), portNumber);
 
             Thread tcpConnection = new Thread(networkTCP);
-            Thread udpConnection = new Thread(networkUDP);
+//            Thread udpConnection = new Thread(networkUDP);
 
             tcpConnection.start();
-            udpConnection.start();
+//            udpConnection.start();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -74,11 +75,9 @@ public class Game {
         while (true) {
 
 
-
         }
 
     }
-
 
 
     public static void main(String[] args) {
