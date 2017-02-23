@@ -39,6 +39,7 @@ public class Grid {
 
             gridMap = gridMapBuilder.toString();
 
+            System.out.println("grid created");
         } catch (IOException e) {
             e.printStackTrace();
         }

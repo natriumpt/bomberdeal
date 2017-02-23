@@ -11,21 +11,13 @@ import com.googlecode.lanterna.terminal.Terminal;
 /**
  * Created by codecadet on 2/22/17.
  */
-public class Menu {
+public class Menu implements Runnable {
     private Screen screen;
     private String username;
     private String hostname;
+    private boolean phaseOver;
 
-    public boolean init() {
-        screen = TerminalFacade.createScreen();
-        GUIScreen guiScreen = new GUIScreen(screen);
-        guiScreen.setTheme(new MyTheme());
-        guiScreen.getScreen().startScreen();
-
-        MainMenu myWindow = new MainMenu();
-        guiScreen.showWindow(myWindow, GUIScreen.Position.CENTER);
-        return true;
-
+    public void init() {
 
 
     }
@@ -38,8 +30,18 @@ public class Menu {
         return hostname;
     }
 
-    private class MainMenu extends Window {
+    @Override
+    public void run() {
+        screen = TerminalFacade.createScreen();
+        GUIScreen guiScreen = new GUIScreen(screen);
+        guiScreen.setTheme(new MyTheme());
+        guiScreen.getScreen().startScreen();
 
+        MainMenu myWindow = new MainMenu();
+        guiScreen.showWindow(myWindow, GUIScreen.Position.CENTER);
+    }
+
+    private class MainMenu extends Window {
 
         public MainMenu() {
             super("BomberDeal - The marvelous #filadofundo game");
@@ -61,9 +63,12 @@ public class Menu {
                         System.out.println("Open socket");
                         System.out.println("UserBox: " + userBox.getText());
                         System.out.println("ServerBox: " + serverBox.getText());
+
                         username = userBox.getText();
                         hostname = serverBox.getText();
+
                         stopActualScreen();
+
 
                     } else {
                         MessageBox.showMessageBox(getOwner(),"","Please insert a username with 4 or more characters and a valid IP address.");
@@ -90,9 +95,13 @@ public class Menu {
         }
 
         private void stopActualScreen(){
-            screen.stopScreen();
-            screen = TerminalFacade.createScreen();
-            screen.startScreen();
+
+            synchronized (this) {
+
+                phaseOver = true;
+                screen.stopScreen();
+
+            }
         }
 
         private TextBox createTextBox() {
@@ -132,5 +141,9 @@ public class Menu {
         }
 
 
+    }
+
+    public boolean isPhaseOver() {
+        return phaseOver;
     }
 }

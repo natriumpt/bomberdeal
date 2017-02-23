@@ -1,6 +1,9 @@
 package org.academiadecodigo.bootcamp.Client;
 
+import com.github.natriumpt.bomberdeal.Server.Network.NetworkTCP;
+import com.github.natriumpt.bomberdeal.Server.Network.NetworkUDP;
 import org.academiadecodigo.bootcamp.Client.Grid.Grid;
+import org.academiadecodigo.bootcamp.Client.UserInput.UserInput;
 import org.academiadecodigo.bootcamp.menu.Menu;
 
 import org.academiadecodigo.bootcamp.Client.Network.ClientNetworkTCP;
@@ -11,11 +14,13 @@ import java.net.DatagramSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by andre on 2/20/2017.
  */
-public class Game {
+public class Game implements Runnable {
 
     private Grid grid;
     private DatagramSocket udpSocket;
@@ -28,12 +33,8 @@ public class Game {
         //TODO:
         //Add menu and start menu phase
 
-//            tcpSocket = new Socket(hostName, portNumber);
-//            udpSocket = new DatagramSocket(8779);
-        Menu menu = new Menu();
-        menu.init();
 
-        //Transition to game phase
+
 
     }
 
@@ -44,19 +45,20 @@ public class Game {
             //TODO:
             //Instance sockets
             //Instance userInput
-            //
 
-
+            System.out.println("here at rungame");
             grid = new Grid(tcpSocket.getInputStream());
 
-//            NetworkTCP networkTCP = new NetworkTCP(tcpSocket);
-//            NetworkUDP networkUDP = new NetworkUDP(udpSocket, tcpSocket.getInetAddress(), portNumber);
-            tcpSocket = new Socket("localhost", 8080);
-            udpSocket = new DatagramSocket(8779);
-
-            grid = new Grid(tcpSocket.getInputStream());
+            //NetworkTCP networkTCP = new NetworkTCP(tcpSocket);
+            //NetworkUDP networkUDP = new NetworkUDP(udpSocket, menu.getHostname, portNumber);
 
             grid.init();
+
+            UserInput input = new UserInput(grid.getScreen());
+
+            Thread inputThread = new Thread(input);
+            inputThread.start();
+
 
             /*System.out.println("after grid completion");
 
@@ -93,8 +95,36 @@ public class Game {
 
         Game client = new Game();
 
-        client.runGame();
+        Thread gameThread = new Thread(client);
+        gameThread.start();
 
     }
 
+    @Override
+    public void run() {
+
+        Menu menu = new Menu();
+
+        Thread menuThread = new Thread(menu);
+        menuThread.start();
+
+
+            while (!menu.isPhaseOver()) {
+                System.out.println("cenas.");
+            }
+
+
+        try {
+            tcpSocket = new Socket("localhost", 8080);
+            udpSocket = new DatagramSocket(8779);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        menuThread.interrupt();
+
+        //Transition to game phase
+        runGame();
+
+    }
 }
