@@ -28,9 +28,11 @@ public class Grid {
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             StringBuilder gridMapBuilder = new StringBuilder(gridMap);
 
+            System.out.println("here at grid creation");
+
             gridMap = reader.readLine();
 
-            while(gridMap != null) {
+            while(gridMap != "MAP:SENT\r\n") {
                 gridMapBuilder.append(gridMap + "\n");
                 gridMap = reader.readLine();
             }
@@ -67,6 +69,7 @@ public class Grid {
 
                 positions[i][j] = new Position(j, i, String.valueOf(gridArray[i].charAt(j)));
                 positions[i][j].draw(screen);
+
             }
 
         }

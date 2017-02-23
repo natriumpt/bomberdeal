@@ -1,9 +1,8 @@
 package org.academiadecodigo.bootcamp.Client;
 
 import org.academiadecodigo.bootcamp.Client.Grid.Grid;
-import org.academiadecodigo.bootcamp.Client.Grid.Position;
-import org.academiadecodigo.bootcamp.Client.Network.NetworkTCP;
-import org.academiadecodigo.bootcamp.Client.Network.NetworkUDP;
+import org.academiadecodigo.bootcamp.Client.Network.ClientNetworkTCP;
+import org.academiadecodigo.bootcamp.Client.Network.ClientNetworkUDP;
 
 import java.io.*;
 import java.net.DatagramSocket;
@@ -40,13 +39,15 @@ public class Game {
             //Instance userInput
             //
 
-            tcpSocket = new Socket(hostName, portNumber);
+            tcpSocket = new Socket("192.168.0.123", 8080);
             udpSocket = new DatagramSocket(8779);
 
             grid = new Grid(tcpSocket.getInputStream());
 
-            NetworkTCP networkTCP = new NetworkTCP(tcpSocket);
-            NetworkUDP networkUDP = new NetworkUDP(udpSocket, tcpSocket.getInetAddress(), portNumber);
+            System.out.println("after grid completion");
+
+            ClientNetworkTCP networkTCP = new ClientNetworkTCP(tcpSocket);
+            ClientNetworkUDP networkUDP = new ClientNetworkUDP(udpSocket, tcpSocket.getInetAddress(), portNumber);
 
             Thread tcpConnection = new Thread(networkTCP);
             Thread udpConnection = new Thread(networkUDP);
@@ -69,11 +70,6 @@ public class Game {
         //TODO:
         // Game phase loop
 
-        while (true) {
-
-
-
-        }
 
     }
 
@@ -82,6 +78,8 @@ public class Game {
     public static void main(String[] args) {
 
         Game client = new Game();
+
+        client.runGame("192.168.0.123", 8080);
 
     }
 
