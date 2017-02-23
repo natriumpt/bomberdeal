@@ -1,10 +1,17 @@
 package org.academiadecodigo.bootcamp.Client;
 
 import org.academiadecodigo.bootcamp.Client.Grid.Grid;
+<<<<<<< HEAD
 import org.academiadecodigo.bootcamp.Client.Network.ClientNetworkTCP;
 import org.academiadecodigo.bootcamp.Client.Network.ClientNetworkUDP;
+=======
+import org.academiadecodigo.bootcamp.Client.Network.NetworkTCP;
+import org.academiadecodigo.bootcamp.Client.Network.NetworkUDP;
+import org.academiadecodigo.bootcamp.menu.Menu;
+>>>>>>> 705679e474d064e6284213dea008789ca0f51078
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -25,7 +32,8 @@ public class Game {
 
         //TODO:
         //Add menu and start menu phase
-
+        //Menu menu = new Menu();
+        //menu.init();
         //Transition to game phase
 
     }
