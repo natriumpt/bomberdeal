@@ -11,10 +11,17 @@ public class FileEditor {
         BufferedReader inputStream = new BufferedReader(new FileReader("test-res/cenas"));
         String  totalLines = "";
         String thisLine = null;
-        while ((thisLine = inputStream.readLine())!=null){
-            totalLines = totalLines.concat(thisLine);
+
+        thisLine = inputStream.readLine();
+
+        while (thisLine != null){
+            totalLines += thisLine;
+            thisLine = inputStream.readLine();
         }
-        inputStream.close();
+
+        System.out.println(totalLines);
+
+        //inputStream.close();
         return totalLines;
     }
 

@@ -32,7 +32,7 @@ public class Grid {
 
             gridMap = reader.readLine();
 
-            while(gridMap != "MAP:SENT\r\n") {
+            while(!gridMap.equals("MAP:SENT")) {
                 gridMapBuilder.append(gridMap + "\n");
                 gridMap = reader.readLine();
             }
@@ -73,6 +73,8 @@ public class Grid {
             }
 
         }
+
+        screen.refresh();
 
     }
 
