@@ -1,9 +1,10 @@
 package org.academiadecodigo.bootcamp.Client;
 
 import org.academiadecodigo.bootcamp.Client.Grid.Grid;
-import org.academiadecodigo.bootcamp.Client.Network.NetworkTCP;
 import org.academiadecodigo.bootcamp.menu.Menu;
 
+import org.academiadecodigo.bootcamp.Client.Network.ClientNetworkTCP;
+import org.academiadecodigo.bootcamp.Client.Network.ClientNetworkUDP;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.DatagramSocket;
@@ -26,11 +27,11 @@ public class Game {
 
         //TODO:
         //Add menu and start menu phase
+
 //            tcpSocket = new Socket(hostName, portNumber);
 //            udpSocket = new DatagramSocket(8779);
         Menu menu = new Menu();
         menu.init();
-
 
         //Transition to game phase
 
@@ -48,8 +49,20 @@ public class Game {
 
             grid = new Grid(tcpSocket.getInputStream());
 
-            NetworkTCP networkTCP = new NetworkTCP(tcpSocket);
+//            NetworkTCP networkTCP = new NetworkTCP(tcpSocket);
 //            NetworkUDP networkUDP = new NetworkUDP(udpSocket, tcpSocket.getInetAddress(), portNumber);
+            tcpSocket = new Socket("localhost", 8080);
+            udpSocket = new DatagramSocket(8779);
+
+            grid = new Grid(tcpSocket.getInputStream());
+
+            grid.init();
+
+            /*System.out.println("after grid completion");
+
+            ClientNetworkTCP networkTCP = new ClientNetworkTCP(tcpSocket);
+            ClientNetworkUDP networkUDP = new ClientNetworkUDP(udpSocket, tcpSocket.getInetAddress(), portNumber);
+
 
             Thread tcpConnection = new Thread(networkTCP);
 //            Thread udpConnection = new Thread(networkUDP);
@@ -57,6 +70,7 @@ public class Game {
             tcpConnection.start();
 //            udpConnection.start();
 
+        */
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (SocketException e) {
@@ -67,15 +81,10 @@ public class Game {
             e.printStackTrace();
         }
 
-        grid.init();
 
         //TODO:
         // Game phase loop
 
-        while (true) {
-
-
-        }
 
     }
 
@@ -83,6 +92,8 @@ public class Game {
     public static void main(String[] args) {
 
         Game client = new Game();
+
+        client.runGame();
 
     }
 
