@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.gamelogic;
+package org.academiadecodigo.bootcamp.Server.gamelogic;
 
 /**
  * Created by codecadet on 2/21/17.
@@ -12,15 +12,18 @@ public class Player {
     private PositionServer position;
     private CollisionChecker collisionChecker;
 
-    public Player(Bomb[] bombs, int bombsDeployed) {
+    public Player(Bomb[] bombs) {
         this.bombs = bombs;
+        for(int i = 0; i < bombs.length; i++){
+            bombs[i]  = new Bomb();
+        }
         this.bombsDeployed = 0;
         this.isAlive = true;
     }
 
     public PositionServer moveRight(PositionServer position){
         PositionServer nextPosition = new PositionServer(position.setPosX(1), position.getPosY(), TiletypeServer.PLAYER.toString());
-        if(isAvailableNextPosition(nextPosition)){ // Faz o check se pode mexer ou se 'e bomba
+        if(isAvailableNextPosition(nextPosition)){ // Faz o checkCollidable se pode mexer ou se 'e bomba
             return nextPosition;
         }
         return position;
@@ -50,7 +53,7 @@ public class Player {
 
     public void deployBomb(){
         bombs[bombsDeployed].deploy(position.getPosX(), position.getPosY());
-        this.bombsDeployed = this.bombsDeployed + 1;
+        this.bombsDeployed += 1;
     }
 
     public void die(){
@@ -62,11 +65,13 @@ public class Player {
             isAlive = false;
             return true;
         }
-        else if(collisionChecker.check(nextPosition)){
+        else if(collisionChecker.checkCollidable(nextPosition)){
             return true;
         }
         return false;
     }
 
-
+    public PositionServer getPosition() {
+        return position;
+    }
 }

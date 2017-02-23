@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.gamelogic;
+package org.academiadecodigo.bootcamp.Server.gamelogic;
 
 
 /**
@@ -26,6 +26,15 @@ public class PositionServer {
     }
 
     public boolean isCollidable(){
+        if((TiletypeServer.getTileType(this.tileType)== TiletypeServer.BOMB ||
+                TiletypeServer.getTileType(this.tileType) == TiletypeServer.BOX  ||
+                TiletypeServer.getTileType(this.tileType) == TiletypeServer.PLAYER)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isDestructable(){
         if((TiletypeServer.getTileType(this.tileType)== TiletypeServer.BOMB && isVisible())||
                 TiletypeServer.getTileType(this.tileType) == TiletypeServer.WALL ||
                 (TiletypeServer.getTileType(this.tileType) == TiletypeServer.BOX && isVisible()) ||
@@ -33,6 +42,7 @@ public class PositionServer {
             return true;
         }
         return false;
+
     }
 
     public int getPosX(){

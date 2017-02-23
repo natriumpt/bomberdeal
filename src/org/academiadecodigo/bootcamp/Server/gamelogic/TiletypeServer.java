@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.gamelogic;
+package org.academiadecodigo.bootcamp.Server.gamelogic;
 
 import com.googlecode.lanterna.terminal.Terminal;
 
@@ -24,7 +24,7 @@ public enum TiletypeServer {
     }
 
     public String getType() {
-        return type;
+        return this.type;
     }
 
     public Terminal.Color getColor() {
@@ -43,5 +43,9 @@ public enum TiletypeServer {
         return TiletypeServer.FLOOR;
     }
 
+    @Override
+    public String toString() {
+        return type;
+    }
 }
 
