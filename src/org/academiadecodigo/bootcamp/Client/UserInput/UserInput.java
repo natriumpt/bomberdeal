@@ -15,6 +15,7 @@ public class UserInput implements Runnable {
 
     private Screen screen;
     private String playerAction;
+    private String currentAction;
 
     public UserInput(Screen screen) {
 

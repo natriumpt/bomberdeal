@@ -1,11 +1,12 @@
 package org.academiadecodigo.bootcamp.Client;
 
 import org.academiadecodigo.bootcamp.Client.Grid.Grid;
-import org.academiadecodigo.bootcamp.Client.Grid.Position;
 import org.academiadecodigo.bootcamp.Client.Network.NetworkTCP;
 import org.academiadecodigo.bootcamp.Client.Network.NetworkUDP;
+import org.academiadecodigo.bootcamp.menu.Menu;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -26,7 +27,8 @@ public class Game {
 
         //TODO:
         //Add menu and start menu phase
-
+        Menu menu = new Menu();
+        menu.init();
         //Transition to game phase
 
     }
@@ -37,6 +39,8 @@ public class Game {
 
             //TODO:
             //Instance sockets
+            //Instance userInput
+            //
 
             tcpSocket = new Socket(hostName, portNumber);
             udpSocket = new DatagramSocket(8779);
@@ -44,14 +48,13 @@ public class Game {
             grid = new Grid(tcpSocket.getInputStream());
 
             NetworkTCP networkTCP = new NetworkTCP(tcpSocket);
-            NetworkUDP networkUDP = new NetworkUDP(udpSocket);
+            NetworkUDP networkUDP = new NetworkUDP(udpSocket, tcpSocket.getInetAddress(), portNumber);
 
             Thread tcpConnection = new Thread(networkTCP);
             Thread udpConnection = new Thread(networkUDP);
 
-
-
-
+            tcpConnection.start();
+            udpConnection.start();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

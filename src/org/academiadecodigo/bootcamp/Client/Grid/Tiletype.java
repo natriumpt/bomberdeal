@@ -29,7 +29,6 @@ public enum Tiletype {
 
     }
 
-
     public String getType() {
         return type;
     }

@@ -82,6 +82,7 @@ public class Grid {
             }
 
         }
+
         screen.refresh();
     }
 
