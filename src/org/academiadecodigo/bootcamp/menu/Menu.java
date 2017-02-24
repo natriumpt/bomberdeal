@@ -11,23 +11,39 @@ import com.googlecode.lanterna.terminal.Terminal;
 /**
  * Created by codecadet on 2/22/17.
  */
-public class Menu {
+public class Menu implements Runnable {
     private Screen screen;
+    private String username;
+    private String hostname;
+    private boolean phaseOver;
 
     public void init() {
+
+
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getHostname() {
+        return hostname;
+    }
+
+    @Override
+    public void run() {
         screen = TerminalFacade.createScreen();
         GUIScreen guiScreen = new GUIScreen(screen);
         guiScreen.setTheme(new MyTheme());
         guiScreen.getScreen().startScreen();
 
-        MainMenu myWindow = new MainMenu(screen);
+        MainMenu myWindow = new MainMenu();
         guiScreen.showWindow(myWindow, GUIScreen.Position.CENTER);
-
     }
 
-    public class MainMenu extends Window {
+    private class MainMenu extends Window {
 
-        public MainMenu(Screen screen) {
+        public MainMenu() {
             super("BomberDeal - The marvelous #filadofundo game");
 
             TextBox userBox = createTextBox();
@@ -37,33 +53,55 @@ public class Menu {
             addComponent(mainPanel);
             mainPanel.addComponent(new Label("Insert your username"));
             mainPanel.addComponent(userBox);
-            mainPanel.addComponent(new Label("Insert Server IP address"));
+            mainPanel.addComponent(new Label("Insert the server's IP address"));
             mainPanel.addComponent(serverBox);
             mainPanel.addComponent(new Label("\nPlease select an option below"));
             mainPanel.addComponent(new Button("Connect", new Action() {
                 @Override
                 public void doAction() {
-                    System.out.println("Open socket");
-                    System.out.println("UserBox: " + userBox.getText());
-                    System.out.println("ServerBox: " + serverBox.getText());
-//                  udpSocket.getOutputStream().write();
+                    if(userBox.getText().matches("^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$") && serverBox.getText().matches("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$")) {
+                        System.out.println("Open socket");
+                        System.out.println("UserBox: " + userBox.getText());
+                        System.out.println("ServerBox: " + serverBox.getText());
+
+                        username = userBox.getText();
+                        hostname = serverBox.getText();
+
+                        stopActualScreen();
+
+
+                    } else {
+                        MessageBox.showMessageBox(getOwner(),"","Please insert a username with 4 or more characters and a valid IP address.");
+                    }
+
+//                 udpSocket.getOutputStream().write();
                 }
             }));
             mainPanel.addComponent(new Button("How to Play", new Action() {
                 @Override
                 public void doAction() {
-                    MessageBox.showMessageBox(getOwner(), "", "Use Arrow Keys to move\nUse Space to drop bomb\n\nBe the last one ALIVE!");
+                    MessageBox.showMessageBox(getOwner(), "", "Use Arrow Keys to move.\nUse Space to drop bomb.\n\nBe the last one ALIVE!");
                 }
             }));
             mainPanel.addComponent(new Button("Quit Game", new Action() {
                 @Override
                 public void doAction() {
-                    System.out.println("Close socket and close game");
+                    System.out.println("Closed game");
                     System.exit(0);
                     //socket.close();
                 }
             }));
 
+        }
+
+        private void stopActualScreen(){
+
+            synchronized (this) {
+
+                phaseOver = true;
+                screen.stopScreen();
+
+            }
         }
 
         private TextBox createTextBox() {
@@ -91,7 +129,7 @@ public class Menu {
         public MyTheme() {
             int random = (int) ((Math.random() * (Terminal.Color.values().length)));
 
-            if (random == 0 || random == 7) {
+            if (random == 0 || random == 8 || random == 7) {
                 random = 1;
             }
             super.setDefinition(Category.SCREEN_BACKGROUND, new Definition(Terminal.Color.BLACK, Terminal.Color.values()[random]));
@@ -103,5 +141,9 @@ public class Menu {
         }
 
 
+    }
+
+    public boolean isPhaseOver() {
+        return phaseOver;
     }
 }

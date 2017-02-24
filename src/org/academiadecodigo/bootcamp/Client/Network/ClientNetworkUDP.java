@@ -10,7 +10,7 @@ import java.util.TimerTask;
 /**
  * Created by codecadet on 2/22/17.
  */
-public class NetworkUDP implements Runnable {
+public class ClientNetworkUDP implements Runnable {
 
     private DatagramSocket udpSocket;
     private int portNumber;
@@ -18,7 +18,7 @@ public class NetworkUDP implements Runnable {
     private byte[] sendBuffer;
     private byte[] receiveBuffer;
 
-    public NetworkUDP(DatagramSocket socket, InetAddress address, int portNumber) {
+    public ClientNetworkUDP(DatagramSocket socket, InetAddress address, int portNumber) {
 
         udpSocket = socket;
         serverAddress = address;

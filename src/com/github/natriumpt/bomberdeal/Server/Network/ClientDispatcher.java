@@ -30,17 +30,24 @@ public class ClientDispatcher implements Runnable {
     }
 
     public void run() {
-        while(true) {
+
+
             System.out.println(Thread.currentThread().getName());
             try {
+                System.out.println(fileEditor.Loader());
                 send(fileEditor.Loader());
+                send("MAP:SENT");
+                System.out.println("sent");
             } catch (IOException e) {
                 e.printStackTrace();
             }
             //String message = in.readLine();
             //udpServer.receiveSend();
 
-        }
+
+
+
+
     }
 
 

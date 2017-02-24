@@ -9,12 +9,12 @@ import java.util.Timer;
 /**
  * Created by codecadet on 2/22/17.
  */
-public class NetworkTCP implements Runnable {
+public class ClientNetworkTCP implements Runnable {
 
     private Socket tcpSocket;
     private Game game;
 
-    public NetworkTCP(Socket socket) {
+    public ClientNetworkTCP(Socket socket) {
 
         tcpSocket = socket;
 
@@ -24,6 +24,8 @@ public class NetworkTCP implements Runnable {
     public void run() {
 
         try {
+
+            System.out.println("here");
 
             NetworkTCPListener listener = new NetworkTCPListener(tcpSocket.getInputStream());
             DataOutputStream outStream = new DataOutputStream(tcpSocket.getOutputStream());

@@ -1,7 +1,6 @@
 package com.github.natriumpt.bomberdeal.Server.Network;
 
-import branco.udpprototype.ClientDispatcher;
-
+import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -26,7 +25,11 @@ public class NetworkTCP {
         this.serverSocket = new ServerSocket(portNumber);
         System.out.println("server.server connected on " + portNumber + "...");
         clients = new LinkedList<>();
-        pool = Executors.newFixedThreadPool(3);
+        //pool = Executors.newFixedThreadPool(3);
+
+        File file = new File("test-res/cenas");
+
+        System.out.println(file.exists());
     }
 
     public void sendAll(String message) throws IOException {

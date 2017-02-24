@@ -26,46 +26,61 @@ public class UserInput implements Runnable {
     @Override
     public void run() {
 
-        Key key = screen.readInput();
+        while(true) {
 
-        if (key != null) {
+            Key key = screen.readInput();
 
-            switch (key.getKind()) {
-
-                case NormalKey:
-
-                    if(key.getCharacter() == ' ') {
-                        playerAction = playerAction + PlayerActions.DEPLOY;
-                    }
-
-                    break;
-                case Escape:
-                    System.exit(0);
-                    break;
-                case ArrowLeft:
-                    playerAction += PlayerActions.MOVELEFT;
-                    break;
-                case ArrowRight:
-                    playerAction += PlayerActions.MOVERIGHT;
-                    break;
-                case ArrowUp:
-                    playerAction += PlayerActions.MOVEUP;
-                    break;
-                case ArrowDown:
-                    playerAction += PlayerActions.MOVEDOWN;
-                    break;
-                case Enter:
-                    System.out.println("Enter");
-                    break;
-                case Unknown:
-                    break;
-                default:
-                    System.out.println("Woah there!");
-                    break;
+            if (key == null) {
+                try {
+                    Thread.sleep(17);
+                    continue;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
             }
+
+                switch (key.getKind()) {
+
+                    case NormalKey:
+
+                        if (key.getCharacter() == ' ') {
+                            playerAction = playerAction + PlayerActions.DEPLOY;
+                        }
+
+                        break;
+                    case Escape:
+                        System.exit(0);
+                        break;
+                    case ArrowLeft:
+                        playerAction += PlayerActions.MOVELEFT;
+                        System.out.println("cenas esquerda");
+                        break;
+                    case ArrowRight:
+                        playerAction += PlayerActions.MOVERIGHT;
+                        System.out.println("cenas direita");
+                        break;
+                    case ArrowUp:
+                        playerAction += PlayerActions.MOVEUP;
+                        System.out.println("cenas cima");
+                        break;
+                    case ArrowDown:
+                        playerAction += PlayerActions.MOVEDOWN;
+                        System.out.println("cenas baixo");
+                        break;
+                    case Enter:
+                        System.out.println("Enter");
+                        break;
+                    case Unknown:
+                        break;
+                    default:
+                        System.out.println("Woah there!");
+                        break;
+
+                }
 
         }
     }
 }
+
 
