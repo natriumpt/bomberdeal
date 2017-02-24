@@ -1,9 +1,9 @@
-package org.academiadecodigo.bootcamp.bomberdeal.server.gamefield;
+package org.academiadecodigo.bootcamp.bomberdeal.serverold.gamefield;
 
-import org.academiadecodigo.bootcamp.bomberdeal.server.Observer;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobjects.Bomb;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobjects.CollisionChecker;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobjects.Player;
+import org.academiadecodigo.bootcamp.bomberdeal.serverold.Observer;
+import org.academiadecodigo.bootcamp.bomberdeal.serverold.gameobjects.Bomb;
+import org.academiadecodigo.bootcamp.bomberdeal.serverold.gameobjects.CollisionChecker;
+import org.academiadecodigo.bootcamp.bomberdeal.serverold.gameobjects.Player;
 
 public class Grid extends Observer {
     private Position[][] positions;
@@ -11,7 +11,7 @@ public class Grid extends Observer {
     private Player[] players;
     private Bomb[] bombs;
 
-   // falta aqui o metodo que adiciona o grid server como observador às mudancas de estado de todas as bombas. No construtor.
+   // falta aqui o metodo que adiciona o grid serverold como observador às mudancas de estado de todas as bombas. No construtor.
 
     @Override
     public void update(Bomb bomb) {

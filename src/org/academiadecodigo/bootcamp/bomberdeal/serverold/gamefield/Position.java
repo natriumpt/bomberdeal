@@ -1,6 +1,6 @@
-package org.academiadecodigo.bootcamp.bomberdeal.server.gamefield;
+package org.academiadecodigo.bootcamp.bomberdeal.serverold.gamefield;
 
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobjects.TileType;
+import org.academiadecodigo.bootcamp.bomberdeal.serverold.gameobjects.TileType;
 
 public class Position {
     private int posX;

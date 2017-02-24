@@ -22,7 +22,7 @@ public class NetworkTCP {
     public NetworkTCP() throws IOException {
 
         this.serverSocket = new ServerSocket(portNumber);
-        System.out.println("server.server connected on " + portNumber + "...");
+        System.out.println("serverold.serverold connected on " + portNumber + "...");
         clients = new LinkedList<>();
         //pool = Executors.newFixedThreadPool(3);
 

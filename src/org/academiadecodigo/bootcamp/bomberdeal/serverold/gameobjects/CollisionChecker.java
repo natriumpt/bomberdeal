@@ -1,6 +1,6 @@
-package org.academiadecodigo.bootcamp.bomberdeal.server.gameobjects;
+package org.academiadecodigo.bootcamp.bomberdeal.serverold.gameobjects;
 
-import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Position;
+import org.academiadecodigo.bootcamp.bomberdeal.serverold.gamefield.Position;
 
 public class CollisionChecker {
     private String map;

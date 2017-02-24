@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.bomberdeal.server.gameobjects;
+package org.academiadecodigo.bootcamp.bomberdeal.serverold.gameobjects;
 
 import com.googlecode.lanterna.terminal.Terminal;
 

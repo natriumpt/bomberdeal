@@ -52,7 +52,7 @@ public class MenuLanterna implements Menu, Runnable {
             addComponent(mainPanel);
             mainPanel.addComponent(new Label("Insert your username"));
             mainPanel.addComponent(userBox);
-            mainPanel.addComponent(new Label("Insert the server's IP address"));
+            mainPanel.addComponent(new Label("Insert the serverold's IP address"));
             mainPanel.addComponent(serverBox);
             mainPanel.addComponent(new Label("\nPlease select an option below"));
             mainPanel.addComponent(new Button("Connect", new Action() {

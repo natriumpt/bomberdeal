@@ -51,7 +51,6 @@ public class ClientNetworkTCP implements Runnable {
         @Override
         public void run() {
 
-
             while (true) {
 
                 try {
@@ -75,5 +74,7 @@ public class ClientNetworkTCP implements Runnable {
             }
 
         }
+
     }
+
 }

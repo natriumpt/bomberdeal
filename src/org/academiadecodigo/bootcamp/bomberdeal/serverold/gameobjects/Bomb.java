@@ -1,7 +1,7 @@
-package org.academiadecodigo.bootcamp.bomberdeal.server.gameobjects;
+package org.academiadecodigo.bootcamp.bomberdeal.serverold.gameobjects;
 
-import org.academiadecodigo.bootcamp.bomberdeal.server.Observer;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Position;
+import org.academiadecodigo.bootcamp.bomberdeal.serverold.Observer;
+import org.academiadecodigo.bootcamp.bomberdeal.serverold.gamefield.Position;
 
 import java.util.ArrayList;
 
