@@ -1,5 +1,7 @@
-package org.academiadecodigo.bootcamp.Server.gamelogic;
+package org.academiadecodigo.bootcamp.Server.gridserver;
 
+
+import org.academiadecodigo.bootcamp.Server.gamelogic.TiletypeServer;
 
 /**
  * Created by codecadet on 2/22/17.
@@ -34,7 +36,7 @@ public class PositionServer {
         return false;
     }
 
-    public boolean isDestructable(){
+    public boolean isDestructible(){
         if((TiletypeServer.getTileType(this.tileType)== TiletypeServer.BOMB && isVisible())||
                 TiletypeServer.getTileType(this.tileType) == TiletypeServer.WALL ||
                 (TiletypeServer.getTileType(this.tileType) == TiletypeServer.BOX && isVisible()) ||
@@ -42,7 +44,6 @@ public class PositionServer {
             return true;
         }
         return false;
-
     }
 
     public int getPosX(){

@@ -1,5 +1,7 @@
 package org.academiadecodigo.bootcamp.Server.gamelogic;
 
+import org.academiadecodigo.bootcamp.Server.gridserver.PositionServer;
+
 /**
  * Created by codecadet on 2/21/17.
  */
