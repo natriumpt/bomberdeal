@@ -15,7 +15,7 @@ public class FileEditor {
         thisLine = inputStream.readLine();
 
         while (thisLine != null){
-            totalLines += thisLine;
+            totalLines += thisLine + "\n";
             thisLine = inputStream.readLine();
         }
 
