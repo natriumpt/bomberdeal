@@ -33,9 +33,6 @@ public class Game implements Runnable {
         //TODO:
         //Add menu and start menu phase
 
-
-
-
     }
 
     public void runGame() {
@@ -49,9 +46,6 @@ public class Game implements Runnable {
             System.out.println("here at rungame");
             grid = new Grid(tcpSocket.getInputStream());
 
-            //NetworkTCP networkTCP = new NetworkTCP(tcpSocket);
-            //NetworkUDP networkUDP = new NetworkUDP(udpSocket, menu.getHostname, portNumber);
-
             grid.init();
 
             UserInput input = new UserInput(grid.getScreen());
@@ -59,20 +53,19 @@ public class Game implements Runnable {
             Thread inputThread = new Thread(input);
             inputThread.start();
 
-
-            /*System.out.println("after grid completion");
+            System.out.println("after grid completion");
 
             ClientNetworkTCP networkTCP = new ClientNetworkTCP(tcpSocket);
-            ClientNetworkUDP networkUDP = new ClientNetworkUDP(udpSocket, tcpSocket.getInetAddress(), portNumber);
+            ClientNetworkUDP networkUDP = new ClientNetworkUDP(udpSocket, tcpSocket.getInetAddress(), 8080);
 
 
             Thread tcpConnection = new Thread(networkTCP);
-//            Thread udpConnection = new Thread(networkUDP);
+            Thread udpConnection = new Thread(networkUDP);
 
             tcpConnection.start();
-//            udpConnection.start();
+            udpConnection.start();
 
-        */
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (SocketException e) {
@@ -83,10 +76,8 @@ public class Game implements Runnable {
             e.printStackTrace();
         }
 
-
         //TODO:
         // Game phase loop
-
 
     }
 
@@ -108,11 +99,9 @@ public class Game implements Runnable {
         Thread menuThread = new Thread(menu);
         menuThread.start();
 
-
             while (!menu.isPhaseOver()) {
                 System.out.println("cenas.");
             }
-
 
         try {
             tcpSocket = new Socket("localhost", 8080);

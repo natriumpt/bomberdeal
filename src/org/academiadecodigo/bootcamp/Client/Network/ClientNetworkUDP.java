@@ -47,8 +47,7 @@ public class ClientNetworkUDP implements Runnable {
             @Override
             public void run() {
 
-
-                DatagramPacket packet = new DatagramPacket(sendBuffer, 0, sendBuffer.length);
+                DatagramPacket packet = new DatagramPacket(sendBuffer, sendBuffer.length, serverAddress, portNumber);
 
                 try {
                     udpSocket.send(packet);
@@ -69,7 +68,7 @@ public class ClientNetworkUDP implements Runnable {
 
             while(true) {
 
-                DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length, serverAddress, portNumber);
+                DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
                 try {
 
                     udpSocket.receive(receivePacket);

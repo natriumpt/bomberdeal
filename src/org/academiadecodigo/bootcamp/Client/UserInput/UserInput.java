@@ -32,7 +32,7 @@ public class UserInput implements Runnable {
 
             if (key == null) {
                 try {
-                    Thread.sleep(17);
+                    Thread.sleep(10);
                     continue;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
