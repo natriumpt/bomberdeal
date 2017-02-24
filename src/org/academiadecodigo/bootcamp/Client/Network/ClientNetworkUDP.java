@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp.Client.Network;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -17,6 +18,7 @@ public class ClientNetworkUDP implements Runnable {
     private InetAddress serverAddress;
     private byte[] sendBuffer;
     private byte[] receiveBuffer;
+    private NetworkUDPReceiver udpReceiver;
 
     public ClientNetworkUDP(DatagramSocket socket, InetAddress address, int portNumber) {
 
@@ -33,21 +35,27 @@ public class ClientNetworkUDP implements Runnable {
     public void run() {
 
         Timer timer = new Timer(true);
-        timer.scheduleAtFixedRate(createPacketSenderTask(), 0, 17);
+        //timer.scheduleAtFixedRate(createPacketSenderTask(createNewDat), 0, 17);
 
-        Thread udpListener = new Thread(new NetworkUDPListener());
-        udpListener.start();
+        Thread udpListenerThread = new Thread(new NetworkUDPReceiver());
+        udpListenerThread.start();
 
     }
 
-    public TimerTask createPacketSenderTask() {
+    public void sendPacket(String playerAction) {
+
+        String playerMessage = new String(receiveBuffer);
+
+        DatagramPacket packet = new DatagramPacket(sendBuffer, sendBuffer.length, serverAddress, portNumber);
+
+    }
+
+    public TimerTask createPacketSenderTask(DatagramPacket packet) {
 
         return new TimerTask() {
 
             @Override
             public void run() {
-
-                DatagramPacket packet = new DatagramPacket(sendBuffer, sendBuffer.length, serverAddress, portNumber);
 
                 try {
                     udpSocket.send(packet);
@@ -61,7 +69,7 @@ public class ClientNetworkUDP implements Runnable {
 
     }
 
-    public class NetworkUDPListener implements Runnable {
+    public class NetworkUDPReceiver implements Runnable {
 
         @Override
         public void run() {

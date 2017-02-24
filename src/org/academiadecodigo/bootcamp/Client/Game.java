@@ -1,37 +1,72 @@
 package org.academiadecodigo.bootcamp.Client;
 
-import com.github.natriumpt.bomberdeal.Server.Network.NetworkTCP;
-import com.github.natriumpt.bomberdeal.Server.Network.NetworkUDP;
-import org.academiadecodigo.bootcamp.Client.Grid.Grid;
-import org.academiadecodigo.bootcamp.Client.UserInput.UserInput;
-import org.academiadecodigo.bootcamp.menu.Menu;
-
-import org.academiadecodigo.bootcamp.Client.Network.ClientNetworkTCP;
+import org.academiadecodigo.bootcamp.Client.Grid.GridLanterna;
 import org.academiadecodigo.bootcamp.Client.Network.ClientNetworkUDP;
+import org.academiadecodigo.bootcamp.Client.Grid.Grid;
+import org.academiadecodigo.bootcamp.Client.Network.ClientNetworkTCP;
+import org.academiadecodigo.bootcamp.Client.UserInput.LanternaUserInput;
+import org.academiadecodigo.bootcamp.Client.UserInput.UserInput;
+import org.academiadecodigo.bootcamp.Client.Menu.LanternaMenu;
+import org.academiadecodigo.bootcamp.Client.Menu.Menu;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by andre on 2/20/2017.
  */
-public class Game implements Runnable {
+public class Game {
 
     private Grid grid;
     private DatagramSocket udpSocket;
     private Socket tcpSocket;
-    //TODO:
-    //private Menu menu;
+    private String playerName;
 
-    public Game() {
+    public static void main(String[] args) {
 
-        //TODO:
-        //Add menu and start menu phase
+        Game bomberdeal = new Game();
+        bomberdeal.startGame();
+
+    }
+
+    public void startGame() {
+
+        Menu menu = new LanternaMenu();
+
+        if(menu == null) {
+            throw new ExceptionInInitializerError();
+        }
+
+        menu.init();
+
+        if(menu instanceof LanternaMenu) {
+
+            Thread menuThread = new Thread((LanternaMenu)menu);
+            menuThread.start();
+            waitForMenu(menu);
+            synchronized (menuThread) {
+                menuThread.interrupt();
+            }
+
+        } else {
+
+            waitForMenu(menu);
+
+        }
+
+        try {
+            tcpSocket = new Socket("localhost", 8080);
+            udpSocket = new DatagramSocket(8779);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Transition to game phase
+        runGame();
 
     }
 
@@ -39,31 +74,26 @@ public class Game implements Runnable {
 
         try {
 
-            //TODO:
-            //Instance sockets
-            //Instance userInput
-
-            System.out.println("here at rungame");
-            grid = new Grid(tcpSocket.getInputStream());
+            grid = new GridLanterna(tcpSocket.getInputStream());
 
             grid.init();
 
-            UserInput input = new UserInput(grid.getScreen());
+            UserInput input= new LanternaUserInput(((GridLanterna) grid).getScreen());
 
             Thread inputThread = new Thread(input);
             inputThread.start();
 
-            System.out.println("after grid completion");
-
             ClientNetworkTCP networkTCP = new ClientNetworkTCP(tcpSocket);
             ClientNetworkUDP networkUDP = new ClientNetworkUDP(udpSocket, tcpSocket.getInetAddress(), 8080);
-
 
             Thread tcpConnection = new Thread(networkTCP);
             Thread udpConnection = new Thread(networkUDP);
 
+            input.setUdpConnection(networkUDP);
+
             tcpConnection.start();
             udpConnection.start();
+
 
 
         } catch (FileNotFoundException e) {
@@ -81,39 +111,16 @@ public class Game implements Runnable {
 
     }
 
+    public void waitForMenu(Menu menu) {
 
-    public static void main(String[] args) {
-
-        Game client = new Game();
-
-        Thread gameThread = new Thread(client);
-        gameThread.start();
-
-    }
-
-    @Override
-    public void run() {
-
-        Menu menu = new Menu();
-
-        Thread menuThread = new Thread(menu);
-        menuThread.start();
-
-            while (!menu.isPhaseOver()) {
-                System.out.println("cenas.");
+        while (!menu.isPhaseOver()) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
-        try {
-            tcpSocket = new Socket("localhost", 8080);
-            udpSocket = new DatagramSocket(8779);
-        } catch (IOException e) {
-            e.printStackTrace();
+            continue;
         }
-
-        menuThread.interrupt();
-
-        //Transition to game phase
-        runGame();
 
     }
 }

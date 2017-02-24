@@ -4,7 +4,6 @@ import org.academiadecodigo.bootcamp.Client.Game;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Timer;
 
 /**
  * Created by codecadet on 2/22/17.
@@ -24,8 +23,6 @@ public class ClientNetworkTCP implements Runnable {
     public void run() {
 
         try {
-
-            System.out.println("here");
 
             NetworkTCPListener listener = new NetworkTCPListener(tcpSocket.getInputStream());
             DataOutputStream outStream = new DataOutputStream(tcpSocket.getOutputStream());

@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.menu;
+package org.academiadecodigo.bootcamp.Client.Menu;
 
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.gui.*;
@@ -11,16 +11,12 @@ import com.googlecode.lanterna.terminal.Terminal;
 /**
  * Created by codecadet on 2/22/17.
  */
-public class Menu implements Runnable {
+public class LanternaMenu implements Menu, Runnable {
+
     private Screen screen;
     private String username;
     private String hostname;
     private boolean phaseOver;
-
-    public void init() {
-
-
-    }
 
     public String getUsername() {
         return username;
@@ -30,8 +26,13 @@ public class Menu implements Runnable {
         return hostname;
     }
 
+    public void init() {
+
+    }
+
     @Override
     public void run() {
+
         screen = TerminalFacade.createScreen();
         GUIScreen guiScreen = new GUIScreen(screen);
         guiScreen.setTheme(new MyTheme());
@@ -39,12 +40,13 @@ public class Menu implements Runnable {
 
         MainMenu myWindow = new MainMenu();
         guiScreen.showWindow(myWindow, GUIScreen.Position.CENTER);
+
     }
 
     private class MainMenu extends Window {
 
         public MainMenu() {
-            super("BomberDeal - The marvelous #filadofundo game");
+            super("BomberDeal - The marvelous #filadofundo's game");
 
             TextBox userBox = createTextBox();
             TextBox serverBox = createTextBox();
@@ -68,7 +70,6 @@ public class Menu implements Runnable {
                         hostname = serverBox.getText();
 
                         stopActualScreen();
-
 
                     } else {
                         MessageBox.showMessageBox(getOwner(),"","Please insert a username with 4 or more characters and a valid IP address.");
@@ -94,14 +95,11 @@ public class Menu implements Runnable {
 
         }
 
-        private void stopActualScreen(){
-
-            synchronized (this) {
+        private synchronized void stopActualScreen(){
 
                 phaseOver = true;
                 screen.stopScreen();
 
-            }
         }
 
         private TextBox createTextBox() {
@@ -136,14 +134,13 @@ public class Menu implements Runnable {
             super.setDefinition(Category.BUTTON_ACTIVE, new Definition(Terminal.Color.BLACK, Terminal.Color.BLACK));
             super.setDefinition(Category.BUTTON_LABEL_ACTIVE, new Definition(Terminal.Color.DEFAULT, Terminal.Color.BLACK));
             super.setDefinition(Category.TEXTBOX, new Definition(Terminal.Color.WHITE, Terminal.Color.BLACK));
-            setDefinition(Category.TEXTBOX_FOCUSED, new Definition(Terminal.Color.WHITE, Terminal.Color.BLACK));
-
+            super.setDefinition(Category.TEXTBOX_FOCUSED, new Definition(Terminal.Color.WHITE, Terminal.Color.BLACK));
         }
 
 
     }
 
-    public boolean isPhaseOver() {
+    public synchronized boolean isPhaseOver() {
         return phaseOver;
     }
 }
