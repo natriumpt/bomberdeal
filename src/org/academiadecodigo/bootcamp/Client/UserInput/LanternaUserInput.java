@@ -42,7 +42,7 @@ public class LanternaUserInput implements UserInput {
                     case NormalKey:
 
                         if (key.getCharacter() == ' ') {
-                            playerAction = playerAction + PlayerMessages.PLAYER_DEPLOY;
+                        udpConnection.sendPacket(PlayerMessages.PLAYER_DEPLOY);
                         }
 
                         break;
@@ -50,16 +50,16 @@ public class LanternaUserInput implements UserInput {
                         System.exit(0);
                         break;
                     case ArrowLeft:
-                        playerAction += PlayerMessages.PLAYER_MOVELEFT;
+                        udpConnection.sendPacket(PlayerMessages.PLAYER_MOVELEFT);
                         break;
                     case ArrowRight:
-                        playerAction += PlayerMessages.PLAYER_MOVERIGHT;
+                        udpConnection.sendPacket(PlayerMessages.PLAYER_MOVERIGHT);
                         break;
                     case ArrowUp:
-                        playerAction += PlayerMessages.PLAYER_MOVEUP;
+                        udpConnection.sendPacket(PlayerMessages.PLAYER_MOVEUP);
                         break;
                     case ArrowDown:
-                        playerAction += PlayerMessages.PLAYER_MOVEDOWN;
+                        udpConnection.sendPacket(PlayerMessages.PLAYER_MOVEDOWN);
                         break;
                     case Enter:
                         System.out.println("Enter");
