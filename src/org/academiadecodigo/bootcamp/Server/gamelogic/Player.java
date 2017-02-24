@@ -12,6 +12,7 @@ public class Player {
     private PositionServer position;
     private CollisionChecker collisionChecker;
 
+
     public Player(Bomb[] bombs) {
         this.bombs = bombs;
         for(int i = 0; i < bombs.length; i++){

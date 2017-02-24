@@ -1,21 +1,18 @@
 package org.academiadecodigo.bootcamp.Client;
 
-import com.github.natriumpt.bomberdeal.Server.Network.NetworkTCP;
-import com.github.natriumpt.bomberdeal.Server.Network.NetworkUDP;
 import org.academiadecodigo.bootcamp.Client.Grid.Grid;
+import org.academiadecodigo.bootcamp.Client.Grid.GridLanterna;
+import org.academiadecodigo.bootcamp.Client.UserInput.LanternaUserInput;
 import org.academiadecodigo.bootcamp.Client.UserInput.UserInput;
+import org.academiadecodigo.bootcamp.menu.LanternaMenu;
 import org.academiadecodigo.bootcamp.menu.Menu;
 
-import org.academiadecodigo.bootcamp.Client.Network.ClientNetworkTCP;
-import org.academiadecodigo.bootcamp.Client.Network.ClientNetworkUDP;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by andre on 2/20/2017.
@@ -26,7 +23,7 @@ public class Game implements Runnable {
     private DatagramSocket udpSocket;
     private Socket tcpSocket;
     //TODO:
-    //private Menu menu;
+    //private LanternaMenu menu;
 
     public Game() {
 
@@ -47,14 +44,14 @@ public class Game implements Runnable {
             //Instance userInput
 
             System.out.println("here at rungame");
-            grid = new Grid(tcpSocket.getInputStream());
+            grid = new GridLanterna(tcpSocket.getInputStream());
 
             //NetworkTCP networkTCP = new NetworkTCP(tcpSocket);
             //NetworkUDP networkUDP = new NetworkUDP(udpSocket, menu.getHostname, portNumber);
 
             grid.init();
 
-            UserInput input = new UserInput(grid.getScreen());
+            UserInput input= new LanternaUserInput(((GridLanterna) grid).getScreen());
 
             Thread inputThread = new Thread(input);
             inputThread.start();
@@ -103,7 +100,7 @@ public class Game implements Runnable {
     @Override
     public void run() {
 
-        Menu menu = new Menu();
+        Menu menu = new LanternaMenu();
 
         Thread menuThread = new Thread(menu);
         menuThread.start();

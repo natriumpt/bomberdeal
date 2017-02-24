@@ -1,7 +1,5 @@
 package org.academiadecodigo.bootcamp.Client.Grid;
 
-import com.googlecode.lanterna.screen.Screen;
-
 /**
  * Created by andre on 2/20/2017.
  */
@@ -21,9 +19,5 @@ public class Position {
 
     }
 
-    public void draw(Screen screen) {
 
-        screen.putString(posX, posY, tile, Tiletype.getTileType(tile).getTextColor(), Tiletype.getTileType(tile).getColor());
-
-    }
 }
