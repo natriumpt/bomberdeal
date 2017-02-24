@@ -11,7 +11,6 @@ import org.academiadecodigo.bootcamp.Client.Network.ClientNetworkUDP;
 public class LanternaUserInput implements UserInput {
 
     private Screen screen;
-    private String playerAction;
     private ClientNetworkUDP udpConnection;
 
     public LanternaUserInput(Screen screen) {
@@ -75,10 +74,8 @@ public class LanternaUserInput implements UserInput {
         }
     }
 
-
     @Override
     public void setUdpConnection(ClientNetworkUDP client) {
-
         this.udpConnection = client;
     }
 }

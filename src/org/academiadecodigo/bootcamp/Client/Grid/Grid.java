@@ -7,8 +7,8 @@ public interface Grid {
 
     public void init();
 
-    public void refreshScreen();
+    public void updateScreen();
 
-    public void updatePosition(int x, int y, String type);
+    public void updatePositions(int x, int y, String type);
 
 }

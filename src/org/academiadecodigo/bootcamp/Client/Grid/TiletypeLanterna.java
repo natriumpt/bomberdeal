@@ -5,7 +5,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 /**
  * Created by andre on 2/20/2017.
  */
-public enum Tiletype {
+public enum TiletypeLanterna {
 
     FLOOR("0", Terminal.Color.CYAN, Terminal.Color.CYAN),
     WALL("1", Terminal.Color.BLUE, Terminal.Color.BLUE),
@@ -20,7 +20,7 @@ public enum Tiletype {
     private Terminal.Color color;
     private Terminal.Color textColor;
 
-    Tiletype(String value, Terminal.Color color, Terminal.Color textColor) {
+    TiletypeLanterna(String value, Terminal.Color color, Terminal.Color textColor) {
 
         this.type = value;
         this.color = color;
@@ -40,17 +40,17 @@ public enum Tiletype {
         return textColor;
     }
 
-    public static Tiletype getTileType(String type){
+    public static TiletypeLanterna getTileType(String type){
 
-        for(int i = 0; i < Tiletype.values().length; i++) {
+        for(int i = 0; i < TiletypeLanterna.values().length; i++) {
 
-            if(type.equals(Tiletype.values()[i].getType())) {
-                return Tiletype.values()[i];
+            if(type.equals(TiletypeLanterna.values()[i].getType())) {
+                return TiletypeLanterna.values()[i];
             }
 
         }
 
-        return Tiletype.FLOOR;
+        return TiletypeLanterna.FLOOR;
 
     }
 

@@ -19,8 +19,9 @@ public class ClientNetworkUDP implements Runnable {
     private byte[] sendBuffer;
     private byte[] receiveBuffer;
     private NetworkUDPReceiver udpReceiver;
+    private ServerParser parser;
 
-    public ClientNetworkUDP(DatagramSocket socket, InetAddress address, int portNumber) {
+    public ClientNetworkUDP(DatagramSocket socket, InetAddress address, int portNumber, ServerParser parser) {
 
         udpSocket = socket;
         serverAddress = address;
@@ -28,6 +29,8 @@ public class ClientNetworkUDP implements Runnable {
 
         sendBuffer = new byte[1500];
         receiveBuffer = new byte[1500];
+
+        this.parser = parser;
 
     }
 
@@ -44,9 +47,17 @@ public class ClientNetworkUDP implements Runnable {
 
     public void sendPacket(String playerAction) {
 
-        String playerMessage = new String(receiveBuffer);
+        sendBuffer = playerAction.getBytes();
 
         DatagramPacket packet = new DatagramPacket(sendBuffer, sendBuffer.length, serverAddress, portNumber);
+
+        try {
+
+            udpSocket.send(packet);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -64,9 +75,7 @@ public class ClientNetworkUDP implements Runnable {
                 }
 
             }
-
         };
-
     }
 
     public class NetworkUDPReceiver implements Runnable {
@@ -80,6 +89,8 @@ public class ClientNetworkUDP implements Runnable {
                 try {
 
                     udpSocket.receive(receivePacket);
+
+                    parser.handleUDPMessage(new String(receiveBuffer, 0, receivePacket.getLength()));
 
                 } catch (IOException e) {
                     e.printStackTrace();
