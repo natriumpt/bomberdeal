@@ -1,6 +1,6 @@
 package com.github.natriumpt.bomberdeal;
 
-import com.github.natriumpt.bomberdeal.Server.Network.NetworkTCP;
+import com.github.natriumpt.bomberdeal.server.Network.NetworkTCP;
 
 import java.io.IOException;
 

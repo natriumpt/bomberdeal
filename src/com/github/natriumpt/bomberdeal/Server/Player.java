@@ -1,4 +1,4 @@
-package com.github.natriumpt.bomberdeal.Server;
+package com.github.natriumpt.bomberdeal.server;
 
 import java.util.ArrayList;
 
