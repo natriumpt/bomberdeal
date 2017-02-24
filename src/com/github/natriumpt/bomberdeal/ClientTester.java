@@ -1,6 +1,6 @@
 package com.github.natriumpt.bomberdeal;
 
-import com.github.natriumpt.bomberdeal.Client.ClientCore;
+import com.github.natriumpt.bomberdeal.client.ClientCore;
 
 public class ClientTester {
 
