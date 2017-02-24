@@ -1,20 +1,25 @@
-package org.academiadecodigo.bootcamp.Server;
+package org.academiadecodigo.bootcamp.Server.gridserver;
 
-import org.academiadecodigo.bootcamp.Server.gamelogic.TiletypeServer;
+import org.academiadecodigo.bootcamp.Server.Observer;
 import org.academiadecodigo.bootcamp.Server.gamelogic.Bomb;
 import org.academiadecodigo.bootcamp.Server.gamelogic.CollisionChecker;
 import org.academiadecodigo.bootcamp.Server.gamelogic.Player;
-import org.academiadecodigo.bootcamp.Server.gamelogic.PositionServer;
 
 /**
  * Created by codecadet on 2/23/17.
  */
-public class GridServer {
+public class GridServer extends Observer {
     private PositionServer[][] positionServers;
     private CollisionChecker collisionChecker;
     private Player[] players;
     private Bomb[] bombs;
 
+   // falta aqui o metodo que adiciona o grid server como observador às mudancas de estado de todas as bombas. No construtor.
+
+    @Override
+    public void update(Bomb bomb) {
+        explodeArea(bomb.getRange(), bomb);
+    }
     public void explodeArea(int range, Bomb bomb){
         for(int i = 0; i > - range; i--){ //VERTICAL BLAST
             PositionServer positionV1 = positionServers[bomb.getPosition().getPosX()][bomb.getPosition().getPosY() + i];
@@ -33,16 +38,17 @@ public class GridServer {
     }
 
     private void blastDamage(PositionServer position) {
-        String type = collisionChecker.checkBlastDamage(position);
+        String type = collisionChecker.checkTileType(position);
         switch (type){
             case "P":
                 position.setTileType("F");
                 //timertask
-                getPlayerFromPos(position).die(); //player morre;
+                getPlayerFromPos(position).die(); //player morre
                 position.setTileType("0");
                 break;
             case "C":
                 position.setTileType("F");
+                //metodo da box para criar powerups
                 //um timetask
                 position.setTileType("0"); // passa a FLOOR
                 break;
@@ -78,6 +84,4 @@ public class GridServer {
         }
         return bombToExplode;
     }
-
-
 }
