@@ -18,7 +18,7 @@ public class Player {
 
     }
 
-    private void beginCooldown(){
+    private void beginCooldown() {
         onCooldown = true;
         cooldownTimer.schedule(new TimerTask() {
             @Override
