@@ -1,5 +1,7 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.helper;
 
+import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

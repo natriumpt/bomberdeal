@@ -1,11 +1,16 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client.grid;
 
+/**
+ * * * Created by codecadet on 2/24/17.
+ * */
+
 public interface Grid {
 
-    void init();
+    public void init();
 
-    void refreshScreen();
+    public void updateScreen();
 
-    void updatePosition(int x, int y, String type);
+    public void updatePositions(int x, int y, String type);
 
 }
+

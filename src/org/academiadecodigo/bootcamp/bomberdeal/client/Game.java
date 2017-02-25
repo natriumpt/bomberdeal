@@ -1,8 +1,9 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client;
 
+import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
+import org.academiadecodigo.bootcamp.bomberdeal.client.network.ServerParser;
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.GridLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkUDP;
-import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkTCP;
 import org.academiadecodigo.bootcamp.bomberdeal.client.userinput.UserInputLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.userinput.UserInput;
@@ -22,6 +23,7 @@ public class Game {
     private DatagramSocket udpSocket;
     private Socket tcpSocket;
     private String playerName;
+    private ServerParser serverHandler;
 
     public static void main(String[] args) {
 
@@ -29,6 +31,7 @@ public class Game {
         bomberdeal.startGame();
 
     }
+
 
     public void startGame() {
 
@@ -45,6 +48,7 @@ public class Game {
             Thread menuThread = new Thread((MenuLanterna)menu);
             menuThread.start();
             waitForMenu(menu);
+
             synchronized (menuThread) {
                 menuThread.interrupt();
             }
@@ -55,14 +59,15 @@ public class Game {
 
         }
 
+        playerName = menu.getUsername();
+
         try {
-            tcpSocket = new Socket("localhost", 8080);
+            tcpSocket = new Socket("192.168.0.123", 8080);
             udpSocket = new DatagramSocket(8779);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        //Transition to game phase
         runGame();
 
     }
@@ -75,13 +80,15 @@ public class Game {
 
             grid.init();
 
+            serverHandler = new ServerParser(this, grid);
+
             UserInput input= new UserInputLanterna(((GridLanterna) grid).getScreen());
 
             Thread inputThread = new Thread(input);
             inputThread.start();
 
             ClientNetworkTCP networkTCP = new ClientNetworkTCP(tcpSocket);
-            ClientNetworkUDP networkUDP = new ClientNetworkUDP(udpSocket, tcpSocket.getInetAddress(), 8080);
+            ClientNetworkUDP networkUDP = new ClientNetworkUDP(udpSocket, tcpSocket.getInetAddress(), 8080, serverHandler);
 
             Thread tcpConnection = new Thread(networkTCP);
             Thread udpConnection = new Thread(networkUDP);
@@ -90,8 +97,6 @@ public class Game {
 
             tcpConnection.start();
             udpConnection.start();
-
-
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -105,6 +110,10 @@ public class Game {
 
         //TODO:
         // Game phase loop
+
+        while(true) {
+
+        }
 
     }
 

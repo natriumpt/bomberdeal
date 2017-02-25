@@ -8,7 +8,6 @@ import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkUDP;
 public class UserInputLanterna implements UserInput {
 
     private Screen screen;
-    private String playerAction;
     private ClientNetworkUDP udpConnection;
 
     public UserInputLanterna(Screen screen) {
@@ -39,7 +38,7 @@ public class UserInputLanterna implements UserInput {
                     case NormalKey:
 
                         if (key.getCharacter() == ' ') {
-                            playerAction = playerAction + PlayerMessages.PLAYER_DEPLOY;
+                        udpConnection.sendPacket(PlayerMessages.PLAYER_DEPLOY);
                         }
 
                         break;
@@ -47,16 +46,16 @@ public class UserInputLanterna implements UserInput {
                         System.exit(0);
                         break;
                     case ArrowLeft:
-                        playerAction += PlayerMessages.PLAYER_MOVELEFT;
+                        udpConnection.sendPacket(PlayerMessages.PLAYER_MOVELEFT);
                         break;
                     case ArrowRight:
-                        playerAction += PlayerMessages.PLAYER_MOVERIGHT;
+                        udpConnection.sendPacket(PlayerMessages.PLAYER_MOVERIGHT);
                         break;
                     case ArrowUp:
-                        playerAction += PlayerMessages.PLAYER_MOVEUP;
+                        udpConnection.sendPacket(PlayerMessages.PLAYER_MOVEUP);
                         break;
                     case ArrowDown:
-                        playerAction += PlayerMessages.PLAYER_MOVEDOWN;
+                        udpConnection.sendPacket(PlayerMessages.PLAYER_MOVEDOWN);
                         break;
                     case Enter:
                         System.out.println("Enter");
@@ -72,10 +71,8 @@ public class UserInputLanterna implements UserInput {
         }
     }
 
-
     @Override
     public void setUdpConnection(ClientNetworkUDP client) {
-
         this.udpConnection = client;
     }
 }
