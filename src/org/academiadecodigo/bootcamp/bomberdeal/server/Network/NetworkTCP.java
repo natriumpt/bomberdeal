@@ -26,7 +26,7 @@ public class NetworkTCP {
         clients = new LinkedList<>();
         //pool = Executors.newFixedThreadPool(3);
 
-        File file = new File("res/bombermap.txt");
+        File file = new File("res/bombermap2.txt");
 
         System.out.println(file.exists());
     }

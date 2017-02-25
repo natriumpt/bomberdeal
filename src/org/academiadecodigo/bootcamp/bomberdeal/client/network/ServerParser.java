@@ -36,11 +36,7 @@ public class ServerParser {
 
         }
 
-        System.out.println(message.equals(ServerMessages.SERVER_MAP_SENDING_LAYOUT));
-
         if(message.equals(ServerMessages.SERVER_MAP_SENDING_LAYOUT)) {
-
-                System.out.println("hello");
 
                 grid.init(reader);
                 grid.drawGrid();
