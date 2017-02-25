@@ -4,6 +4,7 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.Fire;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Collidable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Destroyable;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.DestroyableByFire;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class CollisionChecker {
         for (Interactable fire : interactables) {
             if (fire instanceof Fire) {
                 for (Interactable destroyable : interactables) {
-                    if (destroyable instanceof Destroyable) {
+                    if (destroyable instanceof DestroyableByFire) {
                         destroyable.destroy();
                     }
                 }

@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 public class Player {
@@ -7,11 +8,12 @@ public class Player {
     private String name;
     private int x;
     private int y;
+    private InetAddress id;
 
-    private ArrayList<Player> players;
 
-    public Player(){
-        players = new ArrayList<>();
+    public Player(String name, InetAddress id){
+        this.name = name;
+        this.id = id;
     }
 
     public String getName() {
@@ -38,12 +40,23 @@ public class Player {
         this.y = y;
     }
 
-    public int getSize(){
-        return players.size();
-    }
-
-    public void addPlayers(Player player){
-        players.add(player);
+    public void setPlayerSpawn(int i){
+           if (i == 0){ //tudo ao martelo
+               setX(0);
+               setY(0);
+           }
+           if (i == 1){
+               setX(15);
+               setY(0);
+           }
+           if (i == 2){
+               setX(0);
+               setY(15);
+           }
+           if (i == 3){
+               setX(15);
+               setY(15);
+           }
     }
 
 }

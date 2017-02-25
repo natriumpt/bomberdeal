@@ -43,7 +43,6 @@ public class NetworkTCP {
         System.out.println("Waiting for requests\n");
 
         while (true) {
-            //pool.submit(new branco.udpprototype.ClientDispatcher(clientSocket,this));
             clientSocket = serverSocket.accept();
             System.out.println("Request received.");
 
