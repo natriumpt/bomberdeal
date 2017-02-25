@@ -16,17 +16,28 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
     private int y;
     private TileType tileType;
     private int range;
+    private boolean isOnField;
     private final int BOMB_TIMER = 3000; // in ms
 
-    public Bomb(int x, int y) {
+    public Bomb(int x, int y, Observable observer) {
+        this.observer = observer;
         this.x = x;
         this.y = y;
         tileType = TileType.BOMB;
         range = 3;
+    }
 
+    public void explode(int x,int y) {
+        this.x = x;
+        this.y = y;
+        isOnField = true;
         setTimer(BOMB_TIMER);
 
         observer.update(this); //to remove bomb from interactables list
+    }
+
+    public boolean isOnField(){
+        return isOnField;
     }
 
     private void setTimer(int delay) {
@@ -51,6 +62,7 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
             Fire fireUp = new Fire(x, y - i);
             updateObserver(fireUp);
         }
+        isOnField = false;
     }
 
     @Override
@@ -73,9 +85,6 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
         observer.update(fire);
     }
 
-    public void attach(Observable observer) {
-        this.observer = observer;
-    }
 }
 
 
