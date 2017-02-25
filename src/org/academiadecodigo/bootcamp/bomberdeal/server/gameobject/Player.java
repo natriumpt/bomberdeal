@@ -1,55 +1,85 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gameobject;
 
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.GameCore;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Collidable;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Destroyable;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.DestroyableByFire;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.CollisionDetector;
 
-public class Player implements Interactable, Destroyable, Collidable{
+import java.util.Timer;
+import java.util.TimerTask;
 
+
+public class Player implements Interactable, DestroyableByFire, Collidable{
+
+    private Observable observer;
     private int x;
     private int y;
+
     private TileType type;
     private CollisionDetector collisionDetector;
 
-    public Player(CollisionDetector collisionDetector){
+    private boolean onCooldown;
+    private Timer cooldownTimer;
+
+    public Player(int x, int y, CollisionDetector collisionDetector, Observable observer){
         this.collisionDetector= collisionDetector;
         this.type = TileType.PLAYER;
+        this.observer = observer;
+        this.x = x;
+        this.y = y;
+        cooldownTimer = new Timer();
+    }
+
+    private void beginCooldown() {
+        onCooldown = true;
+        cooldownTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                onCooldown = false;
+            }
+        }, 50);
     }
 
     public void move(Direction direction) {
-
-        switch (direction) {
-            case NORTH:
-                if (!collisionDetector.checkCollision(x, y-1)){
-                    y--;
-                }
-                break;
-            case SOUTH:
-                if (!collisionDetector.checkCollision(x, y+1)){
-                y++;
-            }break;
-            case WEST:
-                if (!collisionDetector.checkCollision(x-1, y)){
-                x--;
+        if (!onCooldown) {
+            switch (direction) {
+                case NORTH:
+                    if (!collisionDetector.checkCollision(x, y - 1)) {
+                        y--;
+                    }
+                    break;
+                case SOUTH:
+                    if (!collisionDetector.checkCollision(x, y + 1)) {
+                        y++;
+                    }
+                    break;
+                case WEST:
+                    if (!collisionDetector.checkCollision(x - 1, y)) {
+                        x--;
+                    }
+                    break;
+                case EAST:
+                    if (!collisionDetector.checkCollision(x + 1, y)) {
+                        x++;
+                    }
+                    break;
             }
-                break;
-            case EAST:
-                if (!collisionDetector.checkCollision(x+1, y)){
-                x++;
-            }
-                break;
         }
-
-        throw new UnsupportedOperationException();
     }
 
     public void deploy() {
-        Bomb bomb = new Bomb();
+        Bomb bomb = new Bomb(x, y);
+        bomb.attach(observer);
         notifyAll(bomb);
 
+        if (!onCooldown) {
+            // TODO: Implement action here
+            beginCooldown();
+        }
         throw new UnsupportedOperationException();
     }
 
@@ -78,7 +108,13 @@ public class Player implements Interactable, Destroyable, Collidable{
         NORTH,
         SOUTH,
         WEST,
-        EAST;
+        EAST
+    }
+
+    private void notifyAll(Bomb bomb) {
+
+        observer.update(bomb);
+
     }
 
 }
