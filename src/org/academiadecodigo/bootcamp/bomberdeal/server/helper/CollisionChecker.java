@@ -4,7 +4,6 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.Fire;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.PowerUp;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Collidable;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Destroyable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.DestroyableByFire;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
 

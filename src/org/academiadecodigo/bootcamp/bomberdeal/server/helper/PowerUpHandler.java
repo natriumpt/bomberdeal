@@ -9,7 +9,6 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.PowerUp;
  */
 public class PowerUpHandler {
     public Player[] players;
-    public PowerUp powerUp;
 
     public PowerUpHandler(Player[]players){
         this.players = players;
@@ -17,10 +16,10 @@ public class PowerUpHandler {
 
     public void assingPowerUp(PowerUp powerup, Player player){
         if(powerup.getPowerUpType() == PowerUpType.BOMBS){
-           player.increaseBombs();
+           player.increaseBombs(player);
         }
         if(powerup.getPowerUpType() == PowerUpType.RANGE){
-            for(int i = 0; i < player.getNrOfBombs; i++){
+            for(int i = 0; i < player.getNrOfBombs(); i++){
                 player.getBomb(i).setRange();
             }
         }
