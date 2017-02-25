@@ -8,7 +8,7 @@ import java.io.*;
 public class FileEditor {
 
     public String Loader() throws IOException {
-        BufferedReader inputStream = new BufferedReader(new FileReader("test-res/cenas"));
+        BufferedReader inputStream = new BufferedReader(new FileReader("res/bomberman.txt"));
         String  totalLines = "";
         String thisLine = null;
 

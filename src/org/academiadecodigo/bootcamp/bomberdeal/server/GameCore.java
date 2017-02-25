@@ -1,14 +1,9 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server;
 
-import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
-import org.academiadecodigo.bootcamp.bomberdeal.server.helper.CollisionChecker;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+public abstract class GameCore implements Runnable {
+    /*
+=======
+>>>>>>> 60748dc03429346bf5c302fd1ef557442de01e64
 
 
 public class GameCore implements Runnable, Observable {
@@ -37,7 +32,6 @@ public class GameCore implements Runnable, Observable {
 
     }
 
-
     @Override
     public void update(Interactable gameObject) {
 
@@ -47,4 +41,5 @@ public class GameCore implements Runnable, Observable {
             interactables.add(gameObject);
         }
     }
+*/
 }

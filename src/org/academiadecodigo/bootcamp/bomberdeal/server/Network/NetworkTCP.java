@@ -26,7 +26,7 @@ public class NetworkTCP {
         clients = new LinkedList<>();
         //pool = Executors.newFixedThreadPool(3);
 
-        File file = new File("test-res/cenas");
+        File file = new File("res/bombermap.txt");
 
         System.out.println(file.exists());
     }
@@ -43,7 +43,6 @@ public class NetworkTCP {
         System.out.println("Waiting for requests\n");
 
         while (true) {
-            //pool.submit(new branco.udpprototype.ClientDispatcher(clientSocket,this));
             clientSocket = serverSocket.accept();
             System.out.println("Request received.");
 
