@@ -36,6 +36,7 @@ public class GridLanterna implements Grid {
             }
 
             gridMap = gridMapBuilder.toString();
+            System.out.println(gridMap);
 
         } catch (IOException e) {
             e.printStackTrace();

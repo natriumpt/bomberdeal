@@ -62,7 +62,7 @@ public class Game {
         playerName = menu.getUsername();
 
         try {
-            tcpSocket = new Socket("192.168.0.123", 8080);
+            tcpSocket = new Socket("localhost", 8080);
             udpSocket = new DatagramSocket(8779);
         } catch (IOException e) {
             e.printStackTrace();
