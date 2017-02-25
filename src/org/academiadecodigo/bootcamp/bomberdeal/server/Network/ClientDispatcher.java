@@ -1,7 +1,4 @@
-package com.github.natriumpt.bomberdeal.server.Network;
-
-import com.github.natriumpt.bomberdeal.server.FileEditor;
-import com.github.natriumpt.bomberdeal.server.Player;
+package org.academiadecodigo.bootcamp.bomberdeal.server.Network;
 
 import java.io.*;
 import java.net.Socket;
@@ -12,10 +9,9 @@ public class ClientDispatcher implements Runnable {
     private Socket clientSocket;
     BufferedReader in;
     BufferedWriter out;
-    private com.github.natriumpt.bomberdeal.server.Network.NetworkTCP server;
+    private NetworkTCP server;
     NetworkUDP udpServer ;
     FileEditor fileEditor;
-    Player player;
     //ClientInterpret clientInterpret;
 
     public ClientDispatcher(Socket clientSocket, NetworkTCP server) throws IOException {

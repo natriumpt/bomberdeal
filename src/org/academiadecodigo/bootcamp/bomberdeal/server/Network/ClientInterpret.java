@@ -1,4 +1,4 @@
-package com.github.natriumpt.bomberdeal.server;
+package org.academiadecodigo.bootcamp.bomberdeal.server.Network;
 
 /**
  * Created by codecadet on 2/24/17.

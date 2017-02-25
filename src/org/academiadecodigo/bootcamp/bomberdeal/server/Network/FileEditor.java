@@ -1,4 +1,4 @@
-package com.github.natriumpt.bomberdeal.server;
+package org.academiadecodigo.bootcamp.bomberdeal.server.Network;
 
 import java.io.*;
 
