@@ -1,7 +1,5 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gameobject;
 
-import org.academiadecodigo.bootcamp.bomberdeal.server.GameCore;
-
 public class Player {
 
     private int x;
