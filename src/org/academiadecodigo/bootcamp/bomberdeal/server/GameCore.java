@@ -1,14 +1,11 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server;
 
-import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.Fire;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Collidable;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Destroyable;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
+
 
 import java.util.List;
 
-public class GameCore implements Runnable {
+public abstract class GameCore implements Runnable {
+    /*
 
     private List<Interactable> interactables;
     private Field field;
@@ -57,5 +54,5 @@ public class GameCore implements Runnable {
 
     }
 
-
+*/
 }

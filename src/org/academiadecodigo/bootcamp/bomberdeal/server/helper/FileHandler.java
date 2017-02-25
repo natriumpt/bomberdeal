@@ -1,6 +1,7 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.helper;
 
-import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
+
+import org.academiadecodigo.bootcamp.bomberdeal.serverold.gamefield.Grid;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

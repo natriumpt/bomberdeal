@@ -12,6 +12,7 @@ public class ClientDispatcher implements Runnable {
     private NetworkTCP server;
     NetworkUDP udpServer ;
     FileEditor fileEditor;
+    private int state;
     //ClientInterpret clientInterpret;
 
     public ClientDispatcher(Socket clientSocket, NetworkTCP server) throws IOException {
@@ -21,6 +22,7 @@ public class ClientDispatcher implements Runnable {
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
         this.server = server;
+        state = 0;
     }
 
     public void run() {
@@ -30,6 +32,16 @@ public class ClientDispatcher implements Runnable {
 
             System.out.println(Thread.currentThread().getName());
             try {
+                //switch (state){
+                  //  case 0:
+                    //    while (elapsedTime < 30*1000 && (player.getSize() < 2)) {
+
+
+                      //  }
+
+                      //  break;
+
+                send("SENDING");
                 System.out.println(fileEditor.Loader());
                 send(fileEditor.Loader());
                 send("MAP:SENT");
@@ -45,7 +57,7 @@ public class ClientDispatcher implements Runnable {
 
                         //player.addPlayers();
                     //}
-               // }
+              //  }
             } catch (IOException e) {
                 e.printStackTrace();
             }
