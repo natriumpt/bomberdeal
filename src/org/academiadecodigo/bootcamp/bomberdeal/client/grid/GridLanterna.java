@@ -28,8 +28,6 @@ public class GridLanterna implements Grid {
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             StringBuilder gridMapBuilder = new StringBuilder(gridMap);
 
-            System.out.println("here at grid creation");
-
             gridMap = reader.readLine();
 
             while (!gridMap.equals("MAP:SENT")) {
@@ -39,7 +37,6 @@ public class GridLanterna implements Grid {
 
             gridMap = gridMapBuilder.toString();
 
-            System.out.println("grid created");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,8 +66,7 @@ public class GridLanterna implements Grid {
             for (int j = 0; j < gridArray[i].length(); j++) {
 
                 positions[i][j] = new Position(j, i, String.valueOf(gridArray[i].charAt(j)));
-                screen.putString(positions[i][j].posX, positions[i][j].posY, positions[i][j].tile, TileType.getTileType(positions[i][j].tile).getTextColor(), TileType.getTileType(positions[i][j].tile).getColor());
-
+                screen.putString(positions[i][j].posX, positions[i][j].posY, positions[i][j].tile, TiletypeLanterna.getTileType(positions[i][j].tile).getTextColor(), TiletypeLanterna.getTileType(positions[i][j].tile).getColor());
             }
 
         }
@@ -79,13 +75,12 @@ public class GridLanterna implements Grid {
 
     }
 
-    public void refreshScreen() {
+    public void updateScreen() {
 
         for (int i = 0; i < positions.length; i++) {
 
             for (int j = 0; j < positions[i].length; j++) {
-                screen.putString(positions[i][j].posX, positions[i][j].posY, positions[i][j].tile, TileType.getTileType(positions[i][j].tile).getTextColor(), TileType.getTileType(positions[i][j].tile).getColor());
-
+                screen.putString(positions[i][j].posX, positions[i][j].posY, positions[i][j].tile, TiletypeLanterna.getTileType(positions[i][j].tile).getTextColor(), TiletypeLanterna.getTileType(positions[i][j].tile).getColor());
             }
 
         }
@@ -93,7 +88,7 @@ public class GridLanterna implements Grid {
         screen.refresh();
     }
 
-    public void updatePosition(int x, int y, String type) {
+    public void updatePositions(int x, int y, String type) {
 
         positions[x][y].tile = type;
 
@@ -102,5 +97,16 @@ public class GridLanterna implements Grid {
     public Screen getScreen() {
         return this.screen;
     }
+
+    /*
+    private void drawSquare(int posX, int posY, Terminal.Color color) {
+        screenWriter.setBackgroundColor(color);
+        screenWriter.drawString(posX * CURSOR_WIDTH, posY, "  ");
+    }
+
+    private void clearScreen() {
+        screenWriter.setBackgroundColor(Terminal.Color.DEFAULT);
+        screenWriter.fillScreen(' ');
+    }*/
 
 }

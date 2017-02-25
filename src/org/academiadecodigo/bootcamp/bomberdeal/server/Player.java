@@ -1,4 +1,4 @@
-package com.github.natriumpt.bomberdeal.server;
+package org.academiadecodigo.bootcamp.bomberdeal.server;
 
 import java.util.ArrayList;
 

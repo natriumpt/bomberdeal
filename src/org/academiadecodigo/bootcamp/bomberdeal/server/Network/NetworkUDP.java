@@ -1,4 +1,4 @@
-package com.github.natriumpt.bomberdeal.server.Network;
+package org.academiadecodigo.bootcamp.bomberdeal.server.Network;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -15,7 +15,7 @@ public class NetworkUDP {
     DatagramPacket incoming;
     DatagramSocket socket;
 
-    private LinkedList<com.github.natriumpt.bomberdeal.server.Network.ClientDispatcher> clients;
+    private LinkedList<ClientDispatcher> clients;
     private ServerSocket serverSocket;
     private String message;
     ExecutorService pool;
