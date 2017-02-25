@@ -7,7 +7,7 @@ public class Field {
     private final int FIELD_WIDTH = 15;
     private final int FIELD_HEIGHT = 13;
 
-    private TileType[][] field;
+    private String[][] field;
 
     public Field() {
 
@@ -16,7 +16,7 @@ public class Field {
 
     }
 
-    public TileType[][] getField() {
+    public String[][] getField() {
         //TODO: Provide client with populated map information
         return field;
     }
@@ -25,11 +25,11 @@ public class Field {
      * Creates the field array
      */
     private void createEmptyField() {
-        field = new TileType[FIELD_WIDTH][FIELD_HEIGHT];
+        field = new String[FIELD_WIDTH][FIELD_HEIGHT];
 
         for (int x = 0; x < FIELD_WIDTH; x++) {
             for (int y = 0; y < FIELD_HEIGHT; y++) {
-                field[x][y] = TileType.EMPTY;
+                field[x][y] = TileType.EMPTY.getSymbol();
             }
         }
     }
