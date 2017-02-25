@@ -1,7 +1,58 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gameobject;
 
-/**
- * Created by betacodecadet on 24/02/17.
- */
-public class Fire {
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
+import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class Fire implements Interactable {
+
+    private Observable observer;
+    private int x;
+    private int y;
+    private TileType tileType;
+
+    public Fire(int x, int y) {
+        this.x = x;
+        this.y = y;
+        tileType = TileType.FIRE;
+
+        setTimer(500);
+
+    }
+
+    public void attach(Observable observer) {
+        this.observer = observer;
+    }
+
+    private void setTimer(int delay) {
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                destroy();
+            }
+        }, delay);
+    }
+
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public TileType getTileType() {
+        return tileType;
+    }
+
+    @Override
+    public void destroy() {
+        observer.update(this); //to remove from interactables list
+    }
 }

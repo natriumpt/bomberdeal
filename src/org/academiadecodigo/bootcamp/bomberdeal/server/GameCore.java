@@ -1,48 +1,25 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server;
 
-
-
-import java.util.List;
-
 public abstract class GameCore implements Runnable {
     /*
+=======
+>>>>>>> 60748dc03429346bf5c302fd1ef557442de01e64
 
-    private List<Interactable> interactables;
+
+public class GameCore implements Runnable, Observable {
+
     private Field field;
+    private List<Interactable> interactables;
+    private CollisionChecker collisionChecker;
 
     public GameCore() {
         this.field = new Field();
+        this.interactables = Collections.synchronizedList(new ArrayList<>());
+        this.collisionChecker = new CollisionChecker(field,interactables);
     }
 
-    public boolean checkCollision(int x, int y) {
-
-        if (field.isWall(x, y)) {
-            return true;
-        }
-
-        for (Interactable collidable : interactables) {
-            if (collidable instanceof Collidable) {
-                if (collidable.getX() == x && collidable.getY() == y)
-                    return true;
-            }
-        }
-
-        return false;
-
-    }
-
-    public void processFire() {
-
-        for (Interactable fire : interactables) {
-            if (fire instanceof Fire) {
-                for (Interactable destroyable : interactables) {
-                    if (destroyable instanceof Destroyable) {
-                        destroyable.destroy();
-                    }
-                }
-            }
-        }
-
+    public void processFire(){
+        collisionChecker.processFire();
     }
 
     @Override
@@ -50,9 +27,19 @@ public abstract class GameCore implements Runnable {
 
         while (true) {
 
+
         }
 
     }
 
+    @Override
+    public void update(Interactable gameObject) {
+
+        if(interactables.contains(gameObject)) {
+            interactables.remove(gameObject);
+        } else {
+            interactables.add(gameObject);
+        }
+    }
 */
 }
