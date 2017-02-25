@@ -10,6 +10,6 @@ public final class PlayerMessages {
     public static final String PLAYER_MOVEUP = "MOVEMENT:UP";
     public static final String PLAYER_MOVEDOWN = "MOVEMENT:DOWN";
     public static final String PLAYER_DEPLOY = "BOMB:PLAYER_DEPLOY";
-    public static final String PLAYER_PLAYERID = "PLAYER_PLAYERID:";
+    public static final String PLAYER_PLAYERID = "PLAYER:PLAYERID:";
 
 }

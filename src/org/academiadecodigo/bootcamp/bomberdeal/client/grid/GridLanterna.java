@@ -1,39 +1,52 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client.grid;
 
 import com.googlecode.lanterna.TerminalFacade;
+import com.googlecode.lanterna.gui.Interactable;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
+import org.academiadecodigo.bootcamp.bomberdeal.client.network.ServerMessages;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GridLanterna implements Grid {
 
     private int cols;
     private int rows;
+    private static int maxRows;
     private Screen screen;
     private ScreenWriter screenWriter;
     private Position[][] positions;
     private String gridMap;
 
-    public GridLanterna(InputStream stream) {
+    public GridLanterna() {
 
         gridMap = "";
+        maxRows = 30;
+
+    }
+
+    public void init(BufferedReader reader) {
 
         try {
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             StringBuilder gridMapBuilder = new StringBuilder(gridMap);
 
-            gridMap = reader.readLine();
+            String serverMessage = reader.readLine();
+            System.out.println("reading map");
 
-            while (!gridMap.equals("MAP:SENT")) {
-                gridMapBuilder.append(gridMap + "\n");
-                gridMap = reader.readLine();
+            while (!serverMessage.equals(ServerMessages.SERVER_MAP_LAYOUT_COMPLETE)) {
+
+                gridMapBuilder.append(serverMessage + "\r\n");
+                serverMessage = reader.readLine();
+
             }
+
+            System.out.println("finished map");
 
             gridMap = gridMapBuilder.toString();
 
@@ -43,30 +56,47 @@ public class GridLanterna implements Grid {
 
     }
 
-    public void init() {
+    public void drawGrid() {
 
         String[] gridArray = gridMap.split("\n");
 
-        screen = TerminalFacade.createScreen();
-        screen.getTerminal().getTerminalSize().setColumns(gridArray[0].length());
-        screen.getTerminal().getTerminalSize().setRows(gridArray.length);
+        this.rows = Integer.valueOf(gridArray[gridArray.length - 2].split(";")[1]);
+        this.cols = Integer.valueOf(gridArray[gridArray.length - 2].split(";")[0]);
 
-        positions = new Position[gridArray.length][gridArray[0].length()];
+        screen = TerminalFacade.createScreen();
+        screen.getTerminal().getTerminalSize().setColumns(rows * 2);
+        screen.getTerminal().getTerminalSize().setRows(cols);
+
+        positions = new Position[cols + 1][rows + 1];
 
         screenWriter = new ScreenWriter(screen);
         screenWriter.setBackgroundColor(Terminal.Color.BLACK);
 
         screen.startScreen();
 
-        this.cols = gridArray[0].length();
-        this.rows = gridArray.length;
+        int posX;
+        int posY;
 
-        for (int i = 0; i < gridArray.length; i++) {
+        Pattern pattern = Pattern.compile("^(\\d+);(\\d+);(\\w+)$");
 
-            for (int j = 0; j < gridArray[i].length(); j++) {
+        for (int i = 0; i < gridArray.length - 2; i++) {
 
-                positions[i][j] = new Position(j, i, String.valueOf(gridArray[i].charAt(j)));
-                screen.putString(positions[i][j].posX, positions[i][j].posY, positions[i][j].tile, TiletypeLanterna.getTileType(positions[i][j].tile).getTextColor(), TiletypeLanterna.getTileType(positions[i][j].tile).getColor());
+            Matcher matcher = pattern.matcher(gridArray[i]);
+
+            while (matcher.find()) {
+
+                posY = Integer.valueOf(matcher.group(1));
+                posX = Integer.valueOf(matcher.group(2));
+
+                System.out.println(posY + " posX");
+                System.out.println(posX + " posY");
+
+                positions[posY][posX] = new Position(posX, posY, matcher.group(3));
+
+                screen.putString(positions[posY][posX].posX, positions[posY][posX].posY, matcher.group(3),
+                        TiletypeLanterna.getTileType(positions[posY][posX].tile).getTextColor(),
+                        TiletypeLanterna.getTileType(positions[posY][posX].tile).getColor());
+
             }
 
         }
@@ -80,7 +110,11 @@ public class GridLanterna implements Grid {
         for (int i = 0; i < positions.length; i++) {
 
             for (int j = 0; j < positions[i].length; j++) {
-                screen.putString(positions[i][j].posX, positions[i][j].posY, positions[i][j].tile, TiletypeLanterna.getTileType(positions[i][j].tile).getTextColor(), TiletypeLanterna.getTileType(positions[i][j].tile).getColor());
+
+                screen.putString(positions[i][j].posX, positions[i][j].posY, positions[i][j].tile,
+                        TiletypeLanterna.getTileType(positions[i][j].tile).getTextColor(),
+                        TiletypeLanterna.getTileType(positions[i][j].tile).getColor());
+
             }
 
         }

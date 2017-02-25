@@ -10,10 +10,12 @@ public class ClientNetworkTCP implements Runnable {
 
     private Socket tcpSocket;
     private Game game;
+    private ServerParser parser;
 
-    public ClientNetworkTCP(Socket socket) {
+    public ClientNetworkTCP(Socket socket, ServerParser parser) {
 
         tcpSocket = socket;
+        this.parser = parser;
 
     }
 
@@ -59,7 +61,11 @@ public class ClientNetworkTCP implements Runnable {
 
                     while (message != null) {
 
-                        message = message + reader.readLine();
+                        synchronized (parser) {
+                            parser.handleTCPMessage(message, reader);
+                        }
+
+                        message = reader.readLine();
 
                     }
 
@@ -77,4 +83,7 @@ public class ClientNetworkTCP implements Runnable {
 
     }
 
+    public Socket getTcpSocket() {
+        return tcpSocket;
+    }
 }

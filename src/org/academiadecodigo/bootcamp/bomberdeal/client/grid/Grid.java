@@ -1,16 +1,21 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client.grid;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+
 /**
  * * * Created by codecadet on 2/24/17.
  * */
 
 public interface Grid {
 
-    public void init();
+    void init(BufferedReader reader);
 
-    public void updateScreen();
+    void updateScreen();
 
-    public void updatePositions(int x, int y, String type);
+    void updatePositions(int x, int y, String type);
+
+    void drawGrid();
 
 }
 

@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/*
 public class FileHandler {
     /*
 
@@ -30,8 +30,6 @@ public class FileHandler {
                 int gridH = Integer.parseInt(sizeMatcher.group(2));
                 System.out.println(gridW);
                 System.out.println(gridH);
-                grid.loadNewGrid(gridW, gridH);
-                ((Rebuildable) grid.getRepresentation()).rebuild(gridW, gridH);
             }
 
             currentLine = bufferedReader.readLine();
@@ -45,8 +43,6 @@ public class FileHandler {
                 while (valueMatcher.find()) {
                     int cellX = Integer.parseInt(valueMatcher.group(1));
                     int cellY = Integer.parseInt(valueMatcher.group(2));
-                    CellType cellType = (CellType.valueOf(valueMatcher.group(3)));
-                    grid.getCell()[cellX][cellY].setCellType(cellType);
                 }
 
                 currentLine = bufferedReader.readLine();
@@ -76,4 +72,4 @@ public class FileHandler {
     */
 
 
-}
+}*/
