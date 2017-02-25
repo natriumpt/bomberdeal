@@ -3,12 +3,13 @@ package org.academiadecodigo.bootcamp.bomberdeal.server;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.Fire;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Collidable;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Destroyable;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.DestroyableByFire;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
 
 import java.util.List;
 
-public class GameCore implements Runnable {
+public class GameCore implements Runnable, Observable {
 
     private List<Interactable> interactables;
     private Field field;
@@ -39,7 +40,7 @@ public class GameCore implements Runnable {
         for (Interactable fire : interactables) {
             if (fire instanceof Fire) {
                 for (Interactable destroyable : interactables) {
-                    if (destroyable instanceof Destroyable) {
+                    if (destroyable instanceof DestroyableByFire) {
                         destroyable.destroy();
                     }
                 }
@@ -58,4 +59,13 @@ public class GameCore implements Runnable {
     }
 
 
+    @Override
+    public void update(Interactable gameObject) {
+
+        if(interactables.contains(gameObject)) {
+            interactables.remove(gameObject);
+        } else {
+            interactables.add(gameObject);
+        }
+    }
 }

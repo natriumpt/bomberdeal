@@ -1,23 +1,24 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gameobject;
 
-import org.academiadecodigo.bootcamp.bomberdeal.server.GameCore;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
 
 public class Player {
 
+    private Observable observer;
     private int x;
     private int y;
 
-    public Player() {
-
+    public Player(Observable observer) {
+        this.observer = observer;
     }
 
     public void move(Direction direction) {
 
         switch (direction) {
             case NORTH:
-                if (!checkCollision(x, y - 1)) {
-                    y--;
-                }
+//                if (!checkCollision(x, y - 1)) {
+//                    y--;
+//                }
                 break;
             case SOUTH:
                 break;
@@ -31,14 +32,22 @@ public class Player {
     }
 
     public void deploy() {
-        throw new UnsupportedOperationException();
+        Bomb bomb = new Bomb(x, y);
+        bomb.attach(observer);
+        notifyAll(bomb);
     }
 
     private enum Direction {
         NORTH,
         SOUTH,
         WEST,
-        EAST;
+        EAST
+    }
+
+    private void notifyAll(Bomb bomb) {
+
+        observer.update(bomb);
+
     }
 
 }

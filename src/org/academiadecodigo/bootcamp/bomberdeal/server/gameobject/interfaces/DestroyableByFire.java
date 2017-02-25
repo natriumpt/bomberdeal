@@ -1,4 +1,7 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces;
 
-public interface Destroyable {
+public interface DestroyableByFire {
+
+
+
 }
