@@ -12,6 +12,7 @@ import org.academiadecodigo.bootcamp.bomberdeal.client.menu.Menu;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.DatagramSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -74,44 +75,28 @@ public class Game {
 
     public void runGame() {
 
-        try {
+        serverHandler = new ServerParser(this, grid);
 
-            grid = new GridLanterna(tcpSocket.getInputStream());
+        UserInput input = new UserInputLanterna(((GridLanterna) grid).getScreen());
 
-            grid.init();
+        Thread inputThread = new Thread(input);
+        inputThread.start();
 
-            serverHandler = new ServerParser(this, grid);
+        ClientNetworkTCP networkTCP = new ClientNetworkTCP(tcpSocket, serverHandler);
+        ClientNetworkUDP networkUDP = new ClientNetworkUDP(udpSocket, tcpSocket.getInetAddress(), 8080, serverHandler);
 
-            UserInput input= new UserInputLanterna(((GridLanterna) grid).getScreen());
+        Thread tcpConnection = new Thread(networkTCP);
+        Thread udpConnection = new Thread(networkUDP);
 
-            Thread inputThread = new Thread(input);
-            inputThread.start();
+        input.setUdpConnection(networkUDP);
 
-            ClientNetworkTCP networkTCP = new ClientNetworkTCP(tcpSocket);
-            ClientNetworkUDP networkUDP = new ClientNetworkUDP(udpSocket, tcpSocket.getInetAddress(), 8080, serverHandler);
-
-            Thread tcpConnection = new Thread(networkTCP);
-            Thread udpConnection = new Thread(networkUDP);
-
-            input.setUdpConnection(networkUDP);
-
-            tcpConnection.start();
-            udpConnection.start();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (SocketException e) {
-            e.printStackTrace();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        tcpConnection.start();
+        udpConnection.start();
 
         //TODO:
         // Game phase loop
 
-        while(true) {
+        while (true) {
 
         }
 
@@ -127,6 +112,12 @@ public class Game {
             }
             continue;
         }
+
+    }
+
+    public void initGrid(InputStream stream) {
+
+        this.grid = new GridLanterna(stream);
 
     }
 }

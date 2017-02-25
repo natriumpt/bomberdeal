@@ -89,7 +89,7 @@ public class ClientNetworkUDP implements Runnable {
 
                     udpSocket.receive(receivePacket);
 
-                    parser.handleUDPMessage(new String(receiveBuffer, 0, receivePacket.getLength()));
+                    parser.handleUDPMessage(new String(receiveBuffer, 0, receivePacket.getLength()), udpSocket);
 
                 } catch (IOException e) {
                     e.printStackTrace();

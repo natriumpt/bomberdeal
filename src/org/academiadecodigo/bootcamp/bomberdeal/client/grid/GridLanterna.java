@@ -36,6 +36,7 @@ public class GridLanterna implements Grid {
             }
 
             gridMap = gridMapBuilder.toString();
+            System.out.println(gridMap);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,7 +46,7 @@ public class GridLanterna implements Grid {
 
     public void init() {
 
-        String[] gridArray = gridMap.split("\n");
+        String[] gridArray = gridMap.split(":");
 
         screen = TerminalFacade.createScreen();
         screen.getTerminal().getTerminalSize().setColumns(gridArray[0].length());

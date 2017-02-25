@@ -1,5 +1,7 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client.grid;
 
+import java.io.InputStream;
+
 /**
  * * * Created by codecadet on 2/24/17.
  * */

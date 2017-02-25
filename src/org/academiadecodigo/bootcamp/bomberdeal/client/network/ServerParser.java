@@ -4,6 +4,10 @@ import org.academiadecodigo.bootcamp.bomberdeal.client.Game;
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ServerMessages;
 
+import java.io.IOException;
+import java.net.DatagramSocket;
+import java.net.Socket;
+
 /**
  * Created by codecadet on 2/24/17.
  */
@@ -19,15 +23,21 @@ public class ServerParser {
 
     }
 
-    public void handleTCPMessage(String message) {
+    public void handleTCPMessage(String message, Socket socket) {
 
         if(message.equals(ServerMessages.SERVER_MAP_SENDING_LAYOUT)) {
-            grid.init();
+            try {
+                game.initGrid(socket.getInputStream());
+                grid.init();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
 
     }
 
-    public void handleUDPMessage(String message) {
+    public void handleUDPMessage(String message, DatagramSocket socket) {
 
         System.out.println(message);
         String[] posUpdate = message.split(":");
