@@ -8,31 +8,20 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Int
 
 import java.util.List;
 
+import static com.sun.tools.classfile.AccessFlags.Kind.Field;
+
 public class GameCore implements Runnable {
 
-    private List<Interactable> interactables;
+    protected List<Interactable> interactables;
     private Field field;
 
     public GameCore() {
         this.field = new Field();
     }
 
-    public boolean checkCollision(int x, int y) {
-
-        if (field.isWall(x, y)) {
-            return true;
-        }
-
-        for (Interactable collidable : interactables) {
-            if (collidable instanceof Collidable) {
-                if (collidable.getX() == x && collidable.getY() == y)
-                    return true;
-            }
-        }
-
-        return false;
-
-    }
+   public void addInteractabletoGame(Interactable interactable){
+       interactables.add(interactable);
+   }
 
     public void processFire() {
 
