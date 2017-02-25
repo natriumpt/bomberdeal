@@ -1,18 +1,9 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server;
 
-import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.Fire;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Collidable;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.DestroyableByFire;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
-import org.academiadecodigo.bootcamp.bomberdeal.server.helper.CollisionChecker;
-
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+public abstract class GameCore implements Runnable {
+    /*
+=======
+>>>>>>> 60748dc03429346bf5c302fd1ef557442de01e64
 
 
 public class GameCore implements Runnable, Observable {
@@ -24,38 +15,11 @@ public class GameCore implements Runnable, Observable {
     public GameCore() {
         this.field = new Field();
         this.interactables = Collections.synchronizedList(new ArrayList<>());
-        this.collisionChecker = new CollisionChecker();
+        this.collisionChecker = new CollisionChecker(field,interactables);
     }
 
-    public boolean checkCollision(int x, int y) {
-
-        if (field.isWall(x, y)) {
-            return true;
-        }
-
-        for (Interactable collidable : interactables) {
-            if (collidable instanceof Collidable) {
-                if (collidable.getX() == x && collidable.getY() == y)
-                    return true;
-            }
-        }
-
-        return false;
-
-    }
-
-    public void processFire() {
-
-        for (Interactable fire : interactables) {
-            if (fire instanceof Fire) {
-                for (Interactable destroyable : interactables) {
-                    if (destroyable instanceof DestroyableByFire) {
-                        destroyable.destroy();
-                    }
-                }
-            }
-        }
-
+    public void processFire(){
+        collisionChecker.processFire();
     }
 
     @Override
@@ -63,10 +27,10 @@ public class GameCore implements Runnable, Observable {
 
         while (true) {
 
+
         }
 
     }
-
 
     @Override
     public void update(Interactable gameObject) {
@@ -77,4 +41,5 @@ public class GameCore implements Runnable, Observable {
             interactables.add(gameObject);
         }
     }
+*/
 }

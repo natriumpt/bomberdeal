@@ -6,38 +6,52 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Int
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
 
+import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * Created by betacodecadet on 24/02/17.
- */
-public class Bomb implements Interactable, DestroyableByFire, Collidable{
+public class Bomb implements Interactable, DestroyableByFire, Collidable {
 
     private Observable observer;
     private int x;
     private int y;
     private TileType tileType;
     private int range;
+    private final int BOMB_TIMER = 3000; // in ms
 
-    public Bomb(int x, int y){
+    public Bomb(int x, int y) {
         this.x = x;
         this.y = y;
         tileType = TileType.BOMB;
+        range = 3;
 
-        TimerTask timer = new TimerTask() {
+        setTimer(BOMB_TIMER);
+
+        observer.update(this); //to remove bomb from interactables list
+    }
+
+    private void setTimer(int delay) {
+        new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-
+                destroy();
             }
-        };
-        destroy();
-        observer.update(this);
+        }, delay);
     }
 
-    public void attach(Observable observer){
-        this.observer = observer;
-    }
+    @Override
+    public void destroy() {
 
+        for (int i = 1; i <= range; i++) {
+            Fire fireRight = new Fire(x + i, y);
+            updateObserver(fireRight);
+            Fire fireLeft = new Fire(x - i, y);
+            updateObserver(fireLeft);
+            Fire fireDown = new Fire(x, y + i);
+            updateObserver(fireDown);
+            Fire fireUp = new Fire(x, y - i);
+            updateObserver(fireUp);
+        }
+    }
 
     @Override
     public int getX() {
@@ -54,37 +68,18 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable{
         return tileType;
     }
 
-    @Override
-    public void destroy() {
-        for(int row = 0; row<range; row++){
-            createVerticalFire(row);
-        }
-
-        for (int col = 0; col<range; col++){
-            createHorizontalFire(col);
-        }
-
+    private void updateObserver(Fire fire) {
+        fire.attach(observer);
+        observer.update(fire);
     }
 
-    private void createHorizontalFire(int col) {
-        Fire horizontalFire = new Fire(x+col, y);
-        horizontalFire.attach(observer);
-        observer.update(horizontalFire);
-        Fire horizontalFire1 = new Fire(x-col,y);
-        horizontalFire1.attach(observer);
-        observer.update(horizontalFire1);
-    }
-
-    private void createVerticalFire(int row) {
-        Fire verticalFire = new Fire(x,y+row);
-        verticalFire.attach(observer);
-        observer.update(verticalFire);
-        Fire verticalFire1 = new Fire(x,y-row);
-        verticalFire1.attach(observer);
-        observer.update(verticalFire1);
+    public void attach(Observable observer) {
+        this.observer = observer;
     }
 
     public void setRange() {
         range++;
     }
 }
+
+
