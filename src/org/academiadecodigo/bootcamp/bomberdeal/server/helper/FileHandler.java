@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FileHandler {
+    /*
 
     public static void loadMap(String filename, Grid grid) {
 
@@ -72,6 +73,7 @@ public class FileHandler {
         }
 
     }
+    */
 
 
 }
