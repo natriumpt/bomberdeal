@@ -1,13 +1,12 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gameobject;
 
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
-import org.academiadecodigo.bootcamp.bomberdeal.server.GameCore;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Collidable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.DestroyableByFire;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
+import org.academiadecodigo.bootcamp.bomberdeal.server.helper.CollisionChecker;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
-import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.CollisionDetector;
+
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,13 +19,13 @@ public class Player implements Interactable, DestroyableByFire, Collidable{
     private int y;
 
     private TileType type;
-    private CollisionDetector collisionDetector;
+    private CollisionChecker collisionChecker;
 
     private boolean onCooldown;
     private Timer cooldownTimer;
 
-    public Player(int x, int y, CollisionDetector collisionDetector, Observable observer){
-        this.collisionDetector= collisionDetector;
+    public Player(int x, int y, CollisionChecker collisionChecker, Observable observer){
+        this.collisionChecker = collisionChecker;
         this.type = TileType.PLAYER;
         this.observer = observer;
         this.x = x;
@@ -48,22 +47,22 @@ public class Player implements Interactable, DestroyableByFire, Collidable{
         if (!onCooldown) {
             switch (direction) {
                 case NORTH:
-                    if (!collisionDetector.checkCollision(x, y - 1)) {
+                    if (!collisionChecker.checkCollision(x, y - 1)) {
                         y--;
                     }
                     break;
                 case SOUTH:
-                    if (!collisionDetector.checkCollision(x, y + 1)) {
+                    if (!collisionChecker.checkCollision(x, y + 1)) {
                         y++;
                     }
                     break;
                 case WEST:
-                    if (!collisionDetector.checkCollision(x - 1, y)) {
+                    if (!collisionChecker.checkCollision(x - 1, y)) {
                         x--;
                     }
                     break;
                 case EAST:
-                    if (!collisionDetector.checkCollision(x + 1, y)) {
+                    if (!collisionChecker.checkCollision(x + 1, y)) {
                         x++;
                     }
                     break;
