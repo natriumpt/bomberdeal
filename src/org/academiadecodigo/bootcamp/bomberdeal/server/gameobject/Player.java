@@ -6,6 +6,7 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Col
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.DestroyableByFire;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
+import org.academiadecodigo.bootcamp.bomberdeal.server.helper.PowerUpHandler;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.CollisionDetector;
 
@@ -21,6 +22,8 @@ public class Player implements Interactable, DestroyableByFire, Collidable{
 
     private TileType type;
     private CollisionDetector collisionDetector;
+    private PowerUpHandler powerUpHandler;
+    private PowerUp powerUp;
 
     private boolean onCooldown;
     private Timer cooldownTimer;
@@ -32,6 +35,16 @@ public class Player implements Interactable, DestroyableByFire, Collidable{
         this.x = x;
         this.y = y;
         cooldownTimer = new Timer();
+    }
+
+    public void catchPowerUp(){
+        if()
+
+    }
+
+    public void increaseBombs(){
+       Bomb bomb = new Bomb();
+        bombs.add(bombs.size(), bomb);
     }
 
     private void beginCooldown() {
@@ -50,25 +63,36 @@ public class Player implements Interactable, DestroyableByFire, Collidable{
                 case NORTH:
                     if (!collisionDetector.checkCollision(x, y - 1)) {
                         y--;
+                        checkPowerUps();
                     }
                     break;
                 case SOUTH:
                     if (!collisionDetector.checkCollision(x, y + 1)) {
                         y++;
+                        checkPowerUps();
                     }
                     break;
                 case WEST:
                     if (!collisionDetector.checkCollision(x - 1, y)) {
                         x--;
+                        checkPowerUps();
                     }
                     break;
                 case EAST:
                     if (!collisionDetector.checkCollision(x + 1, y)) {
                         x++;
+                        checkPowerUps();
                     }
                     break;
             }
         }
+    }
+
+    private void checkPowerUps() {
+        if(!collisionChecker.checkPowerUp() == null){
+            powerUpHandler.assingPowerUp(collisionChecker.chekPowerUp());
+        }
+        ;
     }
 
     public void deploy() {

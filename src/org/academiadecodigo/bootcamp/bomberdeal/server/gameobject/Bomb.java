@@ -83,4 +83,8 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable{
         verticalFire1.attach(observer);
         observer.update(verticalFire1);
     }
+
+    public void setRange() {
+        range++;
+    }
 }

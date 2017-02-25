@@ -5,6 +5,7 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Des
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
+import org.academiadecodigo.bootcamp.bomberdeal.server.helper.Util;
 
 /**
  * Created by betacodecadet on 24/02/17.
@@ -43,6 +44,9 @@ public class Crate implements Collidable, DestroyableByFire, Interactable{
 
     @Override
     public void destroy() {
+       if(Util.trueWithProb(0.6)){
+           PowerUp powerUp = new PowerUp();
+       }
         observer.update(this);
     }
 }
