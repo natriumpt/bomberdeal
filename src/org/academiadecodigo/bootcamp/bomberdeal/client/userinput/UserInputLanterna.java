@@ -21,12 +21,28 @@ public class UserInputLanterna implements UserInput {
 
         while(true) {
 
+            if(screen == null) {
+
+                try {
+
+                    Thread.sleep(17);
+                    continue;
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
             Key key = screen.readInput();
 
             if (key == null) {
+
                 try {
+
                     Thread.sleep(17);
                     continue;
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

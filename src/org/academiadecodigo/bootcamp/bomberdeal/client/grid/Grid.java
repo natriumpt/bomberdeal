@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client.grid;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
 
 /**
@@ -8,11 +9,13 @@ import java.io.InputStream;
 
 public interface Grid {
 
-    public void init();
+    void init(BufferedReader reader);
 
-    public void updateScreen();
+    void updateScreen();
 
-    public void updatePositions(int x, int y, String type);
+    void updatePositions(int x, int y, String type);
+
+    void drawGrid();
 
 }
 

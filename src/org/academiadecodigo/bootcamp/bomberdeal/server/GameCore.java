@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class GameCore implements Runnable {
+public abstract class GameCore implements Runnable {
+    /*
 
     private Field field;
     private List<Interactable> interactables;
@@ -30,5 +31,5 @@ public class GameCore implements Runnable {
 
     }
 
-
+*/
 }

@@ -8,7 +8,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 public enum TiletypeLanterna {
 
     FLOOR("0", Terminal.Color.CYAN, Terminal.Color.CYAN),
-    WALL("1", Terminal.Color.BLUE, Terminal.Color.BLUE),
+    WALL("WALL", Terminal.Color.BLUE, Terminal.Color.BLUE),
     PLAYER("P", Terminal.Color.WHITE, Terminal.Color.BLACK),
     BOMB("B", Terminal.Color.BLACK, Terminal.Color.WHITE),
     FIRE("F", Terminal.Color.RED, Terminal.Color.RED),

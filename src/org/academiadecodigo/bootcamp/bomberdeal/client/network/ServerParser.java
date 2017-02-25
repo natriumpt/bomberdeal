@@ -4,6 +4,7 @@ import org.academiadecodigo.bootcamp.bomberdeal.client.Game;
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ServerMessages;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.Socket;
@@ -23,27 +24,51 @@ public class ServerParser {
 
     }
 
-    public void handleTCPMessage(String message, Socket socket) {
+    public synchronized void handleTCPMessage(String message, BufferedReader reader) {
 
-        if(message.equals(ServerMessages.SERVER_MAP_SENDING_LAYOUT)) {
+        if(message == null) {
+
             try {
-                game.initGrid(socket.getInputStream());
-                grid.init();
-            } catch (IOException e) {
+                wait();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
         }
 
+        System.out.println(message.equals(ServerMessages.SERVER_MAP_SENDING_LAYOUT));
+
+        if(message.equals(ServerMessages.SERVER_MAP_SENDING_LAYOUT)) {
+
+                System.out.println("hello");
+
+                grid.init(reader);
+                grid.drawGrid();
+
+        }
+
+        notify();
     }
 
-    public void handleUDPMessage(String message, DatagramSocket socket) {
+    public synchronized void handleUDPMessage(String message, DatagramSocket socket) {
+
+        if(message == null) {
+
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
 
         System.out.println(message);
         String[] posUpdate = message.split(":");
 
         grid.updatePositions(Integer.parseInt(posUpdate[0]), Integer.parseInt(posUpdate[1]), posUpdate[2]);
         grid.updateScreen();
+
+        notify();
 
     }
 

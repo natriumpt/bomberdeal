@@ -61,7 +61,13 @@ public class ClientNetworkTCP implements Runnable {
 
                     while (message != null) {
 
-                        parser.handleTCPMessage(message, tcpSocket);
+                        System.out.println("TCP: " + message);
+
+                        synchronized (parser) {
+                            parser.handleTCPMessage(message, reader);
+                        }
+
+                        System.out.println("parsed message");
                         message = message + reader.readLine();
 
                     }

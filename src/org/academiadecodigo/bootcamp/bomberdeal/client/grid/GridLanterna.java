@@ -1,39 +1,56 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client.grid;
 
 import com.googlecode.lanterna.TerminalFacade;
+import com.googlecode.lanterna.gui.Interactable;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
+import org.academiadecodigo.bootcamp.bomberdeal.client.network.ServerMessages;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GridLanterna implements Grid {
 
     private int cols;
     private int rows;
+    private static int maxRows;
     private Screen screen;
     private ScreenWriter screenWriter;
     private Position[][] positions;
     private String gridMap;
 
-    public GridLanterna(InputStream stream) {
+    public GridLanterna() {
 
         gridMap = "";
+        maxRows = 30;
+
+    }
+
+    public void init(BufferedReader reader) {
 
         try {
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            //BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             StringBuilder gridMapBuilder = new StringBuilder(gridMap);
 
-            gridMap = reader.readLine();
+            String serverMessage = reader.readLine();
+            System.out.println("reading map");
 
-            while (!gridMap.equals("MAP:SENT")) {
-                gridMapBuilder.append(gridMap + "\n");
-                gridMap = reader.readLine();
+            while (!serverMessage.equals(ServerMessages.SERVER_MAP_LAYOUT_COMPLETE)) {
+
+                gridMapBuilder.append(serverMessage + "\r\n");
+                serverMessage = reader.readLine();
+                System.out.println(serverMessage);
+
             }
+
+            System.out.println("finished map");
 
             gridMap = gridMapBuilder.toString();
             System.out.println(gridMap);
@@ -44,30 +61,48 @@ public class GridLanterna implements Grid {
 
     }
 
-    public void init() {
+    public void drawGrid() {
 
-        String[] gridArray = gridMap.split(":");
+        String[] gridArray = gridMap.split("\n");
+
+        for(String msg: gridArray) {
+            System.out.println(msg);
+            System.out.println("printing");
+        }
+
+        this.rows = Integer.valueOf(gridArray[gridArray.length - 2].split(",")[1]);
+        this.cols = Integer.valueOf(gridArray[gridArray.length - 2].split(",")[0]);
+
 
         screen = TerminalFacade.createScreen();
-        screen.getTerminal().getTerminalSize().setColumns(gridArray[0].length());
-        screen.getTerminal().getTerminalSize().setRows(gridArray.length);
+        screen.getTerminal().getTerminalSize().setColumns(cols);
+        screen.getTerminal().getTerminalSize().setRows(rows);
 
-        positions = new Position[gridArray.length][gridArray[0].length()];
+        positions = new Position[cols][rows];
 
         screenWriter = new ScreenWriter(screen);
         screenWriter.setBackgroundColor(Terminal.Color.BLACK);
 
         screen.startScreen();
 
-        this.cols = gridArray[0].length();
-        this.rows = gridArray.length;
+        int posX;
+        int posY;
 
-        for (int i = 0; i < gridArray.length; i++) {
+        Pattern pattern = Pattern.compile("(\\d+),(\\d+),(\\w+),");
 
-            for (int j = 0; j < gridArray[i].length(); j++) {
+        for (int i = 0; i < gridArray.length - 2; i++) {
 
-                positions[i][j] = new Position(j, i, String.valueOf(gridArray[i].charAt(j)));
-                screen.putString(positions[i][j].posX, positions[i][j].posY, positions[i][j].tile, TiletypeLanterna.getTileType(positions[i][j].tile).getTextColor(), TiletypeLanterna.getTileType(positions[i][j].tile).getColor());
+            Matcher matcher = pattern.matcher(gridArray[i]);
+
+            while (matcher.find()) {
+                //for (int j = 0; j < gridArray[i].length(); j++) {
+
+                posX = Integer.valueOf(matcher.group(0));
+                posY = Integer.valueOf(matcher.group(1));
+
+                positions[posX][posY] = new Position(posY, posX, matcher.group(2));
+                screen.putString(posX * 2, posY, matcher.group(2), TiletypeLanterna.getTileType(positions[posX][posY].tile).getTextColor(), TiletypeLanterna.getTileType(positions[posX][posY].tile).getColor());
+                //}
             }
 
         }

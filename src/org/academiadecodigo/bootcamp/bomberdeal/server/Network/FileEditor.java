@@ -8,7 +8,7 @@ import java.io.*;
 public class FileEditor {
 
     public String Loader() throws IOException {
-        BufferedReader inputStream = new BufferedReader(new FileReader("test-res/cenas"));
+        BufferedReader inputStream = new BufferedReader(new FileReader("res/bombermap.txt"));
         String  totalLines = "";
         String thisLine = null;
 
@@ -22,6 +22,7 @@ public class FileEditor {
             
         }
 
+        totalLines.trim();
         System.out.println(totalLines);
 
         //inputStream.close();
@@ -29,7 +30,7 @@ public class FileEditor {
     }
 
     public void Writer(String string)throws IOException{
-        BufferedWriter outputStream = new BufferedWriter(new FileWriter("test-res/cenas"));
+        BufferedWriter outputStream = new BufferedWriter(new FileWriter("res/bombermap.txt"));
         outputStream.write(string,0,string.length());
         outputStream.close();
     }

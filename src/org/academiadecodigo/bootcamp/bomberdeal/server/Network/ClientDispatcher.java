@@ -1,5 +1,7 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.Network;
 
+import org.academiadecodigo.bootcamp.bomberdeal.client.network.ServerMessages;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -12,15 +14,22 @@ public class ClientDispatcher implements Runnable {
     private NetworkTCP server;
     NetworkUDP udpServer ;
     FileEditor fileEditor;
+    private int state;
     //ClientInterpret clientInterpret;
 
     public ClientDispatcher(Socket clientSocket, NetworkTCP server) throws IOException {
+
         fileEditor = new FileEditor();
         udpServer = new NetworkUDP(8080);
+
         this.clientSocket = clientSocket;
+
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+
         this.server = server;
+        state = 0;
+
     }
 
     public void run() {
@@ -30,22 +39,38 @@ public class ClientDispatcher implements Runnable {
 
             System.out.println(Thread.currentThread().getName());
             try {
+                //switch (state){
+                  //  case 0:
+                    //    while (elapsedTime < 30*1000 && (player.getSize() < 2)) {
+
+
+                      //  }
+
+                      //  break;
+
+                send(ServerMessages.SERVER_MAP_SENDING_LAYOUT);
+
                 System.out.println(fileEditor.Loader());
                 send(fileEditor.Loader());
-                send("MAP:SENT");
-                System.out.println("sent");
+
+                send(ServerMessages.SERVER_MAP_LAYOUT_COMPLETE);
+
+                System.out.println(ServerMessages.SERVER_MAP_LAYOUT_COMPLETE);
 
                 //  while (elapsedTime < 30*1000 && (player.getSize() < 2)) {
+
                 while(true) {
+
                     System.out.println(udpServer.listener());
                     udpServer.writer("10:10:F");
+
                 }
                     //if ((s = udpServer.listener()).contains("playerconnected")) { // rever palavra reservada
                         //player = new Player();
 
                         //player.addPlayers();
                     //}
-               // }
+              //  }
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -36,7 +36,7 @@ public class Game {
 
     public void startGame() {
 
-        Menu menu = new MenuLanterna();
+        /*Menu menu = new MenuLanterna();
 
         if(menu == null) {
             throw new ExceptionInInitializerError();
@@ -61,9 +61,10 @@ public class Game {
         }
 
         playerName = menu.getUsername();
+        */
 
         try {
-            tcpSocket = new Socket("192.168.0.123", 8080);
+            tcpSocket = new Socket("localhost", 8080);
             udpSocket = new DatagramSocket(8779);
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,18 +76,20 @@ public class Game {
 
     public void runGame() {
 
+        grid = new GridLanterna();
+
         serverHandler = new ServerParser(this, grid);
-
-        UserInput input = new UserInputLanterna(((GridLanterna) grid).getScreen());
-
-        Thread inputThread = new Thread(input);
-        inputThread.start();
 
         ClientNetworkTCP networkTCP = new ClientNetworkTCP(tcpSocket, serverHandler);
         ClientNetworkUDP networkUDP = new ClientNetworkUDP(udpSocket, tcpSocket.getInetAddress(), 8080, serverHandler);
 
         Thread tcpConnection = new Thread(networkTCP);
         Thread udpConnection = new Thread(networkUDP);
+
+        UserInput input = new UserInputLanterna(((GridLanterna) grid).getScreen());
+
+        Thread inputThread = new Thread(input);
+        inputThread.start();
 
         input.setUdpConnection(networkUDP);
 
@@ -116,8 +119,6 @@ public class Game {
     }
 
     public void initGrid(InputStream stream) {
-
-        this.grid = new GridLanterna(stream);
-
+        this.grid = new GridLanterna();
     }
 }
