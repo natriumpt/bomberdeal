@@ -18,6 +18,7 @@ public class ServerGame implements Runnable {
     public ServerGame() {
 
         players = new ArrayList<>();
+        field = new Field();
 
     }
 

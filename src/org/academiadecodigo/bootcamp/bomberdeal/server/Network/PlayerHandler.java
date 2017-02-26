@@ -1,6 +1,6 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.Network;
 
-import org.academiadecodigo.bootcamp.bomberdeal.server.Player;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.Player;
 
 import java.io.*;
 import java.net.DatagramSocket;

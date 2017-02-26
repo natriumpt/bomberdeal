@@ -38,4 +38,35 @@ public final class MapHandler {
         return totalLines;
     }
 
+    public static String getMapFill() {
+
+        String totalLines = "";
+
+        try {
+
+            BufferedReader inputStream = new BufferedReader(new FileReader("res/bombermapfill.txt"));
+            totalLines = "";
+            String thisLine = null;
+
+            thisLine = inputStream.readLine();
+
+            while (thisLine != null) {
+
+                totalLines += thisLine + "\r\n";
+
+                thisLine = inputStream.readLine();
+
+            }
+
+            inputStream.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return totalLines;
+    }
+
 }
