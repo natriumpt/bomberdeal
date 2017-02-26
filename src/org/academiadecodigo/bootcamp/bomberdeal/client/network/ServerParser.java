@@ -54,10 +54,17 @@ public class ServerParser {
 
         }
 
-        System.out.println(message);
-        String[] posUpdate = message.split(",");
+        String[] posUpdate = message.split("\n");
+        String[] posCoord;
 
-        grid.updatePositions(Integer.parseInt(posUpdate[0]), Integer.parseInt(posUpdate[1]), posUpdate[2]);
+        for(String serverPos: posUpdate) {
+
+            posCoord = serverPos.split(";");
+
+            grid.updatePositions(Integer.parseInt(posCoord[0]), Integer.parseInt(posCoord[1]), posCoord[2]);
+
+        }
+
         grid.updateScreen();
 
         notify();

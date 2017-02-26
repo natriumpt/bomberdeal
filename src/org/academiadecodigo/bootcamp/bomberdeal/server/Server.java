@@ -42,7 +42,7 @@ public class Server {
 
         ClientParser parser = new ClientParser();
 
-        Socket playerSocket = null;
+        Socket playerSocket;
         PlayerHandler player = null;
 
         ExecutorService playerPool = Executors.newFixedThreadPool(4);

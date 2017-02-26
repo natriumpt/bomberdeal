@@ -54,11 +54,13 @@ public class NetworkUDP implements Runnable {
 
         sendBuffer = message.getBytes();
 
-        DatagramPacket packet = new DatagramPacket(sendBuffer, sendBuffer.length, playerAddress, 8080);
+        DatagramPacket packet = new DatagramPacket(sendBuffer, sendBuffer.length, playerAddress, 8779);
 
         try {
 
+            System.out.println("SENDING UDP PACKET!");
             udpSocket.send(packet);
+            System.out.println("UDP PACKET SENT.");
 
         } catch (IOException e) {
             e.printStackTrace();

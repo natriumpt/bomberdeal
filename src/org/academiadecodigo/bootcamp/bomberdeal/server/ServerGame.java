@@ -20,7 +20,7 @@ public class ServerGame implements Runnable {
     public ServerGame() {
 
         players = new ArrayList<>();
-        Field field = new Field();
+        field = new Field();
 
     }
 
@@ -75,8 +75,10 @@ public class ServerGame implements Runnable {
 
         synchronized (players) {
 
-            for (PlayerHandler player : players) {
-                player.sendUDP(field.getField());
+            if(field != null) {
+                for (PlayerHandler player : players) {
+                    player.sendUDP(field.getField());
+                }
             }
 
         }

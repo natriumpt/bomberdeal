@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.Network;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.Player;
 
 import java.io.*;
@@ -49,19 +50,14 @@ public class PlayerHandler implements Runnable {
     }
 
     public synchronized void sendTCP(String message) {
-
-        try {
-            tcpConnection.send(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        tcpConnection.send(message);
     }
 
     public synchronized void sendUDP(String message) {
 
+        System.out.println("SENDING UPD PACKET PLAYER HANDLER");
         udpConnection.send(message);
-
+        System.out.println("SENT UDP PACKET PLAYER HANDLER");
     }
 
     /*long startTime = System.currentTimeMillis();

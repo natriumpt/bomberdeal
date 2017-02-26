@@ -19,15 +19,6 @@ public class Field {
         createEmptyField();
         populateField();
 
-        /*for(int i = 0; i < field.length; i++) {
-            for(int j = 0; j < field[i].length; j++) {
-                if(field[i][j] != null) {
-                    System.out.println(field[i][j]);
-                }
-            }
-        }*/
-
-
     }
 
     public String getField() {
@@ -45,14 +36,11 @@ public class Field {
                 x = String.valueOf(i);
                 y = String.valueOf(j);
 
-                if (!field[i][j].equals("EMPTY")) {
-                    builder.append(x + ServerNetworkMessages.COORDS_SPACE + y + ServerNetworkMessages.COORDS_SPACE +
-                            field[i][j]);
-                }
+                builder.append(x + ServerNetworkMessages.COORDS_SPACE + y + ServerNetworkMessages.COORDS_SPACE +
+                        field[i][j]);
 
                 builder.append("\n");
             }
-
 
         }
 
@@ -89,16 +77,6 @@ public class Field {
 
                     field[posY][posX] = matcher.group(3);
 
-                    /*if(field[posY][posX] == null) {
-
-                        System.out.println(posX + " position X");
-                        System.out.println(posY + " position Y");
-                        System.out.println(matcher.group(3) + " group 3 found.");
-                        System.out.println(field[posY][posX] + " field value");
-
-                    }*/
-
-
                 }
 
         }
@@ -129,7 +107,6 @@ public class Field {
                         break;
                     }
 
-                    System.out.println(matcher.group(3) + " group 3");
                     posY = Integer.valueOf(matcher.group(1));
                     posX = Integer.valueOf(matcher.group(2));
 
