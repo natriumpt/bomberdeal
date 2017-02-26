@@ -2,12 +2,9 @@ package org.academiadecodigo.bootcamp.bomberdeal.client.network;
 
 import org.academiadecodigo.bootcamp.bomberdeal.client.Game;
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
-
 import java.io.BufferedReader;
 
-/**
- * Created by codecadet on 2/24/17.
- */
+
 public class ServerParser {
 
     private Game game;
@@ -54,10 +51,17 @@ public class ServerParser {
 
         }
 
-        System.out.println(message);
-        String[] posUpdate = message.split(",");
+        String[] posUpdate = message.split("\n");
+        String[] posCoord;
 
-        grid.updatePositions(Integer.parseInt(posUpdate[0]), Integer.parseInt(posUpdate[1]), posUpdate[2]);
+        for(String serverPos: posUpdate) {
+
+            posCoord = serverPos.split(";");
+
+            grid.updatePositions(Integer.parseInt(posCoord[0]), Integer.parseInt(posCoord[1]), posCoord[2]);
+
+        }
+
         grid.updateScreen();
 
         notify();

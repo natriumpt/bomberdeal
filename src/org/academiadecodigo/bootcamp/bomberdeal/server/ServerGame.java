@@ -7,6 +7,8 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by andre on 2/26/2017.
@@ -29,7 +31,16 @@ public class ServerGame implements Runnable {
 
     private void waitForPlayers() {
 
+        while(players.size()<2) {
 
+            try {
+
+                Thread.sleep(1000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -64,22 +75,28 @@ public class ServerGame implements Runnable {
 
     //TODO: implement broadcastField method
 
-    /*public void broadcastField() {
+    public void broadcastField() {
 
         synchronized (players) {
 
-            for(PlayerHandler player: players) {
-                player.send(getCurrentField);
+            if(field != null) {
+                for (PlayerHandler player : players) {
+                    player.sendUDP(field.getField());
+                }
             }
 
         }
-
-    }*/
+    }
 
     @Override
     public void run() {
 
-
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                broadcastField();
+            }
+        }, 0, 17);
 
     }
 

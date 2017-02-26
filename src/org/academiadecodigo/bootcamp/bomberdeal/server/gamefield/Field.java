@@ -1,6 +1,7 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gamefield;
 
 import org.academiadecodigo.bootcamp.bomberdeal.server.Network.MapHandler;
+import org.academiadecodigo.bootcamp.bomberdeal.server.Network.ServerNetworkMessages;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
 
 import java.util.regex.Matcher;
@@ -20,9 +21,32 @@ public class Field {
 
     }
 
-    public String[][] getField() {
-        //TODO: Provide client with populated map information
-        return field;
+    public String getField() {
+
+        String populatedField = "";
+        StringBuilder builder = new StringBuilder(populatedField);
+
+        String x;
+        String y;
+
+        for(int i = 0; i < field.length; i++) {
+
+            for (int j = 0; j < field[i].length; j++) {
+
+                x = String.valueOf(i);
+                y = String.valueOf(j);
+
+                builder.append(x + ServerNetworkMessages.COORDS_SPACE + y + ServerNetworkMessages.COORDS_SPACE +
+                        field[i][j]);
+
+                builder.append("\n");
+            }
+
+        }
+
+        populatedField = builder.toString();
+
+        return populatedField;
     }
 
     /**
@@ -35,18 +59,12 @@ public class Field {
         this.fieldWidth = Integer.valueOf(mapField[mapField.length - 1].split(";")[1]);
         this.fieldHeight = Integer.valueOf(mapField[mapField.length - 2].split(";")[0]);
 
-        System.out.println(fieldWidth + 1);
-        System.out.println(fieldHeight + 1);
-
         field = new String[fieldWidth + 1][fieldHeight + 1];
 
         int posX;
         int posY;
 
-        String gridMap = "";
-        StringBuilder builder = new StringBuilder(gridMap);
-
-        Pattern pattern = Pattern.compile("^(\\d+);(\\d+);(\\w+)$");
+        Pattern pattern = Pattern.compile("^(\\w+);(\\w+);(\\w+)");
 
         for (int i = 0; i < mapField.length; i++) {
 
@@ -58,16 +76,10 @@ public class Field {
                     posX = Integer.valueOf(matcher.group(2));
 
                     field[posY][posX] = matcher.group(3);
-                    builder.append(matcher.group(3));
 
-                    if(posX == 14) {
-                        builder.append("\n");
-                    }
                 }
 
         }
-
-        System.out.println(builder.toString());
     }
 
     /**
@@ -80,8 +92,6 @@ public class Field {
         this.fieldWidth = Integer.valueOf(mapField[mapField.length - 1].split(";")[1]);
         this.fieldHeight = Integer.valueOf(mapField[mapField.length - 2].split(";")[0]);
 
-        field = new String[fieldWidth + 1][fieldHeight + 1];
-
         int posX;
         int posY;
 
@@ -93,7 +103,7 @@ public class Field {
 
                 while (matcher.find()) {
 
-                    if(matcher.group(3).equals("EMPTY")) {
+                    if (matcher.group(3).equals("EMPTY")) {
                         break;
                     }
 
