@@ -36,8 +36,8 @@ public class CollisionChecker {
 
     }
 
-    public boolean checkWall(int x, int y){
-        if(field.isWall(x, y)){
+    public boolean checkWall(int x, int y) {
+        if (field.isWall(x, y)) {
             return true;
         }
         return false;
@@ -60,14 +60,14 @@ public class CollisionChecker {
 
     }
 
-    public PowerUp checkPowerUp(int x, int y){
+    public PowerUp checkPowerUp(int x, int y) {
         PowerUp powerUp2 = null;
-       for (Interactable powerUp : interactables){
-          if(powerUp instanceof PowerUp){
-              powerUp2 = (PowerUp) powerUp;
-          }
-       }
-       return powerUp2;
+        for (Interactable powerUp : interactables) {
+            if (powerUp instanceof PowerUp) {
+                powerUp2 = (PowerUp) powerUp;
+            }
+        }
+        return powerUp2;
     }
 
 }

@@ -15,6 +15,7 @@ import java.util.*;
 public class GameCore implements Observable {
 
     private Field field;
+
     private ArrayList<PlayerHandler> playerHandlers;
     private List<Interactable> interactables;
     private CollisionChecker collisionChecker;
@@ -22,7 +23,7 @@ public class GameCore implements Observable {
 
     public GameCore() {
 
-        this.field = new Field();
+        this.field = new Field(this);
         this.interactables = Collections.synchronizedList(new ArrayList<>());
         this.collisionChecker = new CollisionChecker(field, interactables);
 
@@ -45,6 +46,7 @@ public class GameCore implements Observable {
 
     }
 
+
     public void setSpawnPoints(String spawnPoints) {
 
         String[] spawns = spawnPoints.split("\n");
@@ -66,8 +68,10 @@ public class GameCore implements Observable {
                 spawnCoords = spawn;
                 spawn = null;
             }
+            System.out.println(spawn + " spawn assigned");
 
         }
+
 
         return spawnCoords;
     }

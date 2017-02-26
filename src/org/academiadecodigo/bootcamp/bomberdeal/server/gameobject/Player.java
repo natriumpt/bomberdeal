@@ -1,6 +1,5 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gameobject;
 
-import org.academiadecodigo.bootcamp.bomberdeal.server.Network.PlayerHandler;
 import org.academiadecodigo.bootcamp.bomberdeal.server.Network.ServerNetworkMessages;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Collidable;
@@ -11,7 +10,6 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.helper.CollisionChecker;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
 
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -114,7 +112,7 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
 
     private void checkPowerUps() {
         if(!(collisionChecker.checkPowerUp(x,y) == null)){
-            powerUpHandler.assingPowerUp(collisionChecker.checkPowerUp(x, y), this);
+            powerUpHandler.assignPowerUp(collisionChecker.checkPowerUp(x, y), this);
         }
     }
 
