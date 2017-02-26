@@ -1,5 +1,7 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gameobject;
 
+import org.academiadecodigo.bootcamp.bomberdeal.server.Network.PlayerHandler;
+import org.academiadecodigo.bootcamp.bomberdeal.server.Network.ServerNetworkMessages;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Collidable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.DestroyableByFire;
@@ -24,30 +26,40 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
     private final int N_INITIAL_BOMB_ = 3; // in ms
     private TileType type;
     private PowerUpHandler powerUpHandler;
-    private PowerUp powerUp;
     private CollisionChecker collisionChecker;
-    private InetAddress inetAddress;
+    private boolean alive;
 
     private boolean onCooldown;
     private Timer cooldownTimer;
 
-    public Player(int x, int y, CollisionChecker collisionChecker, Observable observer, InetAddress inetAddress) {
+    public Player(String spawnPointCoords, CollisionChecker collisionChecker, Observable observer) {
+
         this.collisionChecker = collisionChecker;
         this.type = TileType.PLAYER;
+
         this.observer = observer;
-        this.x = x;
-        this.y = y;
-        this.inetAddress = inetAddress;
+
+        String[] coords = spawnPointCoords.split(";");
+
+        x = Integer.valueOf(coords[0]);
+        y = Integer.valueOf(coords[1]);
+
+        alive = true;
+
         cooldownTimer = new Timer();
         bombs = new ArrayList<>();
+
         for (int bomb = 0; bomb < N_INITIAL_BOMB_; bomb++) {
             bombs.add(bomb, new Bomb(x, y, observer, collisionChecker));
         }
+
     }
 
     public void increaseBombs(Player player){
-       Bomb bomb = new Bomb(player.getX(), player.getY(), observer, collisionChecker);
+
+        Bomb bomb = new Bomb(player.getX(), player.getY(), observer, collisionChecker);
         bombs.add(bombs.size(), bomb);
+
     }
 
     private void beginCooldown() {
@@ -61,6 +73,7 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
     }
 
     public void move(String direction) {
+
         if (!onCooldown) {
             switch (direction) {
                 case "UP":
@@ -116,8 +129,7 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
         }
 
         if (!onCooldown) {
-            // TODO: Implement action here
-            beginCooldown();
+            beginCooldown(); //by Alexandre 23/02/2017 RIP in Pepperonis
         }
     }
 
@@ -140,11 +152,15 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
     public void destroy() {
         System.out.println("Player morreu");
         observer.update(this);
+        alive = false;
     }
 
+    public String getPosition() {
+        return x + ServerNetworkMessages.COORDS_SPACE + y + ServerNetworkMessages.COORDS_SPACE + "Y";
+    }
 
-    public InetAddress getInetAddress(){
-        return inetAddress;
+    public boolean isAlive() {
+        return alive;
     }
 
     private void notifyAll(Bomb bomb) {

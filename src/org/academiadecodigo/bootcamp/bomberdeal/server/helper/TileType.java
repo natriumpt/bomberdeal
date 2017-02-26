@@ -7,6 +7,7 @@ public enum TileType {
     BOMB("B"),
     CRATE("C"),
     FIRE("F"),
+    YOU("Y"),
     PLAYER("P"),
     SPAWN("S"),
     POWERUP("@");

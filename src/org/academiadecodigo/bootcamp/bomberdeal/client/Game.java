@@ -98,7 +98,7 @@ public class Game {
 
         //TODO: loop grid update with server messages
 
-        /*Timer gameLoop = new Timer();
+        Timer gameLoop = new Timer();
 
         gameLoop.scheduleAtFixedRate(new TimerTask() {
 
@@ -108,7 +108,6 @@ public class Game {
             }
 
         }, 34, 17);
-        */
 
     }
 

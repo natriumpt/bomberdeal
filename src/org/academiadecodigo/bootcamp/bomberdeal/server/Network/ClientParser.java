@@ -46,7 +46,7 @@ public class ClientParser {
 
     //TODO: parse player actions through UDP messages
 
-    public synchronized void handleUDPMessage(String message, InetAddress inetAddress) {
+    public synchronized void handleUDPMessage(String message, PlayerHandler playerHandler) {
 
         Pattern pattern = Pattern.compile("^(\\w+):(\\w+)$");
         Matcher matcher = pattern.matcher(message);
@@ -55,24 +55,22 @@ public class ClientParser {
 
             if (matcher.group(1).equals("MOVEMENT")) {
 
-                if (matcher.group(2).equals("LEFT")) {
-                    observer.convertAction("LEFT", inetAddress);
+                System.out.println("cá estou bailando");
 
+                if (matcher.group(2).equals("LEFT")) {
+                    playerHandler.getPlayer().move("LEFT");
                 }
 
                 if (matcher.group(2).equals("RIGHT")) {
-                    observer.convertAction("LEFT", inetAddress);
-
+                    playerHandler.getPlayer().move("RIGHT");
                 }
 
                 if (matcher.group(2).equals("UP")) {
-                    observer.convertAction("LEFT", inetAddress);
-
+                    playerHandler.getPlayer().move("UP");
                 }
 
                 if (matcher.group(2).equals("DOWN")) {
-                    observer.convertAction("LEFT", inetAddress);
-
+                    playerHandler.getPlayer().move("DOWN");
                 }
 
             }
@@ -80,8 +78,7 @@ public class ClientParser {
             if (matcher.group(1).equals("ACTION")) {
 
                 if (matcher.group(2).equals("BOMB_DEPLOY")) {
-                    observer.convertAction("LEFT", inetAddress);
-
+                    playerHandler.getPlayer().deploy();
                 }
 
             }

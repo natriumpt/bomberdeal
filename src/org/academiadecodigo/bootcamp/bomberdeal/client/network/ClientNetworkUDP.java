@@ -35,9 +35,6 @@ public class ClientNetworkUDP implements Runnable {
     @Override
     public void run() {
 
-        Timer timer = new Timer(true);
-        //timer.scheduleAtFixedRate(createPacketSenderTask(createNewDat), 0, 17);
-
         Thread udpListenerThread = new Thread(new NetworkUDPReceiver());
         udpListenerThread.start();
 
@@ -57,23 +54,6 @@ public class ClientNetworkUDP implements Runnable {
             e.printStackTrace();
         }
 
-    }
-
-    public TimerTask createPacketSenderTask(DatagramPacket packet) {
-
-        return new TimerTask() {
-
-            @Override
-            public void run() {
-
-                try {
-                    udpSocket.send(packet);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        };
     }
 
     public class NetworkUDPReceiver implements Runnable {
@@ -99,7 +79,5 @@ public class ClientNetworkUDP implements Runnable {
             }
 
         }
-
     }
-
 }

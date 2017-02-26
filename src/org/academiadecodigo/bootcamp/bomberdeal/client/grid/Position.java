@@ -15,6 +15,4 @@ public class Position {
         this.tile = tile;
 
     }
-
-
 }

@@ -117,6 +117,29 @@ public class Field {
         }
     }
 
+    public String getAvailableSpawns() {
+
+        String spawns = "";
+
+        for(int i = 0; i < field.length; i++) {
+
+            for(int j = 0; j < field[i].length; j++) {
+
+                if(field[i][j].equals("S")) {
+
+                    spawns += i + ServerNetworkMessages.COORDS_SPACE + j +
+                            ServerNetworkMessages.COORDS_SPACE + field[i][j] + "\n";
+
+                }
+
+            }
+
+        }
+
+        return spawns;
+
+    }
+
     /**
      * Returns true if the TileType in the coordinates is WALL
      *
