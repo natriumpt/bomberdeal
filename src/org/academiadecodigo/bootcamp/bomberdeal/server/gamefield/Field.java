@@ -107,6 +107,8 @@ public class Field {
                     break;
                 }
 
+
+
                 posY = Integer.valueOf(matcher.group(1));
                 posX = Integer.valueOf(matcher.group(2));
 

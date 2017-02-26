@@ -155,6 +155,7 @@ public class GameCore implements Observable {
 
                 for (PlayerHandler player : playerHandlers) {
 
+                    player.sendUDP(field.getField());
                     player.sendUDP(convertAllInteractablesToString());
 
                     if(player.getPlayer().isAlive()) {
