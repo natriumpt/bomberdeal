@@ -111,7 +111,7 @@ public class GameCore implements Observable {
     public String interactableToString(int i) {
 
         return interactables.get(i).getX() + ServerNetworkMessages.COORDS_SPACE + interactables.get(i).getY() +
-                ServerNetworkMessages.COORDS_SPACE + interactables.get(i).getTileType() + "\n";
+                ServerNetworkMessages.COORDS_SPACE + interactables.get(i).getTileType().getSymbol() + "\n";
 
     }
 
@@ -159,6 +159,8 @@ public class GameCore implements Observable {
 
                 for (PlayerHandler player : playerHandlers) {
 
+                    System.out.println("CONVERTING " + convertAllInteractablesToString() + " CONVERTED INTERACTABLES");
+
                     player.sendUDP(field.getField());
                     player.sendUDP(convertAllInteractablesToString());
 
@@ -188,6 +190,10 @@ public class GameCore implements Observable {
 
     public CollisionChecker getCollisionChecker() {
         return collisionChecker;
+    }
+
+    public Field getField() {
+        return field;
     }
 
 }

@@ -1,6 +1,7 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gameobject;
 
 import org.academiadecodigo.bootcamp.bomberdeal.server.Network.ServerNetworkMessages;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Collidable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.DestroyableByFire;
@@ -26,11 +27,12 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
     private PowerUpHandler powerUpHandler;
     private CollisionChecker collisionChecker;
     private boolean alive;
+    private Field field;
 
     private boolean onCooldown;
     private Timer cooldownTimer;
 
-    public Player(String spawnPointCoords, CollisionChecker collisionChecker, Observable observer) {
+    public Player(String spawnPointCoords, CollisionChecker collisionChecker, Observable observer, Field field) {
 
         this.collisionChecker = collisionChecker;
         this.type = TileType.PLAYER;
@@ -46,16 +48,17 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
 
         cooldownTimer = new Timer();
         bombs = new ArrayList<>();
+        this.field = field;
 
         for (int bomb = 0; bomb < N_INITIAL_BOMB_; bomb++) {
-            bombs.add(bomb, new Bomb(x, y, observer, collisionChecker));
+            bombs.add(bomb, new Bomb(x, y, observer, collisionChecker, field));
         }
 
     }
 
     public void increaseBombs(Player player){
 
-        Bomb bomb = new Bomb(player.getX(), player.getY(), observer, collisionChecker);
+        Bomb bomb = new Bomb(player.getX(), player.getY(), observer, collisionChecker, field);
         bombs.add(bombs.size(), bomb);
 
     }
@@ -129,6 +132,11 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
         if (!onCooldown) {
             beginCooldown(); //by Alexandre 23/02/2017 RIP in Pepperonis
         }
+    }
+
+    @Override
+    public void setField(Field field) {
+
     }
 
     @Override
