@@ -57,15 +57,21 @@ public class ClientNetworkTCP implements Runnable {
 
                 try {
 
+                    System.out.println("WAITING FOR SERVER MESSAGE!");
+
                     String message = reader.readLine();
 
                     while (message != null) {
+
+                        System.out.println("MESSAGE RECEIVED FROM SERVER: " + message);
 
                         synchronized (parser) {
                             parser.handleTCPMessage(message, reader);
                         }
 
                         message = reader.readLine();
+
+                        ;
 
                     }
 

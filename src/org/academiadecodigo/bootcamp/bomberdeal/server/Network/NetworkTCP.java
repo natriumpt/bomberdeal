@@ -1,7 +1,6 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.Network;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
@@ -10,48 +9,50 @@ import java.util.concurrent.ExecutorService;
 /**
  * Created by codecadet on 2/22/17.
  */
-public class NetworkTCP {
+public class NetworkTCP implements Runnable {
 
-    private LinkedList<ClientDispatcher> clients;
-    private int portNumber = 8080;
-    private ServerSocket serverSocket;
-    private String message;
-    ExecutorService pool;
+    private Socket clientSocket;
+    private ClientParser parser;
+    private BufferedReader inStream;
+    private PrintWriter outStream;
 
+    public NetworkTCP(Socket clientSocket, ClientParser parser) throws IOException {
 
-    public NetworkTCP() throws IOException {
+        this.clientSocket = clientSocket;
+        this.parser = parser;
 
-        this.serverSocket = new ServerSocket(portNumber);
-        System.out.println("serverold.serverold connected on " + portNumber + "...");
-        clients = new LinkedList<>();
-        //pool = Executors.newFixedThreadPool(3);
+        inStream = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        outStream = new PrintWriter(clientSocket.getOutputStream());
 
-        File file = new File("res/bombermap2.txt");
-
-        System.out.println(file.exists());
     }
 
-    public void sendAll(String message) throws IOException {
-        for (ClientDispatcher client : clients){
-            client.send(message);
+    @Override
+    public void run() {
+
+        try {
+
+            String playerMessage = inStream.readLine();
+
+            while (playerMessage != null) {
+
+                parser.handleTCPMessage(playerMessage);
+                playerMessage = inStream.readLine();
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 
-    public void runServer() throws IOException {
+    public void send(String message) throws IOException {
 
-        Socket clientSocket = new Socket();
-        System.out.println("Waiting for requests\n");
+        System.out.println("SENDIND TCP MESSAGE: " + message + " ###");
 
-        while (true) {
-            clientSocket = serverSocket.accept();
-            System.out.println("Request received.");
+        outStream.write(message + "\r\n");
+        outStream.flush();
 
-            ClientDispatcher clientDispatcher = new ClientDispatcher(clientSocket, this);
-            clients.add(clientDispatcher);
-
-            Thread t = new Thread(clientDispatcher);
-            t.start();
-
-        }
     }
+
 }

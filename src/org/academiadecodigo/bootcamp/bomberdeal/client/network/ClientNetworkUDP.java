@@ -26,7 +26,6 @@ public class ClientNetworkUDP implements Runnable {
         serverAddress = address;
         this.portNumber = portNumber;
 
-        sendBuffer = new byte[1500];
         receiveBuffer = new byte[1500];
 
         this.parser = parser;
@@ -89,10 +88,8 @@ public class ClientNetworkUDP implements Runnable {
 
                     udpSocket.receive(receivePacket);
 
-                    System.out.println("UDP parser");
-
                     synchronized (parser) {
-                        parser.handleUDPMessage(new String(receiveBuffer, 0, receivePacket.getLength()), udpSocket);
+                        parser.handleUDPMessage(new String(receiveBuffer, 0, receivePacket.getLength()));
                     }
 
                 } catch (IOException e) {

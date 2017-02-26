@@ -4,7 +4,8 @@ import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
-import org.academiadecodigo.bootcamp.bomberdeal.client.network.ServerMessages;
+import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkMessages;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,7 +38,9 @@ public class GridLanterna implements Grid {
             StringBuilder gridMapBuilder = new StringBuilder(gridMap);
 
             String serverMessage = reader.readLine();
-            while (!serverMessage.equals(ServerMessages.SERVER_MAP_LAYOUT_COMPLETE)) {
+
+
+            while (!serverMessage.equals(ClientNetworkMessages.SERVER_MAP_LAYOUT_COMPLETE)) {
 
                 gridMapBuilder.append(serverMessage + "\r\n");
                 serverMessage = reader.readLine();

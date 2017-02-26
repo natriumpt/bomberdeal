@@ -2,9 +2,8 @@ package org.academiadecodigo.bootcamp.bomberdeal.client.network;
 
 import org.academiadecodigo.bootcamp.bomberdeal.client.Game;
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
-
 import java.io.BufferedReader;
-import java.net.DatagramSocket;
+
 
 public class ServerParser {
 
@@ -30,7 +29,7 @@ public class ServerParser {
 
         }
 
-        if(message.equals(ServerMessages.SERVER_MAP_SENDING_LAYOUT)) {
+        if(message.equals(ClientNetworkMessages.SERVER_MAP_SENDING_LAYOUT)) {
 
                 grid.init(reader);
                 grid.drawGrid();
@@ -40,7 +39,7 @@ public class ServerParser {
         notify();
     }
 
-    public synchronized void handleUDPMessage(String message, DatagramSocket socket) {
+    public synchronized void handleUDPMessage(String message) {
 
         if(message == null) {
 
@@ -55,6 +54,7 @@ public class ServerParser {
         System.out.println(message);
 
         String[] posUpdate = message.split("^(\\d+);(\\d+);(\\w+)$");
+
 
         grid.updatePositions(Integer.parseInt(posUpdate[0]), Integer.parseInt(posUpdate[1]), posUpdate[2]);
         grid.updateScreen();
