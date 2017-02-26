@@ -72,7 +72,6 @@ public class GameCore implements Observable {
 
         }
 
-
         return spawnCoords;
     }
 
