@@ -1,24 +1,40 @@
 package org.academiadecodigo.bootcamp.Server;
 
-import org.academiadecodigo.bootcamp.Server.gridserver.GridServer;
 
-/**
- * Created by codecadet on 2/24/17.
- */
+import apple.laf.JRSUIConstants;
+import org.academiadecodigo.bootcamp.bomberdeal.server.GameCore;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.Bomb;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.Player;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
+import org.academiadecodigo.bootcamp.bomberdeal.server.helper.CollisionChecker;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class MainTest {
     public static void main(String[] args) {
 
-        GridServer grid = new GridServer(5, 5);
+        List<Interactable> interactables;
+        interactables=Collections.synchronizedList(new ArrayList<>());
+        GameCore gameCore = new GameCore();
 
-        for(int i = 0; i < 5; i++){
-            grid.getPosition(i, 0).setTileType("W");
-        }
+        Player player = new Player(2,3,gameCore.getCollisionChecker(), gameCore);
+        interactables.add(player);
+        System.out.println(interactables.size());
+        System.out.println(interactables.get(0).getTileType());
+        System.out.println("X: " + player.getX());
+        player.move(Player.Direction.WEST);
+        System.out.println(("X: " + player.getX()));
+        System.out.println("Nr of Bombs: " + player.getNrOfBombs());
+//        player.deploy();
+        player.move(Player.Direction.WEST);
+        System.out.println("X: " + player.getX() + " Y: " + player.getY());
 
-        grid.getPosition(2,2).setTileType("P");
-        grid.getPlayer(0).setPosition(grid.getPosition(2,2));
-        grid.getPlayer(0).moveLeft();
+//        player.getBomb(0).destroy();
 
-
+        player.deploy();
 
     }
 }

@@ -38,7 +38,17 @@ public class Field {
      * Populates the field with the pre-set map tiles
      */
     private void populateField() {
-        throw new UnsupportedOperationException();
+        for(int y = 0; y < FIELD_HEIGHT; y++){
+            field[0][y] = TileType.WALL.getSymbol();
+        }
+    }
+
+    public void map(){
+        for(int x= 0; x<FIELD_WIDTH; x++){
+            for(int y=0; y<FIELD_HEIGHT; y++){
+                System.out.println(field[x][y]);
+            }
+        }
     }
 
     /**
@@ -48,7 +58,7 @@ public class Field {
      * @return
      */
     public boolean isWall(int x, int y) {
-        return field[x][y].equals(TileType.WALL);
+        return field[x][y].equals(TileType.WALL.getSymbol());
     }
 
 }
