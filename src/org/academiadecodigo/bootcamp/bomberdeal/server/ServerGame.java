@@ -18,7 +18,7 @@ public class ServerGame implements Runnable {
     public ServerGame() {
 
         players = new ArrayList<>();
-        field = new Field();
+        Field field = new Field();
 
     }
 
@@ -26,7 +26,16 @@ public class ServerGame implements Runnable {
 
     private void waitForPlayers() {
 
+        while(players.size()<2) {
 
+            try {
+
+                Thread.sleep(1000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -60,17 +69,16 @@ public class ServerGame implements Runnable {
 
     //TODO: implement broadcastField method
 
-    /*public void broadcastField() {
+    public void broadcastField() {
 
         synchronized (players) {
 
-            for(PlayerHandler player: players) {
-                player.send(getCurrentField);
+            for (PlayerHandler player : players) {
+                player.sendUDP(field.getField());
             }
 
         }
-
-    }*/
+    }
 
     @Override
     public void run() {
