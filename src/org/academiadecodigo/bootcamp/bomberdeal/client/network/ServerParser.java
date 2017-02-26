@@ -46,7 +46,7 @@ public class ServerParser {
         notify();
     }
 
-    public synchronized void handleUDPMessage(String message, DatagramSocket socket) {
+    public synchronized void handleUDPMessage(String message) {
 
         if(message == null) {
 
@@ -59,7 +59,7 @@ public class ServerParser {
         }
 
         System.out.println(message);
-        String[] posUpdate = message.split(":");
+        String[] posUpdate = message.split(",");
 
         grid.updatePositions(Integer.parseInt(posUpdate[0]), Integer.parseInt(posUpdate[1]), posUpdate[2]);
         grid.updateScreen();

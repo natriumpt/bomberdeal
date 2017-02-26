@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by codecadet on 2/24/17.
  */
-public class ClientInterpret {
+public class ClientParser {
 
     public InetAddress parseAddress(String receivedString) throws UnknownHostException { // primeiro index IP
         String []receivedFrame = receivedString.split(";");
@@ -23,6 +23,12 @@ public class ClientInterpret {
         return userName;
     }
 
+    public void handleTCPMessage(String message) {
 
+    }
+
+    public void handleUDPMessage(String message) {
+
+    }
 
 }

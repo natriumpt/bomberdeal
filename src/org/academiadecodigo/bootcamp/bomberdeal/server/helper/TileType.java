@@ -10,7 +10,6 @@ public enum TileType {
     PLAYER("P"),
     POWERUP("@");
 
-
     private String symbol;
 
     TileType(String symbol){

@@ -5,7 +5,7 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
 public class Field {
 
     private final int FIELD_WIDTH = 15;
-    private final int FIELD_HEIGHT = 13;
+    private final int FIELD_HEIGHT = 15;
 
     private String[][] field;
 
