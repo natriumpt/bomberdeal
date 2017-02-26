@@ -29,7 +29,6 @@ public class UserInputLanterna implements UserInput {
 
             }
 
-            System.out.println("reading keys");
             Key key = grid.getScreen().readInput();
 
             if (key == null) {
@@ -45,14 +44,11 @@ public class UserInputLanterna implements UserInput {
 
             }
 
-            System.out.println("here");
-
                 switch (key.getKind()) {
 
                     case NormalKey:
 
                         if (key.getCharacter() == ' ') {
-                            System.out.println("BOMB DEPLOYED");
                             udpConnection.sendPacket(PlayerMessages.PLAYER_DEPLOY);
                         }
 
@@ -61,19 +57,15 @@ public class UserInputLanterna implements UserInput {
                         System.exit(0);
                         break;
                     case ArrowLeft:
-                        System.out.println("MOVEMENT LEFT");
                         udpConnection.sendPacket(PlayerMessages.PLAYER_MOVELEFT);
                         break;
                     case ArrowRight:
-                        System.out.println("MOVEMENT RIGHT");
                         udpConnection.sendPacket(PlayerMessages.PLAYER_MOVERIGHT);
                         break;
                     case ArrowUp:
-                        System.out.println("MOVEMENT UP");
                         udpConnection.sendPacket(PlayerMessages.PLAYER_MOVEUP);
                         break;
                     case ArrowDown:
-                        System.out.println("MOVEMENT DOWN");
                         udpConnection.sendPacket(PlayerMessages.PLAYER_MOVEDOWN);
                         break;
                     case Enter:
