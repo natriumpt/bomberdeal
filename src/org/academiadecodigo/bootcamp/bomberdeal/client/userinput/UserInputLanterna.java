@@ -3,16 +3,17 @@ package org.academiadecodigo.bootcamp.bomberdeal.client.userinput;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.screen.Screen;
 import org.academiadecodigo.bootcamp.bomberdeal.client.actions.PlayerMessages;
+import org.academiadecodigo.bootcamp.bomberdeal.client.grid.GridLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkUDP;
 
 public class UserInputLanterna implements UserInput {
 
-    private Screen screen;
     private ClientNetworkUDP udpConnection;
+    private GridLanterna grid;
 
-    public UserInputLanterna(Screen screen) {
+    public UserInputLanterna(GridLanterna grid) {
 
-        this.screen = screen;
+        this.grid = grid;
 
     }
 
@@ -21,20 +22,13 @@ public class UserInputLanterna implements UserInput {
 
         while(true) {
 
-            if(screen == null) {
+            if(!grid.isGridCreated()) {
 
-                try {
-
-                    Thread.sleep(17);
-                    continue;
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                continue;
 
             }
 
-            Key key = screen.readInput();
+            Key key = grid.getScreen().readInput();
 
             if (key == null) {
 
@@ -49,12 +43,15 @@ public class UserInputLanterna implements UserInput {
 
             }
 
+            System.out.println("here");
+
                 switch (key.getKind()) {
 
                     case NormalKey:
 
                         if (key.getCharacter() == ' ') {
-                        udpConnection.sendPacket(PlayerMessages.PLAYER_DEPLOY);
+                            System.out.println("BOMB DEPLOYED");
+                            udpConnection.sendPacket(PlayerMessages.PLAYER_DEPLOY);
                         }
 
                         break;
@@ -62,15 +59,19 @@ public class UserInputLanterna implements UserInput {
                         System.exit(0);
                         break;
                     case ArrowLeft:
+                        System.out.println("MOVEMENT LEFT");
                         udpConnection.sendPacket(PlayerMessages.PLAYER_MOVELEFT);
                         break;
                     case ArrowRight:
+                        System.out.println("MOVEMENT RIGHT");
                         udpConnection.sendPacket(PlayerMessages.PLAYER_MOVERIGHT);
                         break;
                     case ArrowUp:
+                        System.out.println("MOVEMENT UP");
                         udpConnection.sendPacket(PlayerMessages.PLAYER_MOVEUP);
                         break;
                     case ArrowDown:
+                        System.out.println("MOVEMENT DOWN");
                         udpConnection.sendPacket(PlayerMessages.PLAYER_MOVEDOWN);
                         break;
                     case Enter:

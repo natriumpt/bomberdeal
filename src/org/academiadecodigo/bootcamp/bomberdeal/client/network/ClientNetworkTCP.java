@@ -9,7 +9,6 @@ import java.net.Socket;
 public class ClientNetworkTCP implements Runnable {
 
     private Socket tcpSocket;
-    private Game game;
     private ServerParser parser;
 
     public ClientNetworkTCP(Socket socket, ServerParser parser) {
@@ -65,9 +64,7 @@ public class ClientNetworkTCP implements Runnable {
 
                         System.out.println("MESSAGE RECEIVED FROM SERVER: " + message);
 
-                        synchronized (parser) {
-                            parser.handleTCPMessage(message, reader);
-                        }
+                        parser.handleTCPMessage(message, reader);
 
                         message = reader.readLine();
 

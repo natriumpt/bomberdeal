@@ -2,17 +2,17 @@ package org.academiadecodigo.bootcamp.bomberdeal.client.network;
 
 import org.academiadecodigo.bootcamp.bomberdeal.client.Game;
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
+import org.academiadecodigo.bootcamp.bomberdeal.client.grid.GridLanterna;
+
 import java.io.BufferedReader;
 
 
 public class ServerParser {
 
-    private Game game;
     private Grid grid;
 
-    public ServerParser(Game game, Grid grid){
+    public ServerParser(Grid grid){
 
-        this.game = game;
         this.grid = grid;
 
     }
@@ -41,30 +41,24 @@ public class ServerParser {
 
     public synchronized void handleUDPMessage(String message) {
 
-        if(message == null) {
-
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-        }
-
         String[] posUpdate = message.split("\n");
         String[] posCoord;
 
-        for(String serverPos: posUpdate) {
+        if(((GridLanterna)grid).isGridCreated()) {
 
-            posCoord = serverPos.split(";");
+            for (String serverPos : posUpdate) {
 
-            grid.updatePositions(Integer.parseInt(posCoord[0]), Integer.parseInt(posCoord[1]), posCoord[2]);
+                posCoord = serverPos.split(";");
+
+
+                grid.updatePositions(Integer.parseInt(posCoord[0]), Integer.parseInt(posCoord[1]), posCoord[2]);
+
+            }
+
+            grid.updateScreen();
 
         }
 
-        grid.updateScreen();
-
-        notify();
     }
 
 }
