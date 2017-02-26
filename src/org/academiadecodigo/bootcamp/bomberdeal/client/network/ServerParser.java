@@ -2,12 +2,9 @@ package org.academiadecodigo.bootcamp.bomberdeal.client.network;
 
 import org.academiadecodigo.bootcamp.bomberdeal.client.Game;
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
-
 import java.io.BufferedReader;
 
-/**
- * Created by codecadet on 2/24/17.
- */
+
 public class ServerParser {
 
     private Game game;
