@@ -9,14 +9,12 @@ import org.academiadecodigo.bootcamp.bomberdeal.client.userinput.UserInputLanter
 import org.academiadecodigo.bootcamp.bomberdeal.client.userinput.UserInput;
 import org.academiadecodigo.bootcamp.bomberdeal.client.menu.MenuLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.menu.Menu;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.DatagramSocket;
-import java.net.Socket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
+import java.net.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Game {
 
@@ -33,10 +31,9 @@ public class Game {
 
     }
 
-
     public void startGame() {
 
-        /*Menu menu = new MenuLanterna();
+        Menu menu = new MenuLanterna();
 
         if(menu == null) {
             throw new ExceptionInInitializerError();
@@ -61,11 +58,13 @@ public class Game {
         }
 
         playerName = menu.getUsername();
-        */
 
         try {
-            tcpSocket = new Socket("localhost", 8080);
+            tcpSocket = new Socket(menu.getHostname(), 8080);
             udpSocket = new DatagramSocket(8779);
+        } catch (ConnectException e) {
+            System.err.println("Address is offline.");
+            System.exit(0);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -98,10 +97,16 @@ public class Game {
 
         //TODO:
         // Game phase loop
+        Timer gameLoop = new Timer();
 
-        while (true) {
+        gameLoop.scheduleAtFixedRate(new TimerTask() {
 
-        }
+            @Override
+            public void run() {
+                grid.updateScreen();
+            }
+
+        }, 34, 17);
 
     }
 

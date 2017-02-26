@@ -18,6 +18,8 @@ public class GridLanterna implements Grid {
     private int cols;
     private int rows;
     private static int maxRows;
+    private final int colWidth = 4;
+    private final int rowHeight = 2;
     private Screen screen;
     private ScreenWriter screenWriter;
     private Position[][] positions;
@@ -37,7 +39,6 @@ public class GridLanterna implements Grid {
             StringBuilder gridMapBuilder = new StringBuilder(gridMap);
 
             String serverMessage = reader.readLine();
-            System.out.println("reading map");
 
             while (!serverMessage.equals(ServerMessages.SERVER_MAP_LAYOUT_COMPLETE)) {
 
@@ -45,8 +46,6 @@ public class GridLanterna implements Grid {
                 serverMessage = reader.readLine();
 
             }
-
-            System.out.println("finished map");
 
             gridMap = gridMapBuilder.toString();
 
@@ -56,7 +55,7 @@ public class GridLanterna implements Grid {
 
     }
 
-    public void drawGrid() {
+    public synchronized void drawGrid() {
 
         String[] gridArray = gridMap.split("\n");
 
@@ -64,8 +63,8 @@ public class GridLanterna implements Grid {
         this.cols = Integer.valueOf(gridArray[gridArray.length - 2].split(";")[0]);
 
         screen = TerminalFacade.createScreen();
-        screen.getTerminal().getTerminalSize().setColumns(rows * 2);
-        screen.getTerminal().getTerminalSize().setRows(cols);
+        screen.getTerminal().getTerminalSize().setColumns((rows * colWidth) + colWidth);
+        screen.getTerminal().getTerminalSize().setRows((cols * rowHeight) + rowHeight);
 
         positions = new Position[cols + 1][rows + 1];
 
@@ -79,7 +78,7 @@ public class GridLanterna implements Grid {
 
         Pattern pattern = Pattern.compile("^(\\d+);(\\d+);(\\w+)$");
 
-        for (int i = 0; i < gridArray.length - 2; i++) {
+        for (int i = 0; i < gridArray.length; i++) {
 
             Matcher matcher = pattern.matcher(gridArray[i]);
 
@@ -88,12 +87,15 @@ public class GridLanterna implements Grid {
                 posY = Integer.valueOf(matcher.group(1));
                 posX = Integer.valueOf(matcher.group(2));
 
-                System.out.println(posY + " posX");
-                System.out.println(posX + " posY");
-
                 positions[posY][posX] = new Position(posX, posY, matcher.group(3));
 
-                screen.putString(positions[posY][posX].posX, positions[posY][posX].posY, matcher.group(3),
+                screen.putString(positions[posY][posX].posX * colWidth, positions[posY][posX].posY * rowHeight,
+                        " " + positions[posY][posX].tile + "  ",
+                        TiletypeLanterna.getTileType(positions[posY][posX].tile).getTextColor(),
+                        TiletypeLanterna.getTileType(positions[posY][posX].tile).getColor());
+
+                screen.putString(positions[posY][posX].posX * colWidth, (positions[posY][posX].posY * rowHeight) + 1,
+                        " " + positions[posY][posX].tile + "  ",
                         TiletypeLanterna.getTileType(positions[posY][posX].tile).getTextColor(),
                         TiletypeLanterna.getTileType(positions[posY][posX].tile).getColor());
 
@@ -105,18 +107,23 @@ public class GridLanterna implements Grid {
 
     }
 
-    public void updateScreen() {
+    public synchronized void updateScreen() {
 
         for (int i = 0; i < positions.length; i++) {
 
             for (int j = 0; j < positions[i].length; j++) {
 
-                screen.putString(positions[i][j].posX, positions[i][j].posY, positions[i][j].tile,
+                screen.putString(positions[i][j].posX * colWidth, positions[i][j].posY * rowHeight,
+                        " " + positions[i][j].tile + "  ",
+                        TiletypeLanterna.getTileType(positions[i][j].tile).getTextColor(),
+                        TiletypeLanterna.getTileType(positions[i][j].tile).getColor());
+
+                screen.putString(positions[i][j].posX * colWidth, (positions[i][j].posY * rowHeight) + 1,
+                        " " + positions[i][j].tile + "  ",
                         TiletypeLanterna.getTileType(positions[i][j].tile).getTextColor(),
                         TiletypeLanterna.getTileType(positions[i][j].tile).getColor());
 
             }
-
         }
 
         screen.refresh();
