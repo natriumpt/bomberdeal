@@ -35,8 +35,6 @@ public final class MapHandler {
             e.printStackTrace();
         }
 
-        totalLines.trim();
-
         return totalLines;
     }
 
