@@ -8,7 +8,7 @@ import java.net.SocketException;
 /**
  * Created by andre on 2/26/2017.
  */
-public class Server {
+public class  Server {
 
     private ServerGame game;
     private ServerSocket serverTPCSocket;
