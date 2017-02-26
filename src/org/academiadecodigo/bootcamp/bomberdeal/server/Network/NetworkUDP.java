@@ -39,7 +39,7 @@ public class NetworkUDP implements Runnable {
                 udpSocket.receive(receivePacket);
 
                 synchronized (parser) {
-                    parser.handleUDPMessage(new String(receiveBuffer, 0, receivePacket.getLength()));
+                    parser.handleUDPMessage(new String(receiveBuffer, 0, receivePacket.getLength()), playerAddress);
                 }
 
             } catch (IOException e) {

@@ -1,13 +1,7 @@
-package org.academiadecodigo.bootcamp.bomberdeal.serverold.gameobjects;
-
-import org.academiadecodigo.bootcamp.bomberdeal.serverold.Observer;
-import org.academiadecodigo.bootcamp.bomberdeal.serverold.gamefield.Position;
 
 import java.util.ArrayList;
 
-/**
- * Created by codecadet on 2/21/17.
- */
+
 public class Bomb {
 
     private int range;

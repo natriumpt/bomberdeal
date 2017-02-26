@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * Created by andre on 2/26/2017.
  */
-public class Server {
+public class  Server {
 
     private ServerGame game;
     private ServerSocket serverTPCSocket;
@@ -45,6 +45,7 @@ public class Server {
         Socket playerSocket;
         PlayerHandler player = null;
 
+        parser.setObserver(game.getGameCore());
         ExecutorService playerPool = Executors.newFixedThreadPool(4);
 
         while (true) {
@@ -66,6 +67,7 @@ public class Server {
             }
 
         }
+
 
     }
 

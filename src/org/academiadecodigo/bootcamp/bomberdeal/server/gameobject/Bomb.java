@@ -4,6 +4,7 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Col
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.DestroyableByFire;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
+import org.academiadecodigo.bootcamp.bomberdeal.server.helper.CollisionChecker;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
 
 import java.util.Timer;
@@ -17,23 +18,27 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
     private TileType tileType;
     private int range;
     private boolean isOnField;
+    private CollisionChecker collisionChecker;
     private final int BOMB_TIMER = 3000; // in ms
 
-    public Bomb(int x, int y, Observable observer) {
+    public Bomb(int x, int y, Observable observer, CollisionChecker collisionChecker) {
         this.observer = observer;
         this.x = x;
         this.y = y;
+        this.collisionChecker = collisionChecker;
         tileType = TileType.BOMB;
         range = 3;
     }
+
 
     public void explode(int x,int y) {
         this.x = x;
         this.y = y;
         isOnField = true;
+        System.out.println(x + " : " +  y);
         setTimer(BOMB_TIMER);
 
-        observer.update(this); //to remove bomb from interactables list
+//        observer.update(this); //to remove bomb from interactables list
     }
 
     public boolean isOnField(){
@@ -51,16 +56,29 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
 
     @Override
     public void destroy() {
+        System.out.println("inicio do fire");
 
         for (int i = 1; i <= range; i++) {
-            Fire fireRight = new Fire(x + i, y);
-            updateObserver(fireRight);
-            Fire fireLeft = new Fire(x - i, y);
-            updateObserver(fireLeft);
-            Fire fireDown = new Fire(x, y + i);
-            updateObserver(fireDown);
-            Fire fireUp = new Fire(x, y - i);
-            updateObserver(fireUp);
+            if(!collisionChecker.checkWall(x + i, y)){
+                Fire fireRight = new Fire(x + i, y);
+                updateObserver(fireRight);
+                collisionChecker.processFire();
+            }
+            if((x - i) >= 0 && !collisionChecker.checkWall(x - i, y)){
+                Fire fireLeft = new Fire(x - i, y);
+                updateObserver(fireLeft);
+                collisionChecker.processFire();
+            }
+            if(!collisionChecker.checkWall(x, y + i)){
+                Fire fireDown = new Fire(x, y + i);
+                updateObserver(fireDown);
+                collisionChecker.processFire();
+            }
+            if((y - i) >= 0 && !collisionChecker.checkWall(x, y - i)){
+                Fire fireUp = new Fire(x, y - i);
+                updateObserver(fireUp);
+                collisionChecker.processFire();
+            }
         }
         isOnField = false;
     }

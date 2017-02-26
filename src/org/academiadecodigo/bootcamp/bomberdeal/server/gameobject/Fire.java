@@ -18,6 +18,7 @@ public class Fire implements Interactable {
         this.x = x;
         this.y = y;
         tileType = TileType.FIRE;
+        System.out.println(x + ":" + y);
 
         setTimer(500);
 

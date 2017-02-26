@@ -29,7 +29,7 @@ public class Field {
         String x;
         String y;
 
-        for(int i = 0; i < field.length; i++) {
+        for (int i = 0; i < field.length; i++) {
 
             for (int j = 0; j < field[i].length; j++) {
 
@@ -68,16 +68,16 @@ public class Field {
 
         for (int i = 0; i < mapField.length; i++) {
 
-                Matcher matcher = pattern.matcher(mapField[i]);
+            Matcher matcher = pattern.matcher(mapField[i]);
 
-                while (matcher.find()) {
+            while (matcher.find()) {
 
-                    posY = Integer.valueOf(matcher.group(1));
-                    posX = Integer.valueOf(matcher.group(2));
+                posY = Integer.valueOf(matcher.group(1));
+                posX = Integer.valueOf(matcher.group(2));
 
-                    field[posY][posX] = matcher.group(3);
+                field[posY][posX] = matcher.group(3);
 
-                }
+            }
 
         }
     }
@@ -99,26 +99,27 @@ public class Field {
 
         for (int i = 0; i < mapField.length; i++) {
 
-                Matcher matcher = pattern.matcher(mapField[i]);
+            Matcher matcher = pattern.matcher(mapField[i]);
 
-                while (matcher.find()) {
+            while (matcher.find()) {
 
-                    if (matcher.group(3).equals("EMPTY")) {
-                        break;
-                    }
-
-                    posY = Integer.valueOf(matcher.group(1));
-                    posX = Integer.valueOf(matcher.group(2));
-
-                    field[posY][posX] = matcher.group(3);
-
+                if (matcher.group(3).equals("EMPTY")) {
+                    break;
                 }
+
+                posY = Integer.valueOf(matcher.group(1));
+                posX = Integer.valueOf(matcher.group(2));
+
+                field[posY][posX] = matcher.group(3);
+
+            }
 
         }
     }
 
     /**
      * Returns true if the TileType in the coordinates is WALL
+     *
      * @param x
      * @param y
      * @return
