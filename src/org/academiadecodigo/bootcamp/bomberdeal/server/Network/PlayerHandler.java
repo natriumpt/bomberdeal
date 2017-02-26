@@ -1,6 +1,5 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.Network;
 
-import org.academiadecodigo.bootcamp.bomberdeal.client.network.ServerMessages;
 import org.academiadecodigo.bootcamp.bomberdeal.server.Player;
 
 import java.io.*;

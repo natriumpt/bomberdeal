@@ -1,6 +1,6 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server;
 
-import org.academiadecodigo.bootcamp.bomberdeal.client.network.ServerMessages;
+import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkMessages;
 import org.academiadecodigo.bootcamp.bomberdeal.server.Network.MapHandler;
 import org.academiadecodigo.bootcamp.bomberdeal.server.Network.PlayerHandler;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
@@ -41,9 +41,9 @@ public class ServerGame implements Runnable {
 
     private void initPlayer(PlayerHandler player) {
 
-        player.sendTCP(ServerMessages.SERVER_MAP_SENDING_LAYOUT);
+        player.sendTCP(ClientNetworkMessages.SERVER_MAP_SENDING_LAYOUT);
         player.sendTCP(MapHandler.getMap());
-        player.sendTCP(ServerMessages.SERVER_MAP_LAYOUT_COMPLETE);
+        player.sendTCP(ClientNetworkMessages.SERVER_MAP_LAYOUT_COMPLETE);
 
     }
 

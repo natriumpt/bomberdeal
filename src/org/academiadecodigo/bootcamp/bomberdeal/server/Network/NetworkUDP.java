@@ -67,31 +67,3 @@ public class NetworkUDP implements Runnable {
     }
 
 }
-
-    /*
-
-    public void receiveSend() {
-        try {
-            while (true) {
-                socket.receive(incoming);
-                byte[] data = incoming.getData();
-                String s = new String(data, 0, incoming.getLength());
-                String[] positions = s.split(",");
-                int col = Integer.parseInt(positions[0]);
-                col++;
-                int row = Integer.parseInt(positions[1]);
-                row++;
-                String novaString = row + "," + col;
-                System.out.println(novaString);
-                //s = s.toUpperCase();
-                DatagramPacket sendPacket = new DatagramPacket(novaString.getBytes(), novaString.getBytes().length, incoming.getAddress(), incoming.getPort());
-                socket.send(sendPacket);
-                System.out.println(novaString);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-
-        }
-    }
-    */
