@@ -26,6 +26,7 @@ public class CollisionChecker {
         }
 
         for (Interactable collidable : interactables) {
+            System.out.println(collidable.getTileType());
             if (collidable instanceof Collidable) {
                 if (collidable.getX() == x && collidable.getY() == y)
                     return true;
