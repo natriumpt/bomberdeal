@@ -22,7 +22,7 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
     private int y;
     private ArrayList<Bomb> bombs;
     private final int N_INITIAL_BOMB_ = 3; // in ms
-    private TileType type;
+    private String type;
     private PowerUpHandler powerUpHandler;
     private CollisionChecker collisionChecker;
     private boolean alive;
@@ -33,7 +33,7 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
     public Player(String spawnPointCoords, CollisionChecker collisionChecker, Observable observer) {
 
         this.collisionChecker = collisionChecker;
-        this.type = TileType.PLAYER;
+        this.type = TileType.PLAYER.getSymbol();
 
         this.observer = observer;
 
@@ -142,7 +142,7 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
     }
 
     @Override
-    public TileType getTileType() {
+    public String getTileType() {
         return type;
     }
 

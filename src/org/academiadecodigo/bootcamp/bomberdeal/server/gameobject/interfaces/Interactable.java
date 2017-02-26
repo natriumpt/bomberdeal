@@ -8,7 +8,7 @@ public interface Interactable {
 
     int getY();
 
-    TileType getTileType();
+    String getTileType();
 
     void destroy();
 

@@ -12,12 +12,12 @@ public class Fire implements Interactable {
     private Observable observer;
     private int x;
     private int y;
-    private TileType tileType;
+    private String tileType;
 
     public Fire(int x, int y) {
         this.x = x;
         this.y = y;
-        tileType = TileType.FIRE;
+        tileType = TileType.FIRE.getSymbol();
         System.out.println(x + ":" + y);
 
         setTimer(500);
@@ -48,7 +48,7 @@ public class Fire implements Interactable {
     }
 
     @Override
-    public TileType getTileType() {
+    public String getTileType() {
         return tileType;
     }
 

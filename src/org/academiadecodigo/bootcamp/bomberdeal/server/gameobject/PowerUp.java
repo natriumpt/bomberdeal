@@ -9,13 +9,13 @@ public class PowerUp implements Interactable{
 
     private int x;
     private int y;
-    private TileType tileType;
+    private String tileType;
     private PowerUpType powerUpType;
 
 
     public PowerUp(){
 
-        tileType = TileType.POWERUP;
+        tileType = TileType.POWERUP.getSymbol();
         powerUpType = PowerUpType.values()[Util.rndIdxInRange(PowerUpType.values().length)];
 
     }
@@ -35,7 +35,7 @@ public class PowerUp implements Interactable{
     }
 
     @Override
-    public TileType getTileType() {
+    public String getTileType() {
         return tileType;
     }
 

@@ -25,10 +25,10 @@ public class CollisionChecker {
             return true;
         }
 
-        for (Interactable collidable : interactables) {
-            System.out.println(collidable.getTileType());
-            if (collidable instanceof Collidable) {
-                if (collidable.getX() == x && collidable.getY() == y)
+        for (Interactable interactable : interactables) {
+            System.out.println(interactable.getTileType());
+            if (interactable instanceof Collidable) {
+                if (interactable.getX() == x && interactable.getY() == y)
                     return true;
             }
         }
@@ -44,7 +44,7 @@ public class CollisionChecker {
         return false;
     }
 
-    public void processFire() {
+    public void processFire(int x, int y) {
         System.out.println("a entrar no processo");
 
         for (Interactable fire : interactables) {
@@ -52,8 +52,9 @@ public class CollisionChecker {
                 System.out.println("no processo do fogo");
                 for (Interactable destroyable : interactables) {
                     if (destroyable instanceof DestroyableByFire) {
-                        System.out.println(destroyable.getTileType());
-                        destroyable.destroy();
+                        if (destroyable.getX() == x && destroyable.getY() == y) {
+                            destroyable.destroy();
+                        }
                     }
                 }
             }
