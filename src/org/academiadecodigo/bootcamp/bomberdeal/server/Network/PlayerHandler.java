@@ -17,7 +17,6 @@ public class PlayerHandler implements Runnable {
     private NetworkTCP tcpConnection;
     private NetworkUDP udpConnection;
     private InetAddress inetAddress;
-
     private Player player;
 
     public PlayerHandler(Socket tcpSocket, DatagramSocket udpSocket, ClientParser parser) {
@@ -31,7 +30,7 @@ public class PlayerHandler implements Runnable {
         try {
 
             tcpConnection = new NetworkTCP(tcpSocket, clientParser);
-            udpConnection = new NetworkUDP(udpSocket, clientParser, tcpSocket.getInetAddress());
+            udpConnection = new NetworkUDP(udpSocket, clientParser, tcpSocket.getInetAddress(), this);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,11 +43,11 @@ public class PlayerHandler implements Runnable {
     @Override
     public void run() {
 
-            Thread tcpThread = new Thread(tcpConnection);
-            Thread udpThread = new Thread(udpConnection);
+        Thread tcpThread = new Thread(tcpConnection);
+        Thread udpThread = new Thread(udpConnection);
 
-            tcpThread.start();
-            udpThread.start();
+        tcpThread.start();
+        udpThread.start();
 
     }
 
@@ -57,14 +56,15 @@ public class PlayerHandler implements Runnable {
     }
 
     public synchronized void sendUDP(String message) {
-
-        System.out.println("SENDING UPD PACKET PLAYER HANDLER");
         udpConnection.send(message);
-        System.out.println("SENT UDP PACKET PLAYER HANDLER");
     }
 
-    public InetAddress getInetAddress(){
-        return inetAddress;
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     /*long startTime = System.currentTimeMillis();

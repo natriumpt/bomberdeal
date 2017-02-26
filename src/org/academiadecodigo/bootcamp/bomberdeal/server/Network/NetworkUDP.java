@@ -15,11 +15,13 @@ public class NetworkUDP implements Runnable {
     private byte[] sendBuffer;
     private InetAddress playerAddress;
     private ClientParser parser;
+    private PlayerHandler playerHandler;
 
-    public NetworkUDP(DatagramSocket socket, ClientParser parser, InetAddress playerAddress) {
+    public NetworkUDP(DatagramSocket socket, ClientParser parser, InetAddress playerAddress, PlayerHandler playerHandler) {
 
         this.udpSocket = socket;
         this.playerAddress = playerAddress;
+        this.playerHandler = playerHandler;
 
         this.parser = parser;
 
@@ -39,7 +41,9 @@ public class NetworkUDP implements Runnable {
                 udpSocket.receive(receivePacket);
 
                 synchronized (parser) {
-                    parser.handleUDPMessage(new String(receiveBuffer, 0, receivePacket.getLength()), playerAddress);
+
+                    System.out.println("received packet");
+                    parser.handleUDPMessage(new String(receiveBuffer, 0, receivePacket.getLength()), playerHandler);
                 }
 
             } catch (IOException e) {
@@ -58,9 +62,7 @@ public class NetworkUDP implements Runnable {
 
         try {
 
-            System.out.println("SENDING UDP PACKET!");
             udpSocket.send(packet);
-            System.out.println("UDP PACKET SENT.");
 
         } catch (IOException e) {
             e.printStackTrace();

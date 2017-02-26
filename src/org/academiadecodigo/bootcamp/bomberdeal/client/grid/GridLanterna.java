@@ -39,7 +39,6 @@ public class GridLanterna implements Grid {
 
             String serverMessage = reader.readLine();
 
-
             while (!serverMessage.equals(ClientNetworkMessages.SERVER_MAP_LAYOUT_COMPLETE)) {
 
                 gridMapBuilder.append(serverMessage + "\r\n");
@@ -129,9 +128,9 @@ public class GridLanterna implements Grid {
         screen.refresh();
     }
 
-    public void updatePositions(int x, int y, String type) {
+    public synchronized void updatePositions(int x, int y, String type) {
 
-        if(!(positions[x][y] == null)) {
+        if(positions[x][y].tile != null) {
             positions[x][y].tile = type;
         }
 
@@ -140,16 +139,5 @@ public class GridLanterna implements Grid {
     public Screen getScreen() {
         return this.screen;
     }
-
-    /*
-    private void drawSquare(int posX, int posY, Terminal.Color color) {
-        screenWriter.setBackgroundColor(color);
-        screenWriter.drawString(posX * CURSOR_WIDTH, posY, "  ");
-    }
-
-    private void clearScreen() {
-        screenWriter.setBackgroundColor(Terminal.Color.DEFAULT);
-        screenWriter.fillScreen(' ');
-    }*/
 
 }

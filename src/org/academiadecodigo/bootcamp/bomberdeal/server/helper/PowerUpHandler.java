@@ -14,7 +14,7 @@ public class PowerUpHandler {
         this.players = players;
     }
 
-    public void assingPowerUp(PowerUp powerup, Player player){
+    public void assignPowerUp(PowerUp powerup, Player player){
         if(powerup.getPowerUpType() == PowerUpType.BOMBS){
            player.increaseBombs(player);
         }

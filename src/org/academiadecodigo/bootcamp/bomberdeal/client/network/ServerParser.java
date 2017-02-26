@@ -65,7 +65,6 @@ public class ServerParser {
         grid.updateScreen();
 
         notify();
-
     }
 
 }
