@@ -17,8 +17,8 @@ import java.util.List;
 public class GameCore implements Runnable, Observable {
 
     private Field field;
-    private static List<Interactable> interactables;
-    private static CollisionChecker collisionChecker;
+    private List<Interactable> interactables;
+    private CollisionChecker collisionChecker;
     private Player player;
 
     public GameCore(int nrOfPlayers, ArrayList<PlayerHandler> playerHandlers) {
@@ -28,10 +28,6 @@ public class GameCore implements Runnable, Observable {
         for (int i = 0; i < nrOfPlayers; i++) {
             interactables.add(new Player(0, 0, collisionChecker, this, playerHandlers.get(i).getInetAddress()));
         }
-    }
-
-    public void processFire() {
-        collisionChecker.processFire();
     }
 
     @Override
