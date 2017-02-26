@@ -4,6 +4,7 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.Player;
 
 import java.io.*;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.Socket;
 
 
@@ -14,6 +15,7 @@ public class PlayerHandler implements Runnable {
     private ClientParser clientParser;
     private NetworkTCP tcpConnection;
     private NetworkUDP udpConnection;
+    private InetAddress inetAddress;
 
     private Player player;
 
@@ -23,6 +25,7 @@ public class PlayerHandler implements Runnable {
         this.udpSocket = udpSocket;
 
         this.clientParser = parser;
+        this.inetAddress = tcpSocket.getInetAddress();
 
         try {
 
@@ -62,6 +65,10 @@ public class PlayerHandler implements Runnable {
 
         udpConnection.send(message);
 
+    }
+
+    public InetAddress getInetAddress(){
+        return inetAddress;
     }
 
     /*long startTime = System.currentTimeMillis();

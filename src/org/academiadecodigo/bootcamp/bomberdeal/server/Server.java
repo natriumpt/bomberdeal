@@ -45,6 +45,7 @@ public class  Server {
         Socket playerSocket = null;
         PlayerHandler player = null;
 
+        parser.setObserver(game.getGameCore());
         ExecutorService playerPool = Executors.newFixedThreadPool(4);
 
         while (true) {
@@ -66,6 +67,7 @@ public class  Server {
             }
 
         }
+
 
     }
 

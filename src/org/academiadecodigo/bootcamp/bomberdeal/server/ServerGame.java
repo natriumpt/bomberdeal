@@ -4,6 +4,7 @@ import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkMess
 import org.academiadecodigo.bootcamp.bomberdeal.server.Network.MapHandler;
 import org.academiadecodigo.bootcamp.bomberdeal.server.Network.PlayerHandler;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,8 @@ public class ServerGame implements Runnable {
 
     private ArrayList<PlayerHandler> players;
     private Field field;
+    private GameCore gameCore;
+
 
     public ServerGame() {
 
@@ -33,6 +36,7 @@ public class ServerGame implements Runnable {
     //TODO: start game, start Field
 
     public void startGame() {
+        gameCore = new GameCore(players.size(), players);
 
 
 
@@ -77,5 +81,9 @@ public class ServerGame implements Runnable {
 
 
 
+    }
+
+    public Observable getGameCore(){
+        return gameCore;
     }
 }

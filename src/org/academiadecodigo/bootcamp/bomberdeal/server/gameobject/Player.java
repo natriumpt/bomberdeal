@@ -9,6 +9,7 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.helper.CollisionChecker;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
 
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,16 +26,18 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
     private PowerUpHandler powerUpHandler;
     private PowerUp powerUp;
     private CollisionChecker collisionChecker;
+    private InetAddress inetAddress;
 
     private boolean onCooldown;
     private Timer cooldownTimer;
 
-    public Player(int x, int y, CollisionChecker collisionChecker, Observable observer) {
+    public Player(int x, int y, CollisionChecker collisionChecker, Observable observer, InetAddress inetAddress) {
         this.collisionChecker = collisionChecker;
         this.type = TileType.PLAYER;
         this.observer = observer;
         this.x = x;
         this.y = y;
+        this.inetAddress = inetAddress;
         cooldownTimer = new Timer();
         bombs = new ArrayList<>();
         for (int bomb = 0; bomb < N_INITIAL_BOMB_; bomb++) {
@@ -57,28 +60,28 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
         }, 50);
     }
 
-    public void move(Direction direction) {
+    public void move(String direction) {
         if (!onCooldown) {
             switch (direction) {
-                case NORTH:
+                case "UP":
                     if (!collisionChecker.checkCollision(x, y - 1)) {
                         y--;
                         checkPowerUps();
                     }
                     break;
-                case SOUTH:
+                case "DOWN":
                     if (!collisionChecker.checkCollision(x, y + 1)) {
                         y++;
                         checkPowerUps();
                     }
                     break;
-                case WEST:
+                case "LEFT":
                     if (!collisionChecker.checkCollision(x - 1, y)) {
                         x--;
                         checkPowerUps();
                     }
                     break;
-                case EAST:
+                case "RIGHT":
                     if (!collisionChecker.checkCollision(x + 1, y)) {
                         x++;
                         checkPowerUps();
@@ -100,7 +103,6 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
         if(!(collisionChecker.checkPowerUp(x,y) == null)){
             powerUpHandler.assingPowerUp(collisionChecker.checkPowerUp(x, y), this);
         }
-        ;
     }
 
     public void deploy() {
@@ -141,11 +143,8 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
 
     }
 
-    private enum Direction {
-        NORTH,
-        SOUTH,
-        WEST,
-        EAST
+    public InetAddress getInetAddress(){
+        return inetAddress;
     }
 
     private void notifyAll(Bomb bomb) {
