@@ -1,6 +1,6 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.helper;
 
-
+/*
 import org.academiadecodigo.bootcamp.bomberdeal.serverold.gamefield.Grid;
 
 import java.io.BufferedReader;
@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-/*
+
 public class FileHandler {
     /*
 
@@ -69,7 +69,5 @@ public class FileHandler {
         }
 
     }
-    */
-
 
 }*/

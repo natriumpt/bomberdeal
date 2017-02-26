@@ -41,7 +41,7 @@ public class ClientDispatcher implements Runnable {
         int playersQuantity = 0;
 
         System.out.println(Thread.currentThread().getName());
-        try {
+        try {/*
             switch (state) {
                 case 0:
                     //while (elapsedTime < 30 * 1000 && (player.getSize() < 2 && player.getSize() < 5) ) {
@@ -64,7 +64,7 @@ public class ClientDispatcher implements Runnable {
 
                 case 2:  // movements from the players
 
-                    break;
+                    break;*/
 
                 send(ServerMessages.SERVER_MAP_SENDING_LAYOUT);
 
@@ -97,7 +97,7 @@ public class ClientDispatcher implements Runnable {
                // }
 
                 //  }
-            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

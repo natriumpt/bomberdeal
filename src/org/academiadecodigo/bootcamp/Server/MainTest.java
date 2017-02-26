@@ -16,7 +16,7 @@ public class MainTest {
 
         grid.getPosition(2,2).setTileType("P");
         grid.getPlayer(0).setPosition(grid.getPosition(2,2));
-        grid.getPlayer(0).moveLeft()
+        grid.getPlayer(0).moveLeft();
 
 
 
