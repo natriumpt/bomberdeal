@@ -1,12 +1,18 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server;
 
+import org.academiadecodigo.bootcamp.bomberdeal.server.Network.PlayerHandler;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.Player;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.CollisionChecker;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.Player;
 
-import java.util.*;
+
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class GameCore implements Runnable, Observable {
 
@@ -15,12 +21,14 @@ public class GameCore implements Runnable, Observable {
     private static CollisionChecker collisionChecker;
     private Player player;
 
-    public GameCore() {
+    public GameCore(int nrOfPlayers, ArrayList<PlayerHandler> playerHandlers) {
         this.field = new Field();
         this.interactables = Collections.synchronizedList(new ArrayList<>());
         this.collisionChecker = new CollisionChecker(field, interactables);
+        for (int i = 0; i < nrOfPlayers; i++) {
+            interactables.add(new Player(0, 0, collisionChecker, this, playerHandlers.get(i).getInetAddress()));
+        }
     }
-
 
     public void processFire() {
         collisionChecker.processFire();
@@ -59,25 +67,54 @@ public class GameCore implements Runnable, Observable {
         interactables.add(player);
     }
 
-    public static void main(String[] args) {
-        interactables = Collections.synchronizedList(new ArrayList<>());
-        GameCore gameCore = new GameCore();
+    @Override
+    public void convertAction(String action, InetAddress inetAddress) {
+        for (Interactable interactable : interactables) {
+            if (interactable instanceof Player && ((Player) interactable).getInetAddress().equals(inetAddress)) {
+                if (action.equals("BOMB_DEPLOY")) {
+                    ((Player) interactable).deploy();
+                } else {
 
-        Player player = new Player(2, 3, collisionChecker, gameCore);
-        Player rute = new Player(1, 1, collisionChecker, gameCore);
-        gameCore.setPlayerToGame(player);
-        gameCore.setPlayerToGame(rute);
-        System.out.println("X: " + player.getX());
-        player.move(Player.Direction.WEST);
-        System.out.println(("X: " + player.getX()));
-        System.out.println("Nr of Bombs: " + player.getNrOfBombs());
-        player.move(Player.Direction.WEST);
-        System.out.println("X: " + player.getX() + " Y: " + player.getY());
-
-        gameCore.processFire();
-        player.deploy();
+                    ((Player) interactable).move(action);
+                }
+            }
+        }
 
     }
+
+    public String convertAllInteractablesToString(Interactable gameObject) {
+        String sendToServer = "";
+        for (int i = 0; i < interactables.size(); i++) {
+            sendToServer += interactableToString(i);
+        }
+        return sendToServer;
+    }
+
+
+    public String interactableToString(int i) {
+        return "" + interactables.get(i).getX() + ":" + interactables.get(i).getY() + ":" + interactables.get(i).getTileType() + ";\n";
+    }
 }
+
+//    public static void main(String[] args) {
+//        interactables = Collections.synchronizedList(new ArrayList<>());
+//        GameCore gameCore = new GameCore();
+//
+//        Player player = new Player(2, 3, collisionChecker, gameCore);
+//        Player rute = new Player(1, 1, collisionChecker, gameCore);
+//        gameCore.setPlayerToGame(player);
+//        gameCore.setPlayerToGame(rute);
+//        System.out.println("X: " + player.getX());
+//        player.move(Player.Direction.WEST);
+//        System.out.println(("X: " + player.getX()));
+//        System.out.println("Nr of Bombs: " + player.getNrOfBombs());
+//        player.move(Player.Direction.WEST);
+//        System.out.println("X: " + player.getX() + " Y: " + player.getY());
+//
+//        gameCore.processFire();
+//        player.deploy();
+//
+//    }
+//}
 
 

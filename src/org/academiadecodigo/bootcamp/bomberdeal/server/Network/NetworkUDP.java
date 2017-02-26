@@ -1,74 +1,71 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.Network;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.ServerSocket;
-import java.net.SocketException;
+import java.net.*;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 
 /**
  * Created by codecadet on 2/22/17.
  */
-public class NetworkUDP {
-    DatagramPacket incoming;
-    DatagramSocket socket;
+public class NetworkUDP implements Runnable {
 
-    private LinkedList<ClientDispatcher> clients;
-    private ServerSocket serverSocket;
-    private String message;
-    ExecutorService pool;
+    private DatagramSocket udpSocket;
+    private byte[] receiveBuffer;
+    private byte[] sendBuffer;
+    private InetAddress playerAddress;
+    private ClientParser parser;
 
-    public NetworkUDP(int portNumber) throws SocketException {
-        byte[] recvBuffer = new byte[1500];
-        this.incoming = new DatagramPacket(recvBuffer, recvBuffer.length);
-        this.socket = new DatagramSocket(portNumber);
+    public NetworkUDP(DatagramSocket socket, ClientParser parser, InetAddress playerAddress) {
+
+        this.udpSocket = socket;
+        this.playerAddress = playerAddress;
+
+        this.parser = parser;
+
+        receiveBuffer = new byte[1500];
+
     }
 
-    public String listener() throws IOException {
-        socket.receive(incoming);
-        if (incoming!=null) {
-            byte[] data = incoming.getData();
-            return new String(data, 0, incoming.getLength());
-        }
-        return null;
-    }
+    @Override
+    public void run() {
 
-    public void writer(String newString) throws IOException {
+        while(true) {
 
-        byte[] sendBuffer = newString.getBytes();
+            DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
-        DatagramPacket sendPacket = new DatagramPacket(sendBuffer, 0, sendBuffer.length, incoming.getAddress(), incoming.getPort());
+            try {
 
-        socket.send(sendPacket);
-        }
-    }
+                udpSocket.receive(receivePacket);
 
-    /*
+                synchronized (parser) {
+                    parser.handleUDPMessage(new String(receiveBuffer, 0, receivePacket.getLength()), playerAddress);
+                }
 
-    public void receiveSend() {
-        try {
-            while (true) {
-                socket.receive(incoming);
-                byte[] data = incoming.getData();
-                String s = new String(data, 0, incoming.getLength());
-                String[] positions = s.split(",");
-                int col = Integer.parseInt(positions[0]);
-                col++;
-                int row = Integer.parseInt(positions[1]);
-                row++;
-                String novaString = row + "," + col;
-                System.out.println(novaString);
-                //s = s.toUpperCase();
-                DatagramPacket sendPacket = new DatagramPacket(novaString.getBytes(), novaString.getBytes().length, incoming.getAddress(), incoming.getPort());
-                socket.send(sendPacket);
-                System.out.println(novaString);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
+        }
+
+    }
+
+    public void send(String message) {
+
+        sendBuffer = message.getBytes();
+
+        DatagramPacket packet = new DatagramPacket(sendBuffer, sendBuffer.length, playerAddress, 8779);
+
+        try {
+
+            System.out.println("SENDING UDP PACKET!");
+            udpSocket.send(packet);
+            System.out.println("UDP PACKET SENT.");
+
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-
         }
+
     }
-    */
+
+}

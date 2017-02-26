@@ -1,11 +1,16 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gamefield;
 
+import org.academiadecodigo.bootcamp.bomberdeal.server.Network.MapHandler;
+import org.academiadecodigo.bootcamp.bomberdeal.server.Network.ServerNetworkMessages;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Field {
 
-    private final int FIELD_WIDTH = 15;
-    private final int FIELD_HEIGHT = 13;
+    private int fieldWidth;
+    private int fieldHeight;
 
     private String[][] field;
 
@@ -16,21 +21,64 @@ public class Field {
 
     }
 
-    public String[][] getField() {
-        //TODO: Provide client with populated map information
-        return field;
+    public String getField() {
+
+        String populatedField = "";
+        StringBuilder builder = new StringBuilder(populatedField);
+
+        String x;
+        String y;
+
+        for (int i = 0; i < field.length; i++) {
+
+            for (int j = 0; j < field[i].length; j++) {
+
+                x = String.valueOf(i);
+                y = String.valueOf(j);
+
+                builder.append(x + ServerNetworkMessages.COORDS_SPACE + y + ServerNetworkMessages.COORDS_SPACE +
+                        field[i][j]);
+
+                builder.append("\n");
+            }
+
+        }
+
+        populatedField = builder.toString();
+
+        return populatedField;
     }
 
     /**
      * Creates the field array
      */
     private void createEmptyField() {
-        field = new String[FIELD_WIDTH][FIELD_HEIGHT];
 
-        for (int x = 0; x < FIELD_WIDTH; x++) {
-            for (int y = 0; y < FIELD_HEIGHT; y++) {
-                field[x][y] = TileType.EMPTY.getSymbol();
+        String[] mapField = MapHandler.getMap().split("\\n");
+
+        this.fieldWidth = Integer.valueOf(mapField[mapField.length - 1].split(";")[1]);
+        this.fieldHeight = Integer.valueOf(mapField[mapField.length - 2].split(";")[0]);
+
+        field = new String[fieldWidth + 1][fieldHeight + 1];
+
+        int posX;
+        int posY;
+
+        Pattern pattern = Pattern.compile("^(\\w+);(\\w+);(\\w+)");
+
+        for (int i = 0; i < mapField.length; i++) {
+
+            Matcher matcher = pattern.matcher(mapField[i]);
+
+            while (matcher.find()) {
+
+                posY = Integer.valueOf(matcher.group(1));
+                posX = Integer.valueOf(matcher.group(2));
+
+                field[posY][posX] = matcher.group(3);
+
             }
+
         }
     }
 
@@ -38,21 +86,40 @@ public class Field {
      * Populates the field with the pre-set map tiles
      */
     private void populateField() {
-        for(int y = 0; y < FIELD_HEIGHT; y++){
-            field[0][y] = TileType.WALL.getSymbol();
-        }
-    }
 
-    public void map(){
-        for(int x= 0; x<FIELD_WIDTH; x++){
-            for(int y=0; y<FIELD_HEIGHT; y++){
-                System.out.println(field[x][y]);
+        String[] mapField = MapHandler.getMapFill().split("\\n");
+
+        this.fieldWidth = Integer.valueOf(mapField[mapField.length - 1].split(";")[1]);
+        this.fieldHeight = Integer.valueOf(mapField[mapField.length - 2].split(";")[0]);
+
+        int posX;
+        int posY;
+
+        Pattern pattern = Pattern.compile("^(\\d+);(\\d+);(\\w+)$");
+
+        for (int i = 0; i < mapField.length; i++) {
+
+            Matcher matcher = pattern.matcher(mapField[i]);
+
+            while (matcher.find()) {
+
+                if (matcher.group(3).equals("EMPTY")) {
+                    break;
+                }
+
+                posY = Integer.valueOf(matcher.group(1));
+                posX = Integer.valueOf(matcher.group(2));
+
+                field[posY][posX] = matcher.group(3);
+
             }
+
         }
     }
 
     /**
      * Returns true if the TileType in the coordinates is WALL
+     *
      * @param x
      * @param y
      * @return
