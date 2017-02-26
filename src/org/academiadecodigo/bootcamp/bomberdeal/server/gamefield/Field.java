@@ -111,16 +111,16 @@ public class Field {
                     break;
                 }
 
+
+
                 posY = Integer.valueOf(matcher.group(1));
                 posX = Integer.valueOf(matcher.group(2));
 
-                if(matcher.group(2).equals("C")){
-                   Crate crate = new Crate(posX, posY);
+                if(matcher.group(2).equals("C")) {
+                    Crate crate = new Crate(posX, posY);
                     observer.update(crate);
                 }
                 field[posY][posX] = matcher.group(3);
-
-
 
             }
 
@@ -141,10 +141,10 @@ public class Field {
                             ServerNetworkMessages.COORDS_SPACE + field[i][j] + "\n";
 
                 }
-
             }
-
         }
+
+        System.out.println(spawns + " spawns");
 
         return spawns;
 
@@ -159,6 +159,12 @@ public class Field {
      */
     public boolean isWall(int x, int y) {
         return field[x][y].equals(TileType.WALL.getSymbol());
+    }
+
+    public void updatePosition(int x, int y, String tileType) {
+
+        field[x][y] = tileType;
+
     }
 
 }

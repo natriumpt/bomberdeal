@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gameobject;
 
+import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.PowerUpType;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
@@ -22,6 +23,11 @@ public class PowerUp implements Interactable{
 
     public PowerUpType getPowerUpType() {
         return powerUpType;
+    }
+
+    @Override
+    public void setField(Field field) {
+
     }
 
     @Override
