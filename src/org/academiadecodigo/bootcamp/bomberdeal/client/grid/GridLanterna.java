@@ -131,7 +131,9 @@ public class GridLanterna implements Grid {
 
     public void updatePositions(int x, int y, String type) {
 
-        positions[x][y].tile = type;
+        if(!(positions[x][y] == null)) {
+            positions[x][y].tile = type;
+        }
 
     }
 
