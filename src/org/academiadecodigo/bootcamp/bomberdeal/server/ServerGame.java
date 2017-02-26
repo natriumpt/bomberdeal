@@ -6,6 +6,8 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.Network.PlayerHandler;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by andre on 2/26/2017.
@@ -83,7 +85,12 @@ public class ServerGame implements Runnable {
     @Override
     public void run() {
 
-
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                broadcastField();
+            }
+        }, 0, 17);
 
     }
 }
