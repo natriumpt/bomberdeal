@@ -24,10 +24,12 @@ public class UserInputLanterna implements UserInput {
 
             if(!grid.isGridCreated()) {
 
+                System.out.println(grid.getScreen());
                 continue;
 
             }
 
+            System.out.println("reading keys");
             Key key = grid.getScreen().readInput();
 
             if (key == null) {
