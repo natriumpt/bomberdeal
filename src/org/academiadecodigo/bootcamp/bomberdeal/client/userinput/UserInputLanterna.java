@@ -3,16 +3,17 @@ package org.academiadecodigo.bootcamp.bomberdeal.client.userinput;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.screen.Screen;
 import org.academiadecodigo.bootcamp.bomberdeal.client.actions.PlayerMessages;
+import org.academiadecodigo.bootcamp.bomberdeal.client.grid.GridLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkUDP;
 
 public class UserInputLanterna implements UserInput {
 
-    private Screen screen;
     private ClientNetworkUDP udpConnection;
+    private GridLanterna grid;
 
-    public UserInputLanterna(Screen screen) {
+    public UserInputLanterna(GridLanterna grid) {
 
-        this.screen = screen;
+        this.grid = grid;
 
     }
 
@@ -21,20 +22,14 @@ public class UserInputLanterna implements UserInput {
 
         while(true) {
 
-            if(screen == null) {
+            if(!grid.isGridCreated()) {
 
-                try {
-
-                    Thread.sleep(17);
-                    continue;
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                System.out.println(grid.getScreen());
+                continue;
 
             }
 
-            Key key = screen.readInput();
+            Key key = grid.getScreen().readInput();
 
             if (key == null) {
 
@@ -54,7 +49,7 @@ public class UserInputLanterna implements UserInput {
                     case NormalKey:
 
                         if (key.getCharacter() == ' ') {
-                        udpConnection.sendPacket(PlayerMessages.PLAYER_DEPLOY);
+                            udpConnection.sendPacket(PlayerMessages.PLAYER_DEPLOY);
                         }
 
                         break;

@@ -23,11 +23,14 @@ public class GridLanterna implements Grid {
     private ScreenWriter screenWriter;
     private Position[][] positions;
     private String gridMap;
+    private boolean gridCreated;
 
     public GridLanterna() {
 
         gridMap = "";
         maxRows = 30;
+        screen = TerminalFacade.createScreen();
+        gridCreated = false;
 
     }
 
@@ -61,7 +64,6 @@ public class GridLanterna implements Grid {
         this.rows = Integer.valueOf(gridArray[gridArray.length - 2].split(";")[1]);
         this.cols = Integer.valueOf(gridArray[gridArray.length - 2].split(";")[0]);
 
-        screen = TerminalFacade.createScreen();
         screen.getTerminal().getTerminalSize().setColumns((rows * colWidth) + colWidth);
         screen.getTerminal().getTerminalSize().setRows((cols * rowHeight) + rowHeight);
 
@@ -102,6 +104,11 @@ public class GridLanterna implements Grid {
 
         }
 
+        synchronized (this) {
+            gridCreated = true;
+            notify();
+        }
+
         screen.refresh();
 
     }
@@ -134,6 +141,10 @@ public class GridLanterna implements Grid {
             positions[x][y].tile = type;
         }
 
+    }
+
+    public boolean isGridCreated() {
+        return gridCreated;
     }
 
     public Screen getScreen() {

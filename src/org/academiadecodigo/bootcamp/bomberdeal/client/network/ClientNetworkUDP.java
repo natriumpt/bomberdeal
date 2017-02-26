@@ -47,8 +47,9 @@ public class ClientNetworkUDP implements Runnable {
         DatagramPacket packet = new DatagramPacket(sendBuffer, sendBuffer.length, serverAddress, portNumber);
 
         try {
-
+            System.out.println("SENDING COMMAND");
             udpSocket.send(packet);
+            System.out.println("COMMAND SENT");
 
         } catch (IOException e) {
             e.printStackTrace();
