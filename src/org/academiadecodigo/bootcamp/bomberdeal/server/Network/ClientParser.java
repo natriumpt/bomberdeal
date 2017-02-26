@@ -58,19 +58,19 @@ public class ClientParser {
                 System.out.println("cá estou bailando");
 
                 if (matcher.group(2).equals("LEFT")) {
-                    playerHandler.getPlayer().move("LEFT");
-                }
-
-                if (matcher.group(2).equals("RIGHT")) {
-                    playerHandler.getPlayer().move("RIGHT");
-                }
-
-                if (matcher.group(2).equals("UP")) {
                     playerHandler.getPlayer().move("UP");
                 }
 
-                if (matcher.group(2).equals("DOWN")) {
+                if (matcher.group(2).equals("RIGHT")) {
                     playerHandler.getPlayer().move("DOWN");
+                }
+
+                if (matcher.group(2).equals("UP")) {
+                    playerHandler.getPlayer().move("LEFT");
+                }
+
+                if (matcher.group(2).equals("DOWN")) {
+                    playerHandler.getPlayer().move("RIGHT");
                 }
 
             }
