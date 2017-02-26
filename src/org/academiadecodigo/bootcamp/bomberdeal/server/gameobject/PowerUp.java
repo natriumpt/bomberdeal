@@ -14,8 +14,10 @@ public class PowerUp implements Interactable{
 
 
     public PowerUp(){
+
         tileType = TileType.POWERUP;
-       powerUpType = PowerUpType.values()[Util.rndIdxInRange(PowerUpType.values().length)];
+        powerUpType = PowerUpType.values()[Util.rndIdxInRange(PowerUpType.values().length)];
+
     }
 
     public PowerUpType getPowerUpType() {

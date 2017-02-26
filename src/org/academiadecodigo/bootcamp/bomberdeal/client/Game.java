@@ -33,7 +33,7 @@ public class Game {
 
     public void startGame() {
 
-        Menu menu = new MenuLanterna();
+        /*Menu menu = new MenuLanterna();
 
         if(menu == null) {
             throw new ExceptionInInitializerError();
@@ -58,9 +58,10 @@ public class Game {
         }
 
         playerName = menu.getUsername();
+        */
 
         try {
-            tcpSocket = new Socket(menu.getHostname(), 8080);
+            tcpSocket = new Socket("localhost", 8080);
             udpSocket = new DatagramSocket(8779);
         } catch (ConnectException e) {
             System.err.println("Address is offline.");
@@ -95,9 +96,9 @@ public class Game {
         tcpConnection.start();
         udpConnection.start();
 
-        //TODO:
-        // Game phase loop
-        Timer gameLoop = new Timer();
+        //TODO: loop grid update with server messages
+
+        /*Timer gameLoop = new Timer();
 
         gameLoop.scheduleAtFixedRate(new TimerTask() {
 
@@ -107,6 +108,7 @@ public class Game {
             }
 
         }, 34, 17);
+        */
 
     }
 

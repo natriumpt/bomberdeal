@@ -5,11 +5,13 @@ import org.academiadecodigo.bootcamp.bomberdeal.client.grid.TileType;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by codecadet on 2/24/17.
  */
-public class ClientInterpret {
+public class ClientParser {
 
     public InetAddress parseAddress(String receivedString) throws UnknownHostException { // primeiro index IP
         String []receivedFrame = receivedString.split(";");
@@ -23,6 +25,35 @@ public class ClientInterpret {
         return userName;
     }
 
+    //TODO: parse TPC messages according to ServerMessagesClass
 
+    public void handleTCPMessage(String message) {
+
+    }
+
+    //TODO: parse player actions through UDP messages
+
+    public void handleUDPMessage(String message) {
+
+        Pattern pattern = Pattern.compile("^(\\w+):(\\w+)$");
+        Matcher matcher = pattern.matcher(message);
+
+        while (matcher.find()) {
+
+            if(matcher.group(1).equals("MOVEMENT")) {
+
+                if(matcher.group(2).equals("LEFT")) {
+
+                }
+            }
+
+            if(matcher.group(1).equals("ACTION")) {
+
+            }
+
+
+        }
+
+    }
 
 }

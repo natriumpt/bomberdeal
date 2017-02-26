@@ -2,14 +2,14 @@ package org.academiadecodigo.bootcamp.bomberdeal.server.helper;
 
 public enum TileType {
 
-    EMPTY("0"),
+    FLOOR("0"),
     WALL("W"),
     BOMB("B"),
     CRATE("C"),
     FIRE("F"),
     PLAYER("P"),
+    SPAWN("S"),
     POWERUP("@");
-
 
     private String symbol;
 
@@ -21,4 +21,17 @@ public enum TileType {
         return symbol;
     }
 
+    public static TileType getTileType(String type){
+
+        for(int i = 0; i < TileType.values().length; i++) {
+
+            if(type.equals(TileType.values()[i].getSymbol())) {
+                return TileType.values()[i];
+            }
+
+        }
+
+        return TileType.FLOOR;
+
+    }
 }

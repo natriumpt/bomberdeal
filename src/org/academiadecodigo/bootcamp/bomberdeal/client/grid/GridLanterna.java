@@ -1,12 +1,10 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client.grid;
 
 import com.googlecode.lanterna.TerminalFacade;
-import com.googlecode.lanterna.gui.Interactable;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
-import org.academiadecodigo.bootcamp.bomberdeal.client.network.ServerMessages;
+import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkMessages;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,7 +38,7 @@ public class GridLanterna implements Grid {
 
             String serverMessage = reader.readLine();
 
-            while (!serverMessage.equals(ServerMessages.SERVER_MAP_LAYOUT_COMPLETE)) {
+            while (!serverMessage.equals(ClientNetworkMessages.SERVER_MAP_LAYOUT_COMPLETE)) {
 
                 gridMapBuilder.append(serverMessage + "\r\n");
                 serverMessage = reader.readLine();

@@ -21,8 +21,6 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
     private int y;
     private ArrayList<Bomb> bombs;
     private final int N_INITIAL_BOMB_ = 3; // in ms
-
-
     private TileType type;
     private PowerUpHandler powerUpHandler;
     private PowerUp powerUp;
