@@ -42,7 +42,6 @@ public class NetworkUDP implements Runnable {
 
                 synchronized (parser) {
 
-                    System.out.println("received packet");
                     parser.handleUDPMessage(new String(receiveBuffer, 0, receivePacket.getLength()), playerHandler);
                 }
 

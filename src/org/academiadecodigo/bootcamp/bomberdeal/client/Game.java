@@ -62,7 +62,7 @@ public class Game {
 
         try {
 
-            tcpSocket = new Socket("localhost", 8080);
+            tcpSocket = new Socket("192.168.0.130", 8080);
             udpSocket = new DatagramSocket(8779);
 
         } catch (ConnectException e) {
