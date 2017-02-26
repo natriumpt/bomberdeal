@@ -23,7 +23,7 @@ public class GameCore implements Observable {
 
     public GameCore() {
 
-        this.field = new Field();
+        this.field = new Field(this);
         this.interactables = Collections.synchronizedList(new ArrayList<>());
         this.collisionChecker = new CollisionChecker(field, interactables);
 
