@@ -13,14 +13,16 @@ import java.util.TimerTask;
 
 public class Bomb implements Interactable, DestroyableByFire, Collidable {
 
-   private Observable observer;
-   private int x;
-   private int y;
-   private String tileType;
-   private int range;
-   private boolean isOnField;
-   private CollisionChecker collisionChecker;
-   private final int BOMB_TIMER = 3000; // in ms
+
+    private Observable observer;
+    private int x;
+    private int y;
+    private String tileType;
+    private int range;
+    private boolean isOnField;
+    private CollisionChecker collisionChecker;
+    private final int BOMB_TIMER = 3000; // in ms
+    private Field field;
 
    public Bomb(int x, int y, CollisionChecker collisionChecker) {
       this.x = x;
@@ -65,6 +67,8 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
       observer.update(this);
       for (int i = 1; i <= range; i++) {
 
+        System.out.println("inicio do fire");
+
          if (!collisionChecker.checkWall(x + i, y)) {
 
             Fire fireRight = new Fire(x + i, y);
@@ -98,8 +102,10 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
 
    @Override
    public void setField(Field field) {
+        field.getFieldPositions()[x][y] = "F";
+        isOnField = false;
+    }
 
-   }
 
    @Override
    public int getX() {
@@ -110,6 +116,11 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
    public int getY() {
       return y;
    }
+
+//    @Override
+//    public void setField(Field field) {
+//        this.field = field;
+//    }
 
    @Override
    public String getTileType() {

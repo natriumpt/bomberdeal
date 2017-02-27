@@ -55,8 +55,6 @@ public class ClientParser {
 
             if (matcher.group(1).equals("MOVEMENT")) {
 
-                System.out.println("cá estou bailando");
-
                 if (matcher.group(2).equals("LEFT")) {
                     playerHandler.getPlayer().move("UP");
                 }

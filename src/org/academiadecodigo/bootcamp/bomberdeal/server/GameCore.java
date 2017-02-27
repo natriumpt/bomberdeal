@@ -58,7 +58,7 @@ public class GameCore implements Observable {
         }
     }
 
-    public String getSpawn() {
+    public synchronized String getSpawn() {
 
         String spawnCoords = "";
 
@@ -66,9 +66,11 @@ public class GameCore implements Observable {
 
             if (spawn != null) {
                 spawnCoords = spawn;
+                System.out.println(spawn + " spawn assigned");
                 spawn = null;
+                break;
             }
-            System.out.println(spawn + " spawn assigned");
+
 
         }
 
@@ -76,7 +78,7 @@ public class GameCore implements Observable {
     }
 
     @Override
-    public void update(Interactable gameObject) {
+    public synchronized void update(Interactable gameObject) {
 
         System.out.println("inicio update " + gameObject.getTileType());
         System.out.println(interactables.contains(gameObject));
