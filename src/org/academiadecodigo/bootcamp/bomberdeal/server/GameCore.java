@@ -23,8 +23,8 @@ public class GameCore implements Observable {
 
     public GameCore() {
 
-        this.field = new Field(this);
         this.interactables = Collections.synchronizedList(new ArrayList<>());
+        this.field = new Field(this);
         this.collisionChecker = new CollisionChecker(field, interactables);
 
         playerHandlers = new ArrayList<>();
@@ -111,7 +111,7 @@ public class GameCore implements Observable {
     public String interactableToString(int i) {
 
         return interactables.get(i).getX() + ServerNetworkMessages.COORDS_SPACE + interactables.get(i).getY() +
-                ServerNetworkMessages.COORDS_SPACE + interactables.get(i).getTileType().getSymbol() + "\n";
+                ServerNetworkMessages.COORDS_SPACE + interactables.get(i).getTileType() + "\n";
 
     }
 

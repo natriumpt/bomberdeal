@@ -51,14 +51,14 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
         this.field = field;
 
         for (int bomb = 0; bomb < N_INITIAL_BOMB_; bomb++) {
-            bombs.add(bomb, new Bomb(x, y, observer, collisionChecker, field));
+            bombs.add(bomb, new Bomb(x, y, this.observer, collisionChecker, field));
         }
 
     }
 
     public void increaseBombs(Player player){
 
-        Bomb bomb = new Bomb(player.getX(), player.getY(), observer, collisionChecker, field);
+        Bomb bomb = new Bomb(player.getX(), player.getY(), this.observer, collisionChecker, field);
         bombs.add(bombs.size(), bomb);
 
     }
@@ -123,7 +123,7 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
 
         for (int i = 0; i < bombs.size(); i++) {
             if (!bombs.get(i).isOnField()) {
-                notifyAll(bombs.get(i));
+                this.observer.update(bombs.get(i));
                 bombs.get(i).explode(x,y);
                 break;
             }

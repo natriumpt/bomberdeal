@@ -111,12 +111,10 @@ public class Field {
                     break;
                 }
 
-
-
                 posY = Integer.valueOf(matcher.group(1));
                 posX = Integer.valueOf(matcher.group(2));
 
-                if(matcher.group(2).equals("C")) {
+                if(matcher.group(3).equals("C")) {
                     Crate crate = new Crate(posX, posY);
                     observer.update(crate);
                 }

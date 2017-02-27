@@ -25,10 +25,6 @@ public class Crate implements Collidable, DestroyableByFire, Interactable{
         System.out.println(x + " : " + y);
     }
 
-    public void attach(Observable observer) {
-        this.observer = observer;
-    }
-
     @Override
     public void setField(Field field) {
 
