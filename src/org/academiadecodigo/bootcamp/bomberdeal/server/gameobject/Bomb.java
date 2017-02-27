@@ -16,7 +16,7 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
     private Observable observer;
     private int x;
     private int y;
-    private TileType tileType;
+    private String tileType;
     private int range;
     private boolean isOnField;
     private CollisionChecker collisionChecker;
@@ -28,7 +28,7 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
         this.x = x;
         this.y = y;
         this.collisionChecker = collisionChecker;
-        tileType = TileType.BOMB;
+        tileType = TileType.BOMB.getSymbol();
         range = 3;
 
     }
@@ -43,7 +43,6 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
         setTimer(BOMB_TIMER);
 
         observer.update(this); //to remove bomb from interactables list
-
     }
 
     public boolean isOnField(){
@@ -69,32 +68,29 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
 
                 Fire fireRight = new Fire(x + i, y);
                 updateObserver(fireRight);
-                collisionChecker.processFire();
 
+                collisionChecker.processFire(x + i, y);
             }
 
             if((x - i) >= 0 && !collisionChecker.checkWall(x - i, y)) {
 
                 Fire fireLeft = new Fire(x - i, y);
                 updateObserver(fireLeft);
-                collisionChecker.processFire();
-
+                collisionChecker.processFire(x - i, y);
             }
 
             if(!collisionChecker.checkWall(x, y + i)) {
 
                 Fire fireDown = new Fire(x, y + i);
                 updateObserver(fireDown);
-                collisionChecker.processFire();
-
+                collisionChecker.processFire(x, y + i);
             }
 
             if((y - i) >= 0 && !collisionChecker.checkWall(x, y - i)) {
 
                 Fire fireUp = new Fire(x, y - i);
                 updateObserver(fireUp);
-                collisionChecker.processFire();
-
+                collisionChecker.processFire(x, y - i);
             }
         }
 
@@ -117,7 +113,7 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
     }
 
     @Override
-    public TileType getTileType() {
+    public String getTileType() {
         return tileType;
     }
 

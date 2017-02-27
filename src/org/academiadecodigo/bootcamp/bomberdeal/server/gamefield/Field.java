@@ -20,6 +20,7 @@ public class Field {
     public Field(Observable gameCore) {
 
         this.observer= gameCore;
+
         createEmptyField();
         populateField();
 
@@ -116,7 +117,7 @@ public class Field {
                 posY = Integer.valueOf(matcher.group(1));
                 posX = Integer.valueOf(matcher.group(2));
 
-                if(matcher.group(2).equals("C")) {
+                if(matcher.group(3).equals("C")) {
                     Crate crate = new Crate(posX, posY);
                     observer.update(crate);
                 }
@@ -165,6 +166,10 @@ public class Field {
 
         field[x][y] = tileType;
 
+    }
+
+    public String[][] getFieldPositions() {
+        return field;
     }
 
 }

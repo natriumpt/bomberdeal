@@ -23,8 +23,8 @@ public class GameCore implements Observable {
 
     public GameCore() {
 
-        this.field = new Field(this);
         this.interactables = Collections.synchronizedList(new ArrayList<>());
+        this.field = new Field(this);
         this.collisionChecker = new CollisionChecker(field, interactables);
 
         playerHandlers = new ArrayList<>();
@@ -110,7 +110,7 @@ public class GameCore implements Observable {
     public String interactableToString(int i) {
 
         return interactables.get(i).getX() + ServerNetworkMessages.COORDS_SPACE + interactables.get(i).getY() +
-                ServerNetworkMessages.COORDS_SPACE + interactables.get(i).getTileType().getSymbol() + "\n";
+                ServerNetworkMessages.COORDS_SPACE + interactables.get(i).getTileType() + "\n";
 
     }
 
@@ -158,15 +158,21 @@ public class GameCore implements Observable {
 
                 for (PlayerHandler player : playerHandlers) {
 
-                    System.out.println("CONVERTING " + convertAllInteractablesToString() + " CONVERTED INTERACTABLES");
+                    if(!(convertAllInteractablesToString().equals(""))) {
 
-                    player.sendUDP(field.getField());
-                    player.sendUDP(convertAllInteractablesToString());
+                        System.out.println("CONVERTING " + convertAllInteractablesToString() + " CONVERTED INTERACTABLES");
 
-                    if(player.getPlayer().isAlive()) {
-                        player.sendUDP(player.getPlayer().getPosition());
+                        player.sendUDP(convertAllInteractablesToString());
+
+                        if (player.getPlayer().isAlive()) {
+                            Integer previousPosX = player.getPlayer().getX();
+                            Integer previousPosY = player.getPlayer().getY();
+
+                            player.sendUDP(previousPosX + ";" + previousPosY + ";" + "0");
+                            player.sendUDP(player.getPlayer().getPosition());
+                        }
+
                     }
-
                 }
 
             }

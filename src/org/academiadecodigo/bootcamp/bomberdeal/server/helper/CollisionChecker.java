@@ -25,13 +25,16 @@ public class CollisionChecker {
             return true;
         }
 
-        
-        /*for (Interactable interactable : interactables) {
+        /*if (!(field.getFieldPositions()[x][y].equals("0") && !(field.getFieldPositions()[x][y].equals("S")))) {
+            return true;
+        }*/
+        for (Interactable interactable : interactables) {
+
             if (interactable instanceof Collidable) {
                 if (interactable.getX() == x && interactable.getY() == y)
                     return true;
             }
-        }*/
+        }
 
         return false;
     }
@@ -45,7 +48,7 @@ public class CollisionChecker {
         return false;
     }
 
-    public synchronized void processFire() {
+    public synchronized void processFire(int x, int y) {
         System.out.println("a entrar no processo");
 
         for (Interactable fire : interactables) {
@@ -57,8 +60,9 @@ public class CollisionChecker {
                 for (Interactable destroyable : interactables) {
 
                     if (destroyable instanceof DestroyableByFire) {
-                        System.out.println(destroyable.getTileType());
-                        destroyable.destroy();
+                        if (destroyable.getX() == x && destroyable.getY() == y) {
+                            destroyable.destroy();
+                        }
                     }
 
                 }
