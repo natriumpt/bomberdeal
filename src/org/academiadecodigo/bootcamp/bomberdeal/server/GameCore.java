@@ -58,7 +58,7 @@ public class GameCore implements Observable {
         }
     }
 
-    public String getSpawn() {
+    public synchronized String getSpawn() {
 
         String spawnCoords = "";
 
@@ -66,10 +66,11 @@ public class GameCore implements Observable {
 
             if (spawn != null) {
                 spawnCoords = spawn;
+                System.out.println(spawn + " spawn assigned");
                 spawn = null;
                 break;
             }
-            System.out.println(spawn + " spawn assigned");
+
 
         }
 
