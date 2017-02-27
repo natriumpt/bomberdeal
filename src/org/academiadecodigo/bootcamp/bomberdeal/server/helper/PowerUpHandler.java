@@ -14,14 +14,20 @@ public class PowerUpHandler {
         this.players = players;
     }
 
-    public void assignPowerUp(PowerUp powerup, Player player){
-        if(powerup.getPowerUpType() == PowerUpType.BOMBS){
+    public void assignPowerUp(PowerUp powerup, Player player) {
+
+        if(powerup.getPowerUpType() == PowerUpType.BOMBS) {
+
            player.increaseBombs(player);
+
         }
-        if(powerup.getPowerUpType() == PowerUpType.RANGE){
+        
+        if(powerup.getPowerUpType() == PowerUpType.RANGE) {
+
             for(int i = 0; i < player.getNrOfBombs(); i++){
                 player.getBomb(i).setRange();
             }
+
         }
     }
 }

@@ -35,28 +35,28 @@ public class MenuLanterna implements SplashScreen, Runnable {
         screen = TerminalFacade.createScreen();
         screen.startScreen();
         String title =
-                        "/$$$$$$$                           /$$                           /$$      /$$\n" +
-                        "| $$__  $$                        | $$                          | $$$    /$$$\n" +
-                        "| $$  \\ $$  /$$$$$$  /$$$$$$/$$$$ | $$$$$$$   /$$$$$$   /$$$$$$ | $$$$  /$$$$  /$$$$$$  /$$$$$$$\n" +
-                        "| $$$$$$$  /$$__  $$| $$_  $$_  $$| $$__  $$ /$$__  $$ /$$__  $$| $$ $$/$$ $$ |____  $$| $$__  $$\n" +
-                        "| $$__  $$| $$  \\ $$| $$ \\ $$ \\ $$| $$  \\ $$| $$$$$$$$| $$  \\__/| $$  $$$| $$  /$$$$$$$| $$  \\ $$\n" +
-                        "| $$  \\ $$| $$  | $$| $$ | $$ | $$| $$  | $$| $$_____/| $$      | $$\\  $ | $$ /$$__  $$| $$  | $$\n" +
-                        "| $$$$$$$/|  $$$$$$/| $$ | $$ | $$| $$$$$$$/|  $$$$$$$| $$      | $$ \\/  | $$|  $$$$$$$| $$  | $$\n" +
-                        "|_______/  \\______/ |__/ |__/ |__/|_______/  \\_______/|__/      |__/     |__/ \\_______/|__/  |__/";
+                        " /$$$$$$$                          /$$                           /$$$$$$$                      /$$\n" +
+                        "| $$__  $$                        | $$                          | $$__  $$                    | $$\n" +
+                        "| $$  \\ $$  /$$$$$$  /$$$$$$/$$$$ | $$$$$$$   /$$$$$$   /$$$$$$ | $$  \\ $$  /$$$$$$   /$$$$$$ | $$\n" +
+                        "| $$$$$$$  /$$__  $$| $$_  $$_  $$| $$__  $$ /$$__  $$ /$$__  $$| $$  | $$ /$$__  $$ |____  $$| $$\n" +
+                        "| $$__  $$| $$  \\ $$| $$ \\ $$ \\ $$| $$  \\ $$| $$$$$$$$| $$  \\__/| $$  | $$| $$$$$$$$  /$$$$$$$| $$\n" +
+                        "| $$  \\ $$| $$  | $$| $$ | $$ | $$| $$  | $$| $$_____/| $$      | $$  | $$| $$_____/ /$$__  $$| $$\n" +
+                        "| $$$$$$$/|  $$$$$$/| $$ | $$ | $$| $$$$$$$/|  $$$$$$$| $$      | $$$$$$$/|  $$$$$$$|  $$$$$$$| $$\n" +
+                        "|_______/  \\______/ |__/ |__/ |__/|_______/  \\_______/|__/      |_______/  \\_______/ \\_______/|__/";
 
         String bomb =
-                        "     ,--.!,\n" +
+                "     ,--.!,\n" +
                         "  __/   -*-\n" +
                         ",MMMM.  '|`\n" +
                         "MMMMMM     \n" +
                         "`MMMM' ";
 
-        for(int i = 0; i<screen.getTerminalSize().getRows();i++){
-            for (int j = 0; j<screen.getTerminalSize().getColumns();j++){
-                screen.putString(j,0," ", Terminal.Color.YELLOW, Terminal.Color.YELLOW);
-                screen.putString(0,i," ", Terminal.Color.YELLOW, Terminal.Color.YELLOW);
-                screen.putString(j,screen.getTerminalSize().getRows()-1," ", Terminal.Color.YELLOW, Terminal.Color.YELLOW);
-                screen.putString(screen.getTerminalSize().getColumns()-1,i," ", Terminal.Color.YELLOW, Terminal.Color.YELLOW);
+        for (int i = 0; i < screen.getTerminalSize().getRows(); i++) {
+            for (int j = 0; j < screen.getTerminalSize().getColumns(); j++) {
+                screen.putString(j, 0, " ", Terminal.Color.YELLOW, Terminal.Color.YELLOW);
+                screen.putString(0, i, " ", Terminal.Color.YELLOW, Terminal.Color.YELLOW);
+                screen.putString(j, screen.getTerminalSize().getRows() - 1, " ", Terminal.Color.YELLOW, Terminal.Color.YELLOW);
+                screen.putString(screen.getTerminalSize().getColumns() - 1, i, " ", Terminal.Color.YELLOW, Terminal.Color.YELLOW);
             }
         }
 
@@ -73,21 +73,21 @@ public class MenuLanterna implements SplashScreen, Runnable {
         String[] bombASCII = bomb.split("\n");
         for (String line : bombASCII) {
             System.out.println(line);
-            screen.putString(screen.getTerminalSize().getColumns()/5, count1, line, Terminal.Color.WHITE, Terminal.Color.BLACK);
+            screen.putString(screen.getTerminalSize().getColumns() / 5, count1, line, Terminal.Color.WHITE, Terminal.Color.BLACK);
             count1++;
         }
 
         int count2 = screen.getTerminalSize().getRows() - 8;
         for (String line : bombASCII) {
             System.out.println(line);
-            screen.putString(screen.getTerminalSize().getColumns()/2, count2, line, Terminal.Color.GREEN, Terminal.Color.BLACK);
+            screen.putString(screen.getTerminalSize().getColumns() / 2, count2, line, Terminal.Color.GREEN, Terminal.Color.BLACK);
             count2++;
         }
 
         int count3 = screen.getTerminalSize().getRows() / 9;
         for (String line : bombASCII) {
             System.out.println(line);
-            screen.putString(3*screen.getTerminalSize().getColumns()/4, count3, line, Terminal.Color.CYAN, Terminal.Color.BLACK);
+            screen.putString(3 * screen.getTerminalSize().getColumns() / 4, count3, line, Terminal.Color.CYAN, Terminal.Color.BLACK);
             count3++;
         }
 
