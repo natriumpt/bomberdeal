@@ -62,15 +62,14 @@ public class GameCore implements Observable {
 
         String spawnCoords = "";
 
-        for(String spawn: spawnPoints) {
+        for(int i = 0; i < spawnPoints.length; i++) {
 
-            if (spawn != null) {
-                spawnCoords = spawn;
-                System.out.println(spawn + " spawn assigned");
-                spawn = null;
+            if (spawnPoints[i] != null) {
+                spawnCoords = spawnPoints[i];
+                System.out.println(spawnPoints[i] + " spawn assigned");
+                spawnPoints[i] = null;
                 break;
             }
-
 
         }
 

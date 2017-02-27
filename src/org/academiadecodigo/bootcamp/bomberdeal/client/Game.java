@@ -1,6 +1,7 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client;
 
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
+import org.academiadecodigo.bootcamp.bomberdeal.client.menu.MenuLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ServerParser;
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.GridLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkUDP;
@@ -32,7 +33,7 @@ public class Game {
 
     public void startGame() {
 
-        /*SplashScreen menu = new MenuLanterna();
+        SplashScreen menu = new MenuLanterna();
 
         if(menu == null) {
             throw new ExceptionInInitializerError();
@@ -57,7 +58,6 @@ public class Game {
         }
 
         playerName = menu.getUsername();
-        */
 
         try {
 
