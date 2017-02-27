@@ -28,7 +28,6 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
     private CollisionChecker collisionChecker;
     private boolean alive;
     private Field field;
-
     private boolean onCooldown;
     private Timer cooldownTimer;
 
@@ -69,6 +68,7 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
     }
 
     private void beginCooldown() {
+
         onCooldown = true;
         cooldownTimer.schedule(new TimerTask() {
             @Override
@@ -76,6 +76,7 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
                 onCooldown = false;
             }
         }, 50);
+
     }
 
     public void move(String direction) {
@@ -126,21 +127,25 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
 
     public void deploy() {
 
-        for (int i = 0; i < bombs.size(); i++) {
+        if(alive) {
 
-            if (!bombs.get(i).isOnField()) {
-                updateObserver(bombs.get(i));
+            for (int i = 0; i < bombs.size(); i++) {
+
+                if (!bombs.get(i).isOnField()) {
+                    updateObserver(bombs.get(i));
 
 //                field.getFieldPositions()[x][y] = "B";
 //                observer.update(bombs.get(i));
-                bombs.get(i).explode(x,y);
-                break;
+                    bombs.get(i).explode(x, y);
+                    break;
 
+                }
             }
-        }
 
-        if (!onCooldown) {
-            beginCooldown(); //by Alexandre 23/02/2017 RIP in Pepperonis
+            if (!onCooldown) {
+                beginCooldown(); //by Alexandre 23/02/2017 RIP in Pepperonis
+            }
+
         }
     }
 

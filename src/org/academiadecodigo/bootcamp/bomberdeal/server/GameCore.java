@@ -157,7 +157,11 @@ public class GameCore implements Observable {
 
     public void broadcastInteractables() {
 
-        synchronized (playerHandlers) {
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                synchronized (playerHandlers) {
 
             if (field != null) {
 
@@ -165,7 +169,7 @@ public class GameCore implements Observable {
 
                     if(!(convertAllInteractablesToString().equals(""))) {
 
-                        System.out.println("CONVERTING " + convertAllInteractablesToString() + " CONVERTED INTERACTABLES");
+                        //System.out.println("CONVERTING " + convertAllInteractablesToString() + " CONVERTED INTERACTABLES");
 
                         //player.sendUDP(convertAllInteractablesToString());
                         player.sendUDP(field.getField());
@@ -180,6 +184,9 @@ public class GameCore implements Observable {
 
             }
         }
+            }
+        }, 0);
+
     }
 
     public void startGame() {
