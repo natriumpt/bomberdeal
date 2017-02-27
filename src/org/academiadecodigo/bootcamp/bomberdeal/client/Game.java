@@ -7,9 +7,8 @@ import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkUDP;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkTCP;
 import org.academiadecodigo.bootcamp.bomberdeal.client.userinput.UserInputLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.userinput.UserInput;
-import org.academiadecodigo.bootcamp.bomberdeal.client.menu.MenuLanterna;
-import org.academiadecodigo.bootcamp.bomberdeal.client.menu.Menu;
-import java.io.FileNotFoundException;
+import org.academiadecodigo.bootcamp.bomberdeal.client.menu.SplashScreen;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.*;
@@ -33,7 +32,7 @@ public class Game {
 
     public void startGame() {
 
-        /*Menu menu = new MenuLanterna();
+        /*SplashScreen menu = new MenuLanterna();
 
         if(menu == null) {
             throw new ExceptionInInitializerError();
@@ -122,9 +121,9 @@ public class Game {
 
     }
 
-    public void waitForMenu(Menu menu) {
+    public void waitForMenu(SplashScreen splashScreen) {
 
-        while (!menu.isPhaseOver()) {
+        while (!splashScreen.isPhaseOver()) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
