@@ -1,6 +1,6 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client.menu;
 
-public interface Menu {
+public interface SplashScreen {
 
     void init();
 
