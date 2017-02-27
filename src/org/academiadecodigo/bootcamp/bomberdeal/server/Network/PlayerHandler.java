@@ -67,35 +67,4 @@ public class PlayerHandler implements Runnable {
         this.player = player;
     }
 
-    /*long startTime = System.currentTimeMillis();
-        long elapsedTime = 0L;
-        String s;
-        int playersQuantity = 0;
-
-        System.out.println(Thread.currentThread().getName());
-        try {
-            switch (state) {
-                case 0:
-                    //while (elapsedTime < 30 * 1000 && (player.getSize() < 2 && player.getSize() < 5) ) {
-                        if ((s = udpServer.listener()).contains("id")) { // rever palavra reservada
-                            player = new Player(clientInterpret.parseUserName(s), clientInterpret.parseAddress(s));
-                            send(fileEditor.getMap());
-                            send("MAP:SENT");
-                            player.setPlayerSpawn(playersQuantity++);
-                            System.out.println("sent");
-                            state = 1;
-
-                            //}
-                    }
-                    break;
-
-                case 1: // placement dos players
-                    send("GAMESTART");
-                    state = 2;
-                    break;
-
-                case 2:  // movements from the players
-
-                    break;*/
-
 }

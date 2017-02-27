@@ -13,8 +13,6 @@ public final class ServerNetworkMessages {
 
     public static final String SERVER_PLAYER_DEATH = "YOU" + SERVER_SPACE + "DEAD";
 
-    //TODO player ID message:
-
     public static final String PLAYER_ID_NAME = "PLAYERID" + SERVER_SPACE;
 
 }

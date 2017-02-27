@@ -1,7 +1,7 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gameobject;
 
-import org.academiadecodigo.bootcamp.bomberdeal.server.Network.PlayerHandler;
 import org.academiadecodigo.bootcamp.bomberdeal.server.Network.ServerNetworkMessages;
+import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Collidable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.DestroyableByFire;
@@ -11,7 +11,6 @@ import org.academiadecodigo.bootcamp.bomberdeal.server.helper.CollisionChecker;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
 
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,18 +23,19 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
     private int y;
     private ArrayList<Bomb> bombs;
     private final int N_INITIAL_BOMB_ = 3; // in ms
-    private TileType type;
+    private String type;
     private PowerUpHandler powerUpHandler;
     private CollisionChecker collisionChecker;
     private boolean alive;
+    private Field field;
 
     private boolean onCooldown;
     private Timer cooldownTimer;
 
-    public Player(String spawnPointCoords, CollisionChecker collisionChecker, Observable observer) {
+    public Player(String spawnPointCoords, CollisionChecker collisionChecker, Observable observer, Field field) {
 
         this.collisionChecker = collisionChecker;
-        this.type = TileType.PLAYER;
+        this.type = TileType.PLAYER.getSymbol();
 
         this.observer = observer;
 
@@ -48,16 +48,17 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
 
         cooldownTimer = new Timer();
         bombs = new ArrayList<>();
+        this.field = field;
 
         for (int bomb = 0; bomb < N_INITIAL_BOMB_; bomb++) {
-            bombs.add(bomb, new Bomb(x, y, observer, collisionChecker));
+            bombs.add(bomb, new Bomb(x, y, observer, collisionChecker, field));
         }
 
     }
 
     public void increaseBombs(Player player){
 
-        Bomb bomb = new Bomb(player.getX(), player.getY(), observer, collisionChecker);
+        Bomb bomb = new Bomb(player.getX(), player.getY(), observer, collisionChecker, field);
         bombs.add(bombs.size(), bomb);
 
     }
@@ -114,7 +115,7 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
 
     private void checkPowerUps() {
         if(!(collisionChecker.checkPowerUp(x,y) == null)){
-            powerUpHandler.assingPowerUp(collisionChecker.checkPowerUp(x, y), this);
+            powerUpHandler.assignPowerUp(collisionChecker.checkPowerUp(x, y), this);
         }
     }
 
@@ -134,6 +135,11 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
     }
 
     @Override
+    public void setField(Field field) {
+
+    }
+
+    @Override
     public int getX() {
         return x;
     }
@@ -144,7 +150,7 @@ public class Player implements Interactable, DestroyableByFire, Collidable {
     }
 
     @Override
-    public TileType getTileType() {
+    public String getTileType() {
         return type;
     }
 

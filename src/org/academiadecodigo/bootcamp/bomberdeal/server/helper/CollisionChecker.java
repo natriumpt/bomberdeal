@@ -25,9 +25,9 @@ public class CollisionChecker {
             return true;
         }
 
-        for (Interactable collidable : interactables) {
-            if (collidable instanceof Collidable) {
-                if (collidable.getX() == x && collidable.getY() == y)
+        for (Interactable interactable : interactables) {
+            if (interactable instanceof Collidable) {
+                if (interactable.getX() == x && interactable.getY() == y)
                     return true;
             }
         }
@@ -36,23 +36,25 @@ public class CollisionChecker {
 
     }
 
-    public boolean checkWall(int x, int y){
-        if(field.isWall(x, y)){
+    public boolean checkWall(int x, int y) {
+        if (field.isWall(x, y)) {
             return true;
         }
         return false;
     }
 
-    public void processFire() {
+    public synchronized void processFire(int x, int y) {
         System.out.println("a entrar no processo");
 
         for (Interactable fire : interactables) {
+
             if (fire instanceof Fire) {
                 System.out.println("no processo do fogo");
                 for (Interactable destroyable : interactables) {
                     if (destroyable instanceof DestroyableByFire) {
-                        System.out.println(destroyable.getTileType());
-                        destroyable.destroy();
+                        if (destroyable.getX() == x && destroyable.getY() == y) {
+                            destroyable.destroy();
+                        }
                     }
                 }
             }
@@ -60,14 +62,17 @@ public class CollisionChecker {
 
     }
 
-    public PowerUp checkPowerUp(int x, int y){
+    public PowerUp checkPowerUp(int x, int y) {
+
         PowerUp powerUp2 = null;
-       for (Interactable powerUp : interactables){
-          if(powerUp instanceof PowerUp){
-              powerUp2 = (PowerUp) powerUp;
-          }
-       }
-       return powerUp2;
+
+        for (Interactable powerUp : interactables) {
+            if (powerUp instanceof PowerUp) {
+                powerUp2 = (PowerUp) powerUp;
+            }
+        }
+
+        return powerUp2;
     }
 
 }

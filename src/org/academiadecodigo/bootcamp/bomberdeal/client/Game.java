@@ -60,8 +60,10 @@ public class Game {
         */
 
         try {
+
             tcpSocket = new Socket("localhost", 8080);
             udpSocket = new DatagramSocket(8779);
+
         } catch (ConnectException e) {
             System.err.println("Address is offline.");
             System.exit(0);
@@ -77,7 +79,7 @@ public class Game {
 
         grid = new GridLanterna();
 
-        serverHandler = new ServerParser(this, grid);
+        serverHandler = new ServerParser(grid);
 
         ClientNetworkTCP networkTCP = new ClientNetworkTCP(tcpSocket, serverHandler);
         ClientNetworkUDP networkUDP = new ClientNetworkUDP(udpSocket, tcpSocket.getInetAddress(), 8080, serverHandler);
@@ -85,15 +87,24 @@ public class Game {
         Thread tcpConnection = new Thread(networkTCP);
         Thread udpConnection = new Thread(networkUDP);
 
-        UserInput input = new UserInputLanterna(((GridLanterna) grid).getScreen());
+        /*while(((GridLanterna)grid).getScreen() == null) {
 
+            try {
+                Thread.sleep(17);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }*/
+
+        UserInput input = new UserInputLanterna((GridLanterna)grid);
         Thread inputThread = new Thread(input);
-        inputThread.start();
 
         input.setUdpConnection(networkUDP);
 
         tcpConnection.start();
         udpConnection.start();
+        inputThread.start();
 
         //TODO: loop grid update with server messages
 
@@ -106,7 +117,7 @@ public class Game {
                 grid.updateScreen();
             }
 
-        }, 34, 17);
+        }, 34, 50);
 
     }
 
@@ -121,6 +132,10 @@ public class Game {
             continue;
         }
 
+    }
+
+    public Grid getGrid() {
+        return grid;
     }
 
     public void initGrid(InputStream stream) {

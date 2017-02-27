@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gameobject;
 
+import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Collidable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.DestroyableByFire;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
@@ -15,17 +16,22 @@ public class Crate implements Collidable, DestroyableByFire, Interactable{
     private Observable observer;
     private int x;
     private int y;
-    private TileType tileType;
+    private String tileType;
 
     public Crate(int x, int y){
         this.x = x;
         this.y = y;
-        tileType = TileType.CRATE;
+        tileType = TileType.CRATE.getSymbol();
         System.out.println(x + " : " + y);
     }
 
-    public void attach(Observable observer){
+    public void attach(Observable observer) {
         this.observer = observer;
+    }
+
+    @Override
+    public void setField(Field field) {
+
     }
 
     @Override
@@ -39,7 +45,7 @@ public class Crate implements Collidable, DestroyableByFire, Interactable{
     }
 
     @Override
-    public TileType getTileType() {
+    public String getTileType() {
         return tileType;
     }
 

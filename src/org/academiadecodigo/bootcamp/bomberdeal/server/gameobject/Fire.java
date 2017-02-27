@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server.gameobject;
 
+import org.academiadecodigo.bootcamp.bomberdeal.server.gamefield.Field;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Interactable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.gameobject.interfaces.Observable;
 import org.academiadecodigo.bootcamp.bomberdeal.server.helper.TileType;
@@ -12,15 +13,16 @@ public class Fire implements Interactable {
     private Observable observer;
     private int x;
     private int y;
-    private TileType tileType;
+    private String tileType;
 
     public Fire(int x, int y) {
+
         this.x = x;
         this.y = y;
-        tileType = TileType.FIRE;
+        tileType = TileType.FIRE.getSymbol();
         System.out.println(x + ":" + y);
 
-        setTimer(500);
+        setTimer(1000);
 
     }
 
@@ -38,6 +40,11 @@ public class Fire implements Interactable {
     }
 
     @Override
+    public void setField(Field field) {
+
+    }
+
+    @Override
     public int getX() {
         return x;
     }
@@ -48,7 +55,7 @@ public class Fire implements Interactable {
     }
 
     @Override
-    public TileType getTileType() {
+    public String getTileType() {
         return tileType;
     }
 

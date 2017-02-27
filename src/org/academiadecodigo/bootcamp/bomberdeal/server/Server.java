@@ -60,7 +60,7 @@ public class  Server {
                 System.out.println("Player connected.");
 
                 playerHandler = new PlayerHandler(playerSocket, serverUDPSocket, parser);
-                playerHandler.setPlayer(new Player(game.getSpawn(), game.getCollisionChecker(), game));
+                playerHandler.setPlayer(new Player(game.getSpawn(), game.getCollisionChecker(), game, game.getField()));
                 playerPool.submit(playerHandler);
 
             } catch (IOException e) {
