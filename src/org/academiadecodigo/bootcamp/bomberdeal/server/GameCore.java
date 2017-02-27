@@ -83,13 +83,15 @@ public class GameCore implements Observable {
 
         if (interactables.contains(gameObject)) {
 
-            System.out.println("contains");
+            System.out.println("contains " + gameObject.getTileType());
             interactables.remove(gameObject);
+            System.out.println("Removido?" + !interactables.contains(gameObject));
 
         } else {
 
-            System.out.println("not contains");
+            System.out.println("not contains " + gameObject.getTileType());
             interactables.add(gameObject);
+            System.out.println("Adicionado?" + interactables.contains(gameObject));
 
         }
     }
@@ -160,7 +162,7 @@ public class GameCore implements Observable {
 
                     if(!(convertAllInteractablesToString().equals(""))) {
 
-                        //System.out.println("CONVERTING " + convertAllInteractablesToString() + " CONVERTED INTERACTABLES");
+                        System.out.println("CONVERTING " + convertAllInteractablesToString() + " CONVERTED INTERACTABLES");
 
                         player.sendUDP(field.getField());
                         player.sendUDP(convertAllInteractablesToString());

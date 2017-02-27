@@ -1,7 +1,5 @@
 package org.academiadecodigo.bootcamp.bomberdeal.server;
 
-import org.academiadecodigo.bootcamp.bomberdeal.client.Game;
-
 /**
  * Created by andre on 2/26/2017.
  */

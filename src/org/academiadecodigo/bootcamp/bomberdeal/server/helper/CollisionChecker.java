@@ -11,80 +11,70 @@ import java.util.List;
 
 public class CollisionChecker {
 
-    private Field field;
-    private List<Interactable> interactables;
+   private Field field;
+   private List<Interactable> interactables;
 
-    public CollisionChecker(Field field, List<Interactable> interactables) {
-        this.field = field;
-        this.interactables = interactables;
-    }
+   public CollisionChecker(Field field, List<Interactable> interactables) {
+      this.field = field;
+      this.interactables = interactables;
+   }
 
-    public boolean checkCollision(int x, int y) {
+   public boolean checkCollision(int x, int y) {
 
-        if (field.isWall(x, y)) {
-            return true;
-        }
+      if (field.isWall(x, y)) {
+         return true;
+      }
 
         /*if (!(field.getFieldPositions()[x][y].equals("0") && !(field.getFieldPositions()[x][y].equals("S")))) {
             return true;
         }*/
 
-        for (Interactable interactable : interactables) {
+      for (Interactable interactable : interactables) {
 
-            if (interactable instanceof Collidable) {
-                if (interactable.getX() == x && interactable.getY() == y)
-                    return true;
-            }
-        }
+         if (interactable instanceof Collidable) {
+            if (interactable.getX() == x && interactable.getY() == y)
+               return true;
+         }
+      }
 
-        return false;
-    }
+      return false;
+   }
 
-    public boolean checkWall(int x, int y) {
+   public boolean checkWall(int x, int y) {
 
-        if (field.isWall(x, y)) {
-            return true;
-        }
+      if (field.isWall(x, y)) {
+         return true;
+      }
 
-        return false;
-    }
+      return false;
+   }
 
-    public synchronized void processFire(int x, int y) {
+   public synchronized void processFire(int x, int y) {
 
-        for (Interactable interactable : interactables) {
+      for (Interactable interactable : interactables) {
 
-            if (interactable instanceof Fire) {
+         if (interactable instanceof DestroyableByFire) {
 
-                System.out.println("no processo do fogo");
-
-                for (Interactable destroyable : interactables) {
-
-                    if (destroyable instanceof DestroyableByFire) {
-
-                        if (destroyable.getX() == x && destroyable.getY() == y) {
-                            destroyable.destroy();
-                        }
-
-                    }
-
-                }
-
+            if (interactable.getX() == x && interactable.getY() == y) {
+               interactable.destroy();
             }
 
-        }
-    }
+         }
 
-    public PowerUp checkPowerUp(int x, int y) {
+      }
+   }
 
-        PowerUp powerUp2 = null;
+   public PowerUp checkPowerUp(int x, int y) {
 
-        for (Interactable powerUp : interactables) {
-            if (powerUp instanceof PowerUp) {
-                powerUp2 = (PowerUp) powerUp;
-            }
-        }
+      PowerUp powerUp2 = null;
 
-        return powerUp2;
-    }
+      for (Interactable powerUp : interactables) {
+         if (powerUp instanceof PowerUp) {
+            powerUp2 = (PowerUp) powerUp;
+         }
+      }
+
+      return powerUp2;
+   }
 
 }

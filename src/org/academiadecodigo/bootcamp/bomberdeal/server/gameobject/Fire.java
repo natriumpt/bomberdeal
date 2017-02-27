@@ -10,57 +10,56 @@ import java.util.TimerTask;
 
 public class Fire implements Interactable {
 
-    private Observable observer;
-    private int x;
-    private int y;
-    private String tileType;
+   private Observable observer;
+   private int x;
+   private int y;
+   private String tileType;
 
-    public Fire(int x, int y) {
+   public Fire(int x, int y) {
+      this.x = x;
+      this.y = y;
+      tileType = TileType.FIRE.getSymbol();
+      System.out.println(x + ":" + y);
 
-        this.x = x;
-        this.y = y;
-        tileType = TileType.FIRE.getSymbol();
-        System.out.println(x + ":" + y);
+      setTimer(1000);
 
-        setTimer(1000);
+   }
 
-    }
+   public void attach(Observable observer) {
+      this.observer = observer;
+   }
 
-    public void attach(Observable observer) {
-        this.observer = observer;
-    }
+   private void setTimer(int delay) {
+      new Timer().schedule(new TimerTask() {
+         @Override
+         public void run() {
+            destroy();
+         }
+      }, delay);
+   }
 
-    private void setTimer(int delay) {
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                destroy();
-            }
-        }, delay);
-    }
+   @Override
+   public void setField(Field field) {
 
-    @Override
-    public void setField(Field field) {
+   }
 
-    }
+   @Override
+   public int getX() {
+      return x;
+   }
 
-    @Override
-    public int getX() {
-        return x;
-    }
+   @Override
+   public int getY() {
+      return y;
+   }
 
-    @Override
-    public int getY() {
-        return y;
-    }
+   @Override
+   public String getTileType() {
+      return tileType;
+   }
 
-    @Override
-    public String getTileType() {
-        return tileType;
-    }
-
-    @Override
-    public void destroy() {
-        observer.update(this); //to remove from interactables list
-    }
+   @Override
+   public void destroy() {
+      observer.update(this); //to remove from interactables list
+   }
 }

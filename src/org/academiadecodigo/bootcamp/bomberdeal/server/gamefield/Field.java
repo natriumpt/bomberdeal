@@ -117,7 +117,7 @@ public class Field {
 
                 if(matcher.group(3).equals("C")) {
                     Crate crate = new Crate(posX, posY);
-                    observer.update(crate);
+                    updateObserver(crate);
                 }
                 field[posY][posX] = matcher.group(3);
 
@@ -164,6 +164,11 @@ public class Field {
 
         field[x][y] = tileType;
 
+    }
+
+    private void updateObserver(Crate crate){
+        crate.attach(observer);
+        observer.update(crate);
     }
 
     public String[][] getFieldPositions() {

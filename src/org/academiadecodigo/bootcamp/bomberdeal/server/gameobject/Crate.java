@@ -30,6 +30,10 @@ public class Crate implements Collidable, DestroyableByFire, Interactable{
 
     }
 
+    public void attach (Observable observer){
+        this.observer = observer;
+    }
+
     @Override
     public int getX() {
         return x;
@@ -53,6 +57,8 @@ public class Crate implements Collidable, DestroyableByFire, Interactable{
             PowerUp powerUp = new PowerUp();
 
         }*/
+
+        System.out.println("caixa nao morre");
 
         observer.update(this);
 
