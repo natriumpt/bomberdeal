@@ -34,8 +34,6 @@ public class PlayerHandler implements Runnable {
             e.printStackTrace();
         }
 
-        System.out.println("Player thread created, sockets instanced.");
-
     }
 
     @Override

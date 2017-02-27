@@ -48,12 +48,8 @@ public class NetworkTCP implements Runnable {
 
     public void send(String message) {
 
-        System.out.println("SENDIND TCP MESSAGE");
-
         outStream.write(message + "\r\n");
         outStream.flush();
-
-        System.out.println("TCP MESSAGE SENT.");
 
     }
 

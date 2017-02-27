@@ -21,6 +21,7 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
     private boolean isOnField;
     private CollisionChecker collisionChecker;
     private final int BOMB_TIMER = 3000; // in ms
+    private Field field;
 
     public Bomb(int x, int y, Observable observer, CollisionChecker collisionChecker, Field field) {
 
@@ -43,6 +44,7 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
         setTimer(BOMB_TIMER);
 
         observer.update(this); //to remove bomb from interactables list
+
     }
 
     public boolean isOnField(){
@@ -50,16 +52,19 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
     }
 
     private void setTimer(int delay) {
+
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 destroy();
             }
         }, delay);
+
     }
 
     @Override
     public void destroy() {
+
         System.out.println("inicio do fire");
 
         for (int i = 1; i <= range; i++) {
@@ -94,12 +99,13 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
             }
         }
 
+        field.getFieldPositions()[x][y] = "F";
         isOnField = false;
     }
 
     @Override
     public void setField(Field field) {
-
+        this.field = field;
     }
 
     @Override

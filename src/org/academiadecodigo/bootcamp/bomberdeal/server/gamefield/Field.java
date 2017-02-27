@@ -116,7 +116,7 @@ public class Field {
                 posX = Integer.valueOf(matcher.group(2));
 
                 if(matcher.group(3).equals("C")) {
-                    Crate crate = new Crate(posX, posY);
+                    Crate crate = new Crate(posX, posY, observer);
                     observer.update(crate);
                 }
                 field[posY][posX] = matcher.group(3);

@@ -18,7 +18,7 @@ public class Crate implements Collidable, DestroyableByFire, Interactable{
     private int y;
     private String tileType;
 
-    public Crate(int x, int y){
+    public Crate(int x, int y, Observable observer){
         this.x = x;
         this.y = y;
         tileType = TileType.CRATE.getSymbol();
@@ -53,6 +53,8 @@ public class Crate implements Collidable, DestroyableByFire, Interactable{
             PowerUp powerUp = new PowerUp();
 
         }*/
+
+        System.out.println(this + " crate explosion");
 
         observer.update(this);
 
