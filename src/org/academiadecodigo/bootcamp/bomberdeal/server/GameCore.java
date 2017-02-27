@@ -86,12 +86,14 @@ public class GameCore implements Observable {
 
             System.out.println("contains " + gameObject.getTileType());
             interactables.remove(gameObject);
+            field.updatePosition(gameObject.getX(), gameObject.getY(), "0");
             System.out.println("Removido?" + !interactables.contains(gameObject));
 
         } else {
 
             System.out.println("not contains " + gameObject.getTileType());
             interactables.add(gameObject);
+            //field.updatePosition(gameObject.getX(), gameObject.getY(), gameObject.getTileType());
             System.out.println("Adicionado?" + interactables.contains(gameObject));
 
         }
@@ -165,6 +167,7 @@ public class GameCore implements Observable {
 
                         System.out.println("CONVERTING " + convertAllInteractablesToString() + " CONVERTED INTERACTABLES");
 
+                        //player.sendUDP(convertAllInteractablesToString());
                         player.sendUDP(field.getField());
                         player.sendUDP(convertAllInteractablesToString());
 

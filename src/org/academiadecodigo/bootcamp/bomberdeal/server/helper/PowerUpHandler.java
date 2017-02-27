@@ -21,7 +21,7 @@ public class PowerUpHandler {
            player.increaseBombs(player);
 
         }
-        
+
         if(powerup.getPowerUpType() == PowerUpType.RANGE) {
 
             for(int i = 0; i < player.getNrOfBombs(); i++){
