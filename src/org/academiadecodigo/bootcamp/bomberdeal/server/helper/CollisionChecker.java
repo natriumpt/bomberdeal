@@ -28,6 +28,7 @@ public class CollisionChecker {
         /*if (!(field.getFieldPositions()[x][y].equals("0") && !(field.getFieldPositions()[x][y].equals("S")))) {
             return true;
         }*/
+
         for (Interactable interactable : interactables) {
 
             if (interactable instanceof Collidable) {
@@ -49,20 +50,21 @@ public class CollisionChecker {
     }
 
     public synchronized void processFire(int x, int y) {
-        System.out.println("a entrar no processo");
 
-        for (Interactable fire : interactables) {
+        for (Interactable interactable : interactables) {
 
-            if (fire instanceof Fire) {
+            if (interactable instanceof Fire) {
 
                 System.out.println("no processo do fogo");
 
                 for (Interactable destroyable : interactables) {
 
                     if (destroyable instanceof DestroyableByFire) {
+
                         if (destroyable.getX() == x && destroyable.getY() == y) {
                             destroyable.destroy();
                         }
+
                     }
 
                 }

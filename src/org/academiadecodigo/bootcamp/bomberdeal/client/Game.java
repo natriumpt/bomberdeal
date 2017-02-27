@@ -117,7 +117,7 @@ public class Game {
                 grid.updateScreen();
             }
 
-        }, 34, 50);
+        }, 50, 100);
 
     }
 

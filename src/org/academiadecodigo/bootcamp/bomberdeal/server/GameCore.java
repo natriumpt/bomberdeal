@@ -160,15 +160,12 @@ public class GameCore implements Observable {
 
                     if(!(convertAllInteractablesToString().equals(""))) {
 
-                        System.out.println("CONVERTING " + convertAllInteractablesToString() + " CONVERTED INTERACTABLES");
+                        //System.out.println("CONVERTING " + convertAllInteractablesToString() + " CONVERTED INTERACTABLES");
 
+                        player.sendUDP(field.getField());
                         player.sendUDP(convertAllInteractablesToString());
 
                         if (player.getPlayer().isAlive()) {
-                            Integer previousPosX = player.getPlayer().getX();
-                            Integer previousPosY = player.getPlayer().getY();
-
-                            player.sendUDP(previousPosX + ";" + previousPosY + ";" + "0");
                             player.sendUDP(player.getPlayer().getPosition());
                         }
 
@@ -202,25 +199,3 @@ public class GameCore implements Observable {
     }
 
 }
-//    public static void main(String[] args) {
-//        interactables = Collections.synchronizedList(new ArrayList<>());
-//        GameCore gameCore = new GameCore();
-//
-//        Player player = new Player(2, 3, collisionChecker, gameCore);
-//        Player rute = new Player(1, 1, collisionChecker, gameCore);
-//        gameCore.setPlayerToGame(player);
-//        gameCore.setPlayerToGame(rute);
-//        System.out.println("X: " + player.getX());
-//        player.move(Player.Direction.WEST);
-//        System.out.println(("X: " + player.getX()));
-//        System.out.println("Nr of Bombs: " + player.getNrOfBombs());
-//        player.move(Player.Direction.WEST);
-//        System.out.println("X: " + player.getX() + " Y: " + player.getY());
-//
-//        gameCore.processFire();
-//        player.deploy();
-//
-//    }
-//}
-
-

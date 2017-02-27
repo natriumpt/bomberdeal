@@ -30,6 +30,7 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
         this.collisionChecker = collisionChecker;
         tileType = TileType.BOMB.getSymbol();
         range = 3;
+
     }
 
 
@@ -117,8 +118,10 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
     }
 
     private void updateObserver(Fire fire) {
+
         fire.attach(observer);
         observer.update(fire);
+
     }
 
     public void attach(Observable observer) {

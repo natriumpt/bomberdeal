@@ -47,9 +47,14 @@ public class Crate implements Collidable, DestroyableByFire, Interactable{
 
     @Override
     public void destroy() {
-       if(Util.trueWithProb(0.6)){
-           PowerUp powerUp = new PowerUp();
-       }
+
+        /*if(Util.trueWithProb(0.6)) {
+
+            PowerUp powerUp = new PowerUp();
+
+        }*/
+
         observer.update(this);
+
     }
 }
