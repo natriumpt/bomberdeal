@@ -10,7 +10,7 @@ public enum TiletypeLanterna {
     FLOOR("0", Terminal.Color.CYAN, Terminal.Color.CYAN),
     WALL("W", Terminal.Color.BLUE, Terminal.Color.BLUE),
     PLAYER("P", Terminal.Color.WHITE, Terminal.Color.BLACK),
-    BOMB("B", Terminal.Color.BLACK, Terminal.Color.WHITE),
+    BOMB("B", Terminal.Color.BLACK, Terminal.Color.BLACK),
     FIRE("F", Terminal.Color.RED, Terminal.Color.RED),
     CRATE("C", Terminal.Color.YELLOW, Terminal.Color.WHITE),
     YOU("Y", Terminal.Color.WHITE, Terminal.Color.BLACK),

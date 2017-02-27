@@ -25,7 +25,11 @@ public class CollisionChecker {
             return true;
         }
 
+        /*if (!(field.getFieldPositions()[x][y].equals("0") && !(field.getFieldPositions()[x][y].equals("S")))) {
+            return true;
+        }*/
         for (Interactable interactable : interactables) {
+
             if (interactable instanceof Collidable) {
                 if (interactable.getX() == x && interactable.getY() == y)
                     return true;
@@ -33,13 +37,14 @@ public class CollisionChecker {
         }
 
         return false;
-
     }
 
     public boolean checkWall(int x, int y) {
+
         if (field.isWall(x, y)) {
             return true;
         }
+
         return false;
     }
 
@@ -49,17 +54,22 @@ public class CollisionChecker {
         for (Interactable fire : interactables) {
 
             if (fire instanceof Fire) {
+
                 System.out.println("no processo do fogo");
+
                 for (Interactable destroyable : interactables) {
+
                     if (destroyable instanceof DestroyableByFire) {
                         if (destroyable.getX() == x && destroyable.getY() == y) {
                             destroyable.destroy();
                         }
                     }
-                }
-            }
-        }
 
+                }
+
+            }
+
+        }
     }
 
     public PowerUp checkPowerUp(int x, int y) {

@@ -16,7 +16,6 @@ public class PlayerHandler implements Runnable {
     private ClientParser clientParser;
     private NetworkTCP tcpConnection;
     private NetworkUDP udpConnection;
-    private InetAddress inetAddress;
     private Player player;
 
     public PlayerHandler(Socket tcpSocket, DatagramSocket udpSocket, ClientParser parser) {
@@ -25,7 +24,6 @@ public class PlayerHandler implements Runnable {
         this.udpSocket = udpSocket;
 
         this.clientParser = parser;
-        this.inetAddress = tcpSocket.getInetAddress();
 
         try {
 

@@ -20,6 +20,7 @@ public class Field {
     public Field(Observable gameCore) {
 
         this.observer= gameCore;
+
         createEmptyField();
         populateField();
 
@@ -163,6 +164,10 @@ public class Field {
 
         field[x][y] = tileType;
 
+    }
+
+    public String[][] getFieldPositions() {
+        return field;
     }
 
 }
