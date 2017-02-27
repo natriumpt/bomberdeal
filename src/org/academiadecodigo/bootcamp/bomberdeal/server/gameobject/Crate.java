@@ -18,7 +18,7 @@ public class Crate implements Collidable, DestroyableByFire, Interactable{
     private int y;
     private String tileType;
 
-    public Crate(int x, int y, Observable observer){
+    public Crate(int x, int y ){
         this.x = x;
         this.y = y;
         tileType = TileType.CRATE.getSymbol();
