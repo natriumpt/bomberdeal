@@ -1,6 +1,7 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client.lanterna;
 
 import com.googlecode.lanterna.terminal.Terminal;
+import org.academiadecodigo.bootcamp.bomberdeal.client.grid.TileType;
 
 /**
  * Created by andre on 2/20/2017.
