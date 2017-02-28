@@ -9,13 +9,7 @@ import java.io.InputStream;
 
 public interface Grid {
 
-    void init(BufferedReader reader);
-
-    void updateScreen();
-
-    void updatePositions(int x, int y, String type);
-
-    void drawGrid();
+    void updatePosition(int x, int y, TileType type);
 
 }
 

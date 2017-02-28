@@ -49,7 +49,7 @@ public class ServerParser {
 
                 posCoord = serverPos.split(";");
 
-                grid.updatePositions(Integer.parseInt(posCoord[0]), Integer.parseInt(posCoord[1]), posCoord[2]);
+                grid.updatePosition(Integer.parseInt(posCoord[0]), Integer.parseInt(posCoord[1]), posCoord[2]);
 
             }
 

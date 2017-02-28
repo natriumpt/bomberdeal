@@ -157,7 +157,6 @@ public class GameCore implements Observable {
 
     public void broadcastInteractables() {
 
-
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {

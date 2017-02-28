@@ -17,7 +17,7 @@ public enum TileTypeLanterna {
     YOU,
     POWERUP;
 
-    public Terminal.Color getFcolor(TileTypeLanterna type) {
+    public Terminal.Color getFcolor(TileType type) {
 
         Terminal.Color color;
 
@@ -52,7 +52,7 @@ public enum TileTypeLanterna {
         return color;
     }
 
-    public Terminal.Color getBcolor(TileTypeLanterna type) {
+    public Terminal.Color getBcolor(TileType type) {
 
         Terminal.Color color;
 

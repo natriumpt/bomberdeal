@@ -15,21 +15,12 @@ import java.util.regex.Pattern;
 
 public class GridLanterna implements Grid {
 
-    private int cols;
-    private int rows;
-    private final int colWidth = 4;
-    private final int rowHeight = 2;
-    private Screen screen;
-    private ScreenWriter screenWriter;
     private Position[][] positions;
     private String gridMap;
-    private boolean gridCreated;
 
     public GridLanterna() {
 
         gridMap = "";
-        screen = TerminalFacade.createScreen();
-        gridCreated = false;
 
     }
 
@@ -56,18 +47,8 @@ public class GridLanterna implements Grid {
 
     }
 
-
-
-
-
     public synchronized void updatePositions(int x, int y, TileType type) {
-
         positions[x][y].setType(type);
-
-    }
-
-    public boolean isGridCreated() {
-        return gridCreated;
     }
 
     public Screen getScreen() {
