@@ -1,6 +1,5 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client.network;
 
-import org.academiadecodigo.bootcamp.bomberdeal.client.Game;
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.GridLanterna;
 

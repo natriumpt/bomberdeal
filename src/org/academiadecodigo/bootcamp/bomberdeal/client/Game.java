@@ -1,12 +1,12 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client;
 
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
-import org.academiadecodigo.bootcamp.bomberdeal.client.menu.MenuLanterna;
+import org.academiadecodigo.bootcamp.bomberdeal.client.lanterna.MenuLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ServerParser;
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.GridLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkUDP;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkTCP;
-import org.academiadecodigo.bootcamp.bomberdeal.client.userinput.UserInputLanterna;
+import org.academiadecodigo.bootcamp.bomberdeal.client.lanterna.UserInputLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.userinput.UserInput;
 import org.academiadecodigo.bootcamp.bomberdeal.client.menu.SplashScreen;
 

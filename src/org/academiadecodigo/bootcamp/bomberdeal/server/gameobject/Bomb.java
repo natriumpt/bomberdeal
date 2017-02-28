@@ -65,6 +65,7 @@ public class Bomb implements Interactable, DestroyableByFire, Collidable {
 
       isOnField = false;
       observer.update(this);
+
       for (int i = 1; i <= range; i++) {
 
         System.out.println("inicio do fire");

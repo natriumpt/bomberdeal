@@ -1,5 +1,7 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client.menu;
 
+import org.academiadecodigo.bootcamp.bomberdeal.client.lanterna.MenuLanterna;
+
 /**
  * Created by codecadet on 2/26/17.
  */
@@ -9,7 +11,5 @@ public class MenuTest {
 
         MenuLanterna menu = new MenuLanterna();
         menu.run();
-
-
 
     }}

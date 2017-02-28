@@ -4,6 +4,9 @@ import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
+import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
+import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Position;
+import org.academiadecodigo.bootcamp.bomberdeal.client.lanterna.TiletypeLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkMessages;
 
 

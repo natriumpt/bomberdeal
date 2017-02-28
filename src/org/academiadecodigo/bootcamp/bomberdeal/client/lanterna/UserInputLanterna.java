@@ -1,10 +1,10 @@
-package org.academiadecodigo.bootcamp.bomberdeal.client.userinput;
+package org.academiadecodigo.bootcamp.bomberdeal.client.lanterna;
 
 import com.googlecode.lanterna.input.Key;
-import com.googlecode.lanterna.screen.Screen;
 import org.academiadecodigo.bootcamp.bomberdeal.client.actions.PlayerMessages;
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.GridLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkUDP;
+import org.academiadecodigo.bootcamp.bomberdeal.client.userinput.UserInput;
 
 public class UserInputLanterna implements UserInput {
 

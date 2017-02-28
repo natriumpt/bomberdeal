@@ -172,7 +172,6 @@ public class GameCore implements Observable {
                         //System.out.println("CONVERTING " + convertAllInteractablesToString() + " CONVERTED INTERACTABLES");
 
                         //player.sendUDP(convertAllInteractablesToString());
-                        player.sendUDP(field.getField());
                         player.sendUDP(convertAllInteractablesToString());
 
                         if (player.getPlayer().isAlive()) {

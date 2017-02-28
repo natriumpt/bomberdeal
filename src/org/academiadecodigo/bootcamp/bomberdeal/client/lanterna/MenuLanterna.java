@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.bomberdeal.client.menu;
+package org.academiadecodigo.bootcamp.bomberdeal.client.lanterna;
 
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.gui.*;
@@ -7,6 +7,7 @@ import com.googlecode.lanterna.gui.dialog.MessageBox;
 import com.googlecode.lanterna.gui.listener.ComponentListener;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
+import org.academiadecodigo.bootcamp.bomberdeal.client.menu.SplashScreen;
 
 import java.util.Timer;
 import java.util.TimerTask;

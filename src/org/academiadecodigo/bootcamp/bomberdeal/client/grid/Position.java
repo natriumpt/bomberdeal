@@ -2,17 +2,17 @@ package org.academiadecodigo.bootcamp.bomberdeal.client.grid;
 
 public class Position {
 
-    protected int posX;
-    protected int posY;
-    protected String tile;
+    private int posX;
+    private int posY;
+    private TileType type;
 
 
-    public Position(int x, int y, String tile) {
+    public Position(int x, int y, TileType type) {
 
         posX = x;
         posY = y;
 
-        this.tile = tile;
+        this.type = type;
 
     }
 }

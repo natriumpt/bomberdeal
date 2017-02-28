@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.bomberdeal.client.grid;
+package org.academiadecodigo.bootcamp.bomberdeal.client.lanterna;
 
 import com.googlecode.lanterna.terminal.Terminal;
 
