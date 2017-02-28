@@ -4,9 +4,7 @@ import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
-import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
-import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Position;
-import org.academiadecodigo.bootcamp.bomberdeal.client.lanterna.TiletypeLanterna;
+import org.academiadecodigo.bootcamp.bomberdeal.client.lanterna.TileTypeLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkMessages;
 
 
@@ -95,13 +93,13 @@ public class GridLanterna implements Grid {
 
                 screen.putString(positions[posY][posX].posX * colWidth, positions[posY][posX].posY * rowHeight,
                         " " + positions[posY][posX].tile + "  ",
-                        TiletypeLanterna.getTileType(positions[posY][posX].tile).getTextColor(),
-                        TiletypeLanterna.getTileType(positions[posY][posX].tile).getColor());
+                        TileTypeLanterna.getTileType(positions[posY][posX].tile).getTextColor(),
+                        TileTypeLanterna.getTileType(positions[posY][posX].tile).getFcolor());
 
                 screen.putString(positions[posY][posX].posX * colWidth, (positions[posY][posX].posY * rowHeight) + 1,
                         " " + positions[posY][posX].tile + "  ",
-                        TiletypeLanterna.getTileType(positions[posY][posX].tile).getTextColor(),
-                        TiletypeLanterna.getTileType(positions[posY][posX].tile).getColor());
+                        TileTypeLanterna.getTileType(positions[posY][posX].tile).getTextColor(),
+                        TileTypeLanterna.getTileType(positions[posY][posX].tile).getFcolor());
 
             }
 
@@ -124,13 +122,13 @@ public class GridLanterna implements Grid {
 
                 screen.putString(positions[i][j].posX * colWidth, positions[i][j].posY * rowHeight,
                         " " + positions[i][j].tile + "  ",
-                        TiletypeLanterna.getTileType(positions[i][j].tile).getTextColor(),
-                        TiletypeLanterna.getTileType(positions[i][j].tile).getColor());
+                        TileTypeLanterna.getTileType(positions[i][j].tile).getTextColor(),
+                        TileTypeLanterna.getTileType(positions[i][j].tile).getFcolor());
 
                 screen.putString(positions[i][j].posX * colWidth, (positions[i][j].posY * rowHeight) + 1,
                         " " + positions[i][j].tile + "  ",
-                        TiletypeLanterna.getTileType(positions[i][j].tile).getTextColor(),
-                        TiletypeLanterna.getTileType(positions[i][j].tile).getColor());
+                        TileTypeLanterna.getTileType(positions[i][j].tile).getTextColor(),
+                        TileTypeLanterna.getTileType(positions[i][j].tile).getFcolor());
 
             }
         }
