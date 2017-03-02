@@ -2,16 +2,16 @@ package org.academiadecodigo.bootcamp.bomberdeal.client.lanterna;
 
 import com.googlecode.lanterna.input.Key;
 import org.academiadecodigo.bootcamp.bomberdeal.client.actions.PlayerMessages;
-import org.academiadecodigo.bootcamp.bomberdeal.client.grid.GridLanterna;
+import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkUDP;
 import org.academiadecodigo.bootcamp.bomberdeal.client.userinput.UserInput;
 
 public class UserInputLanterna implements UserInput {
 
     private ClientNetworkUDP udpConnection;
-    private GridLanterna grid;
+    private Grid grid;
 
-    public UserInputLanterna(GridLanterna grid) {
+    public UserInputLanterna(Grid grid) {
 
         this.grid = grid;
 

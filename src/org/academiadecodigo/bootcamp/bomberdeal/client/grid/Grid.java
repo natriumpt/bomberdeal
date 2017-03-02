@@ -1,15 +1,26 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client.grid;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
+public class Grid {
 
-/**
- * * * Created by codecadet on 2/24/17.
- * */
+    private int cols;
+    private int rows;
+    private Position[][] positions;
+    private String gridMap;
 
-public interface Grid {
+    public Grid(int x, int y) {
 
-    void updatePosition(int x, int y, TileType type);
+        this.cols = x;
+        this.rows = y;
 
+        positions = new Position[x - 1][y - 1];
+
+    }
+
+    public void setGridMap(String message) {
+        gridMap = message;
+    }
+
+    public void updatePosition(int x, int y, TileType type) {
+        positions[x][y].setType(type);
+    }
 }
-

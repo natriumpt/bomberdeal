@@ -1,9 +1,9 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client.network;
 
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
-import org.academiadecodigo.bootcamp.bomberdeal.client.grid.GridLanterna;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 
 
 public class ServerParser {
@@ -18,24 +18,26 @@ public class ServerParser {
 
     public synchronized void handleTCPMessage(String message, BufferedReader reader) {
 
-        if(message == null) {
+        String newMessage = null;
 
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+
+
+        if(message.equals(ClientNetworkMessages.SERVER_MAP_SENDING_LAYOUT)) {
+
+            while(newMessage != ClientNetworkMessages.SERVER_MAP_LAYOUT_COMPLETE) {
+
+                try {
+                    newMessage += reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                grid.setGridMap(newMessage);
+
             }
 
         }
 
-        if(message.equals(ClientNetworkMessages.SERVER_MAP_SENDING_LAYOUT)) {
-
-                grid.init(reader);
-                grid.drawGrid();
-
-        }
-
-        notify();
     }
 
     public synchronized void handleUDPMessage(String message) {
@@ -43,7 +45,7 @@ public class ServerParser {
         String[] posUpdate = message.split("\n");
         String[] posCoord;
 
-        if(((GridLanterna)grid).isGridCreated()) {
+        if(((Grid)grid).isGridCreated()) {
 
             for (String serverPos : posUpdate) {
 

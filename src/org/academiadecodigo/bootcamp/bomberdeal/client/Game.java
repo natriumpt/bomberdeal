@@ -3,7 +3,6 @@ package org.academiadecodigo.bootcamp.bomberdeal.client;
 import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
 import org.academiadecodigo.bootcamp.bomberdeal.client.lanterna.MenuLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ServerParser;
-import org.academiadecodigo.bootcamp.bomberdeal.client.grid.GridLanterna;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkUDP;
 import org.academiadecodigo.bootcamp.bomberdeal.client.network.ClientNetworkTCP;
 import org.academiadecodigo.bootcamp.bomberdeal.client.lanterna.UserInputLanterna;
@@ -77,7 +76,7 @@ public class Game {
 
     public void runGame() {
 
-        grid = new GridLanterna();
+        grid = new Grid();
 
         serverHandler = new ServerParser(grid);
 
@@ -87,7 +86,7 @@ public class Game {
         Thread tcpConnection = new Thread(networkTCP);
         Thread udpConnection = new Thread(networkUDP);
 
-        /*while(((GridLanterna)grid).getScreen() == null) {
+        /*while(((Grid)grid).getScreen() == null) {
 
             try {
                 Thread.sleep(17);
@@ -97,7 +96,7 @@ public class Game {
 
         }*/
 
-        UserInput input = new UserInputLanterna((GridLanterna)grid);
+        UserInput input = new UserInputLanterna((Grid)grid);
         Thread inputThread = new Thread(input);
 
         input.setUdpConnection(networkUDP);
@@ -139,6 +138,6 @@ public class Game {
     }
 
     public void initGrid(InputStream stream) {
-        this.grid = new GridLanterna();
+        this.grid = new Grid();
     }
 }

@@ -1,11 +1,17 @@
 package org.academiadecodigo.bootcamp.bomberdeal.client.lanterna;
 
+import org.academiadecodigo.bootcamp.bomberdeal.client.grid.Grid;
+
 /**
  * Created by codecadet on 2/28/17.
  */
-public class TempGrid {
+public class GridLanterna extends Grid {
 
+    
 
+    public GridLanterna(int x, int y) {
+        super(x, y);
+    }
 
     public synchronized void updateScreen() {
 
